@@ -51,6 +51,11 @@ export class ApiService {
         return StorageService.deleteService(id);
     }
 
+    static async updateService(id, item) {
+        await new Promise(r => setTimeout(r, 300));
+        return StorageService.updateService(id, item);
+    }
+
     // --- DIRECTORS ---
     static async getDirectors() {
         await new Promise(r => setTimeout(r, 300));

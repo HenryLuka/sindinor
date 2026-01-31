@@ -65,6 +65,8 @@ export class AdminUI {
         window.deletePartner = (id) => this.deletePartner(id);
         window.deleteService = (id) => this.deleteService(id);
         window.deleteDirector = (id) => this.deleteDirector(id);
+        window.editService = (id) => this.editService(id);
+        window.handleDeleteRequest = (id) => this.handleDeleteRequest(id);
 
         // Event Listeners
         document.getElementById('news-form')?.addEventListener('submit', (e) => this.handleAddNews(e));
@@ -165,7 +167,10 @@ export class AdminUI {
                             <h4 class="font-bold text-white">${item.title}</h4>
                             <p class="text-text-muted text-xs line-clamp-1">${item.description}</p>
                         </div>
-                        <button class="bg-red-500/20 text-red-500 px-3 py-1 rounded text-sm hover:bg-red-500 hover:text-white transition" onclick="deleteService('${item.id}')">Excluir</button>
+                        <div class="flex gap-2">
+                            <button class="bg-accent-cyan/20 text-accent-cyan px-3 py-1 rounded text-sm hover:bg-accent-cyan hover:text-primary-dark transition" onclick="editService('${item.id}')">Editar</button>
+                            <button class="bg-red-500/20 text-red-500 px-3 py-1 rounded text-sm hover:bg-red-500 hover:text-white transition" onclick="deleteService('${item.id}')">Excluir</button>
+                        </div>
                     </div>
                 `;
             });
@@ -353,6 +358,7 @@ export class AdminUI {
     static async handleAddService(e) {
         e.preventDefault();
 
+        const editingId = document.getElementById('editing-service-id').value;
         const fileInput = document.getElementById('service-file');
         const urlInput = document.getElementById('service-img');
         let imageSrc = urlInput.value;
@@ -382,7 +388,7 @@ export class AdminUI {
             }
         }
 
-        const newItem = {
+        const itemData = {
             title: document.getElementById('service-title').value,
             description: document.getElementById('service-desc').value,
             full_description: document.getElementById('service-full-desc').value,
@@ -390,10 +396,40 @@ export class AdminUI {
             gallery: gallery
         };
 
-        await ApiService.addService(newItem);
-        alert('Serviço Adicionado!');
+        if (editingId) {
+            await ApiService.updateService(editingId, itemData);
+            alert('Serviço Atualizado!');
+        } else {
+            await ApiService.addService(itemData);
+            alert('Serviço Adicionado!');
+        }
+
         this.loadData();
         e.target.reset();
+        document.getElementById('editing-service-id').value = '';
+        const formTitle = document.querySelector('#tab-services h3');
+        if (formTitle) formTitle.innerHTML = '<span class="w-1 h-6 bg-accent-cyan rounded-full"></span> Novo Serviço';
+    }
+
+    static async editService(id) {
+        const services = await ApiService.getServices();
+        const item = services.find(s => s.id === id);
+        if (!item) return;
+
+        // Fill Form
+        document.getElementById('editing-service-id').value = item.id;
+        document.getElementById('service-title').value = item.title;
+        document.getElementById('service-desc').value = item.description;
+        document.getElementById('service-full-desc').value = item.full_description || '';
+        document.getElementById('service-img').value = item.image.startsWith('data:') ? '' : item.image;
+        document.getElementById('service-gallery-urls').value = (item.gallery || []).filter(g => !g.startsWith('data:')).join(', ');
+
+        // Update Title UI
+        const formTitle = document.querySelector('#tab-services h3');
+        if (formTitle) formTitle.innerHTML = '<span class="w-1 h-6 bg-accent-cyan rounded-full"></span> Editar Serviço';
+
+        // Scroll to form
+        document.getElementById('service-form').scrollIntoView({ behavior: 'smooth' });
     }
 
     static async handleAddDirector(e) {

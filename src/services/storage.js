@@ -230,6 +230,17 @@ export class StorageService {
         this._set(KEYS.SERVICES, list);
     }
 
+    static updateService(id, data) {
+        let list = this.getServices();
+        const index = list.findIndex(i => i.id === id);
+        if (index !== -1) {
+            list[index] = { ...list[index], ...data, id };
+            this._set(KEYS.SERVICES, list);
+            return list[index];
+        }
+        return null;
+    }
+
     // --- DIRECTORS ---
     static getDirectors() {
         return this._get(KEYS.DIRECTORS, SEED_DIRECTORS);
