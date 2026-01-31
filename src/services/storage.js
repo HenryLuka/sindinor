@@ -8,7 +8,8 @@ const KEYS = {
     PARTNERS: 'sindinor_partners',
     SERVICES: 'sindinor_services',
     DIRECTORS: 'sindinor_directors',
-    GENERAL: 'sindinor_general'
+    GENERAL: 'sindinor_general',
+    REQUESTS: 'sindinor_requests'
 };
 
 const SEED_GENERAL = {
@@ -231,5 +232,25 @@ export class StorageService {
 
     static updateGeneral(data) {
         this._set(KEYS.GENERAL, data);
+    }
+
+    // --- REQUESTS ---
+    static getRequests() {
+        return this._get(KEYS.REQUESTS, []);
+    }
+
+    static addRequest(item) {
+        const list = this.getRequests();
+        item.id = Date.now().toString();
+        item.date = new Date().toISOString();
+        list.unshift(item);
+        this._set(KEYS.REQUESTS, list);
+        return item;
+    }
+
+    static deleteRequest(id) {
+        let list = this.getRequests();
+        list = list.filter(i => i.id !== id);
+        this._set(KEYS.REQUESTS, list);
     }
 }

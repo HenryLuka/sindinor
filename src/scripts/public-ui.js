@@ -13,6 +13,7 @@ export class PublicUI {
         await this.renderGeneral();
         this.setupNavigation();
         this.setupScrollHeader();
+        this.setupJoinForm();
     }
 
     static setupScrollHeader() {
@@ -211,6 +212,44 @@ export class PublicUI {
         }, { threshold: 0.2, rootMargin: "-10% 0px -50% 0px" });
 
         sections.forEach(section => observer.observe(section));
+    }
+
+    static setupJoinForm() {
+        const form = document.getElementById('join-form');
+        if (form) {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerText;
+
+                const data = {
+                    company: document.getElementById('join-company').value,
+                    cnpj: document.getElementById('join-cnpj').value,
+                    city: document.getElementById('join-city').value,
+                    name: document.getElementById('join-name').value,
+                    role: document.getElementById('join-role').value,
+                    phone: document.getElementById('join-phone').value
+                };
+
+                try {
+                    submitBtn.innerText = 'Enviando...';
+                    submitBtn.disabled = true;
+
+                    await ApiService.addRequest(data);
+
+                    alert('Solicitação enviada com sucesso! Em breve entraremos em contato.');
+                    form.reset();
+                    // Close modal if toggleJoinModal is available globally
+                    if (window.toggleJoinModal) window.toggleJoinModal();
+                } catch (error) {
+                    console.error('Error submitting request:', error);
+                    alert('Erro ao enviar solicitação. Tente novamente.');
+                } finally {
+                    submitBtn.innerText = originalText;
+                    submitBtn.disabled = false;
+                }
+            });
+        }
     }
 }
 

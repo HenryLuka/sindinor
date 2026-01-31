@@ -77,4 +77,20 @@ export class ApiService {
         await new Promise(r => setTimeout(r, 300));
         return StorageService.updateGeneral(data);
     }
+
+    // --- REQUESTS ---
+    static async getRequests() {
+        await new Promise(r => setTimeout(r, 300));
+        return StorageService.getRequests();
+    }
+
+    static async addRequest(item) {
+        await new Promise(r => setTimeout(r, 300));
+        return StorageService.addRequest(item);
+    }
+
+    static async deleteRequest(id) {
+        await new Promise(r => setTimeout(r, 300));
+        return StorageService.deleteRequest(id);
+    }
 }

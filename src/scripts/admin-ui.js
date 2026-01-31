@@ -71,7 +71,7 @@ export class AdminUI {
         document.getElementById('partner-form')?.addEventListener('submit', (e) => this.handleAddPartner(e));
         document.getElementById('service-form')?.addEventListener('submit', (e) => this.handleAddService(e));
         document.getElementById('director-form')?.addEventListener('submit', (e) => this.handleAddDirector(e));
-
+        window.handleDeleteRequest = (id) => this.handleDeleteRequest(id);
     }
 
     static checkAuth() {
@@ -183,6 +183,57 @@ export class AdminUI {
                     </div>
                 `;
             });
+        }
+
+        // Requests
+        const requests = await ApiService.getRequests();
+        const requestsList = document.getElementById('requests-list');
+        if (requestsList) {
+            if (requests.length === 0) {
+                requestsList.innerHTML = `
+                    <div class="bg-secondary-dark/50 border border-dashed border-glass-border p-12 rounded-xl text-center col-span-full">
+                        <i class="fas fa-inbox text-4xl text-text-muted mb-4"></i>
+                        <p class="text-text-muted">Nenhuma solicitação encontrada.</p>
+                    </div>
+                `;
+            } else {
+                requestsList.innerHTML = requests.map(r => `
+                    <div class="bg-secondary-dark border border-glass-border p-6 rounded-xl relative hover:border-accent-cyan transition-colors group">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="font-heading font-bold text-xl text-white underline underline-offset-4 decoration-accent-cyan/30">${r.company}</h3>
+                                <p class="text-accent-cyan text-[10px] font-black uppercase tracking-widest mt-2 bg-accent-cyan/10 inline-block px-2 py-0.5 rounded">${r.cnpj}</p>
+                            </div>
+                            <button onclick="handleDeleteRequest('${r.id}')" class="text-text-muted hover:text-red-500 transition-colors p-2 bg-glass-bg rounded-lg">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm mb-6">
+                            <div class="bg-primary-dark/50 p-3 rounded-lg border border-glass-border">
+                                <span class="block text-accent-cyan text-[9px] uppercase font-black tracking-tighter mb-1 opacity-70">Responsável</span>
+                                <p class="text-white font-bold">${r.name}</p>
+                                <p class="text-text-muted text-xs font-medium">${r.role}</p>
+                            </div>
+                            <div class="bg-primary-dark/50 p-3 rounded-lg border border-glass-border">
+                                <span class="block text-accent-cyan text-[9px] uppercase font-black tracking-tighter mb-1 opacity-70">Contato</span>
+                                <p class="text-white font-bold">${r.phone}</p>
+                                <p class="text-text-muted text-xs font-medium">${r.city}</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between border-t border-glass-border pt-4">
+                            <span class="text-text-muted text-[10px] font-bold uppercase tracking-widest">
+                                <i class="far fa-calendar-alt mr-1"></i> ${new Date(r.date).toLocaleDateString('pt-BR')}
+                            </span>
+                            <a href="https://wa.me/55${r.phone.replace(/\D/g, '')}" target="_blank" 
+                               class="flex items-center gap-2 bg-green-500/10 hover:bg-green-500 text-green-500 hover:text-white text-[10px] font-black uppercase tracking-widest py-2 px-4 rounded-full transition-all duration-300">
+                                <i class="fab fa-whatsapp"></i> Contatar
+                            </a>
+                        </div>
+                    </div>
+                `).join('');
+            }
         }
     }
 
@@ -347,6 +398,12 @@ export class AdminUI {
         e.target.reset();
     }
 
+    static async handleDeleteRequest(id) {
+        if (confirm('Deseja excluir esta solicitação?')) {
+            await ApiService.deleteRequest(id);
+            this.loadData();
+        }
+    }
 
 }
 

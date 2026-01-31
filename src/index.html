@@ -476,40 +476,40 @@
                     <p class="text-gray-400 text-sm">Preencha os dados abaixo.</p>
                 </div>
 
-                <form class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <form id="join-form" class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="col-span-1 md:col-span-2">
-                        <input type="text"
+                        <input type="text" id="join-company" required
                             class="w-full bg-primary-dark border border-white/10 rounded p-3 text-white focus:outline-none focus:border-accent-cyan transition-colors text-sm"
                             placeholder="Nome da Empresa">
                     </div>
                     <div class="col-span-1">
-                        <input type="text"
+                        <input type="text" id="join-cnpj" required
                             class="w-full bg-primary-dark border border-white/10 rounded p-3 text-white focus:outline-none focus:border-accent-cyan transition-colors text-sm"
                             placeholder="CNPJ">
                     </div>
                     <div class="col-span-1">
-                        <input type="text"
+                        <input type="text" id="join-city" required
                             class="w-full bg-primary-dark border border-white/10 rounded p-3 text-white focus:outline-none focus:border-accent-cyan transition-colors text-sm"
                             placeholder="Cidade/UF">
                     </div>
                     <div class="col-span-1 md:col-span-2">
-                        <input type="text"
+                        <input type="text" id="join-name" required
                             class="w-full bg-primary-dark border border-white/10 rounded p-3 text-white focus:outline-none focus:border-accent-cyan transition-colors text-sm"
                             placeholder="Nome do Responsável">
                     </div>
                     <div class="col-span-1">
-                        <input type="text"
+                        <input type="text" id="join-role" required
                             class="w-full bg-primary-dark border border-white/10 rounded p-3 text-white focus:outline-none focus:border-accent-cyan transition-colors text-sm"
                             placeholder="Cargo">
                     </div>
                     <div class="col-span-1">
-                        <input type="text"
+                        <input type="text" id="join-phone" required
                             class="w-full bg-primary-dark border border-white/10 rounded p-3 text-white focus:outline-none focus:border-accent-cyan transition-colors text-sm"
                             placeholder="Telefone/Celular">
                     </div>
 
                     <div class="col-span-1 md:col-span-2 mt-4">
-                        <button type="button"
+                        <button type="submit"
                             class="w-full bg-accent-cyan text-secondary-dark font-black text-sm uppercase tracking-widest py-3 rounded hover:bg-white transition-all duration-300 shadow-[0_0_20px_rgba(0,242,255,0.3)]">
                             Solicitar Associação
                         </button>
