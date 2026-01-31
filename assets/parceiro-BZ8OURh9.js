@@ -1,4 +1,4 @@
-import{A as o}from"./api-CKDjTlUL.js";class n{static async init(){const t=new URLSearchParams(window.location.search).get("id");if(!t){window.location.href="index.html";return}await this.renderPartnerDetails(t)}static async renderPartnerDetails(e){const a=(await o.getPartners()).find(i=>i.id===e),r=document.getElementById("partner-content");if(!a||!r){r.innerHTML=`
+import{A as o}from"./api-DqXWJ0b2.js";class n{static async init(){const t=new URLSearchParams(window.location.search).get("id");if(!t){window.location.href="index.html";return}await this.renderPartnerDetails(t)}static async renderPartnerDetails(e){const a=(await o.getPartners()).find(i=>i.id===e),r=document.getElementById("partner-content");if(!a||!r){r.innerHTML=`
                 <div class="text-center py-20">
                     <h2 class="text-3xl font-bold text-white mb-4">Parceiro não encontrado</h2>
                     <a href="index.html" class="text-accent-cyan hover:underline">Voltar para a Home</a>
