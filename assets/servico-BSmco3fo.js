@@ -1,4 +1,4 @@
-import{A as o}from"./api-B0Q7CJsD.js";class c{static async init(){const t=new URLSearchParams(window.location.search).get("id");if(!t){window.location.href="index.html";return}await this.renderServiceDetails(t)}static async renderServiceDetails(r){const e=(await o.getServices()).find(s=>s.id===r),a=document.getElementById("service-content");if(!e||!a){a.innerHTML=`
+import{A as o}from"./api-Bfi4kOJt.js";class c{static async init(){const t=new URLSearchParams(window.location.search).get("id");if(!t){window.location.href="index.html";return}await this.renderServiceDetails(t)}static async renderServiceDetails(r){const e=(await o.getServices()).find(s=>s.id===r),a=document.getElementById("service-content");if(!e||!a){a.innerHTML=`
                 <div class="text-center py-20">
                     <h2 class="text-3xl font-bold text-white mb-4">Serviço não encontrado</h2>
                     <a href="index.html" class="text-accent-cyan hover:underline">Voltar para a Home</a>
