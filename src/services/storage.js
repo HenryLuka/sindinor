@@ -85,22 +85,28 @@ const SEED_SERVICES = [
         id: '1',
         title: 'Registro RNTRC',
         description: 'Credenciado ANTT para realização do Registro e Recadastramento Nacional (RNTRC) com agilidade.',
+        full_description: 'O SINDINOR é um posto avançado e credenciado pela ANTT para a realização do Registro Nacional de Transportadores Rodoviários de Carga. Oferecemos suporte completo para empresas e transportadores autônomos, garantindo que toda a documentação esteja em conformidade com as normas vigentes. Nosso processo é ágil e focado na regularização imediata do seu negócio.',
         image: 'assets/service_rntrc_1769715933142.png',
-        icon: 'fa-id-card'
+        icon: 'fa-id-card',
+        gallery: []
     },
     {
         id: '2',
         title: 'Programa Despoluir',
         description: 'Aferição de frota gratuita e Programa Ambiental para redução de emissões com Selo Verde.',
+        full_description: 'O Programa Despoluir é uma iniciativa que visa reduzir a emissão de poluentes por veículos de carga. O SINDINOR realiza a aferição gratuita da frota dos seus associados, emitindo o Selo Verde para aqueles que estão dentro dos padrões ambientais. Além de contribuir para a sustentabilidade, o programa ajuda a otimizar o consumo de combustível e a manutenção dos veículos.',
         image: 'assets/service_despoluir_1769715948131.png',
-        icon: 'fa-leaf'
+        icon: 'fa-leaf',
+        gallery: []
     },
     {
         id: '3',
         title: 'Consultoria Técnica',
         description: 'Assessoria econômica especializada para planilhas de custos e formação de preços no transporte.',
+        full_description: 'Nossa consultoria técnica oferece suporte especializado na elaboração de planilhas de custos operacionais e na formação de preços de frete. Com base em dados atualizados do mercado e legislação vigente, ajudamos sua empresa a manter a competitividade e a rentabilidade, fornecendo análises precisas e orientações estratégicas para o seu negócio.',
         image: 'assets/service_consultoria_1769715961860.png',
-        icon: 'fa-chart-line'
+        icon: 'fa-chart-line',
+        gallery: []
     }
 ];
 

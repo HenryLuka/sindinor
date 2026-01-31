@@ -150,7 +150,7 @@ export class PublicUI {
                             </div>
                             <h3 class="font-heading text-xl font-bold text-white mb-4">${s.title}</h3>
                             <p class="text-gray-400 text-sm leading-relaxed mb-6">${s.description}</p>
-                            <a href="#" class="inline-flex items-center text-accent-cyan font-bold text-sm hover:gap-2 transition-all">
+                            <a href="servico.html?id=${s.id}" class="inline-flex items-center text-accent-cyan font-bold text-sm hover:gap-2 transition-all">
                                 Saiba Mais <span class="ml-1">→</span>
                             </a>
                         </div>

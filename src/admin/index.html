@@ -257,9 +257,26 @@
                             </div>
                             <div>
                                 <label
-                                    class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Descrição</label>
-                                <textarea id="service-desc" rows="4" required
+                                    class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Descrição
+                                    Curta (Home)</label>
+                                <textarea id="service-desc" rows="2" required
                                     class="w-full bg-primary-dark border border-glass-border rounded p-3 text-white focus:border-accent-cyan outline-none transition"></textarea>
+                            </div>
+                            <div>
+                                <label
+                                    class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Descrição
+                                    Completa</label>
+                                <textarea id="service-full-desc" rows="4" required
+                                    class="w-full bg-primary-dark border border-glass-border rounded p-3 text-white focus:border-accent-cyan outline-none transition"></textarea>
+                            </div>
+                            <div>
+                                <label
+                                    class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Galeria
+                                    (URLs separadas por vírgula ou arraste vários arquivos)</label>
+                                <input type="text" id="service-gallery-urls" placeholder="url1, url2, ..."
+                                    class="w-full bg-primary-dark border border-glass-border rounded p-3 text-white text-sm focus:border-accent-cyan outline-none transition mb-2">
+                                <input type="file" id="service-gallery-files" accept="image/*" multiple
+                                    class="w-full bg-primary-dark border border-glass-border rounded p-2 text-white text-xs focus:border-accent-cyan outline-none transition file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-accent-cyan file:text-primary-dark hover:file:bg-white">
                             </div>
                             <div>
                                 <label

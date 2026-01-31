@@ -366,10 +366,28 @@ export class AdminUI {
             }
         }
 
+        // Gallery processing
+        const galleryFiles = document.getElementById('service-gallery-files');
+        const galleryUrlsInput = document.getElementById('service-gallery-urls');
+        let gallery = galleryUrlsInput.value ? galleryUrlsInput.value.split(',').map(u => u.trim()).filter(u => u) : [];
+
+        if (galleryFiles.files && galleryFiles.files.length > 0) {
+            for (let i = 0; i < galleryFiles.files.length; i++) {
+                try {
+                    const base64 = await this.readFileAsBase64(galleryFiles.files[i]);
+                    gallery.push(base64);
+                } catch (err) {
+                    console.error('Error reading gallery file', err);
+                }
+            }
+        }
+
         const newItem = {
             title: document.getElementById('service-title').value,
             description: document.getElementById('service-desc').value,
-            image: imageSrc
+            full_description: document.getElementById('service-full-desc').value,
+            image: imageSrc,
+            gallery: gallery
         };
 
         await ApiService.addService(newItem);
