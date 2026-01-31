@@ -75,10 +75,12 @@ export class PublicUI {
                 </div>
             `).join('');
 
-            // Inject duplicate sets for seamless scrolling (Set 1 + Set 1)
-            // Marquee animation translates -50%, showing the second set, then resets.
-            grid.innerHTML = itemsHtml + itemsHtml + itemsHtml + itemsHtml; // Repeated 4 times to ensure it covers large screens if items are few
-            grid.classList.add('animate-marquee');
+            // Wrap in a set with gap
+            const setHtml = `<div class="flex gap-16 shrink-0 items-center px-8">${itemsHtml}</div>`;
+
+            // Inject 4 sets to ensure coverage and seamless loop with translateX(-50%)
+            grid.innerHTML = setHtml + setHtml + setHtml + setHtml;
+            grid.className = 'flex items-center animate-marquee';
         }
     }
 
