@@ -139,7 +139,7 @@ export class PublicUI {
                     : `<img src="${s.image}" class="w-24 h-24 filter invert opacity-50">`;
 
                 grid.innerHTML += `
-                    <div class="bg-secondary-dark rounded-lg p-8 hover:-translate-y-2 transition-transform duration-300 relative overflow-hidden group shadow-lg">
+                    <a href="servico.html?id=${s.id}" class="bg-secondary-dark rounded-lg p-8 hover:-translate-y-2 transition-transform duration-300 relative overflow-hidden group shadow-lg block">
                          <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity pointer-events-none text-white">
                             ${backgroundIcon}
                          </div>
@@ -150,12 +150,12 @@ export class PublicUI {
                             </div>
                             <h3 class="font-heading text-xl font-bold text-white mb-4">${s.title}</h3>
                             <p class="text-gray-400 text-sm leading-relaxed mb-6">${s.description}</p>
-                            <a href="servico.html?id=${s.id}" class="inline-flex items-center text-accent-cyan font-bold text-sm hover:gap-2 transition-all">
+                            <div class="inline-flex items-center text-accent-cyan font-bold text-sm group-hover:gap-2 transition-all">
                                 Saiba Mais <span class="ml-1">→</span>
-                            </a>
+                            </div>
                         </div>
                         <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-accent-cyan to-transparent"></div>
-                    </div>
+                    </a>
                 `;
             });
         }
