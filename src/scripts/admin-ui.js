@@ -118,8 +118,16 @@ export class AdminUI {
     }
 
     static async loadData() {
-        // News
-        const news = await ApiService.getNews();
+        // Parallel loading for better performance
+        const [news, partners, services, directors, requests] = await Promise.all([
+            ApiService.getNews(),
+            ApiService.getPartners(),
+            ApiService.getServices(),
+            ApiService.getDirectors(),
+            ApiService.getRequests()
+        ]);
+
+        // Render News
         const newsList = document.getElementById('news-list');
         if (newsList) {
             newsList.innerHTML = '';
@@ -136,8 +144,7 @@ export class AdminUI {
             });
         }
 
-        // Partners
-        const partners = await ApiService.getPartners();
+        // Render Partners
         const partnerList = document.getElementById('partners-list');
         if (partnerList) {
             partnerList.innerHTML = '';
@@ -155,8 +162,7 @@ export class AdminUI {
             });
         }
 
-        // Services
-        const services = await ApiService.getServices();
+        // Render Services
         const servicesList = document.getElementById('services-list');
         if (servicesList) {
             servicesList.innerHTML = '';
@@ -177,8 +183,7 @@ export class AdminUI {
             });
         }
 
-        // Directors
-        const directors = await ApiService.getDirectors();
+        // Render Directors
         const directorsList = document.getElementById('directors-list');
         if (directorsList) {
             directorsList.innerHTML = '';
@@ -199,8 +204,7 @@ export class AdminUI {
             });
         }
 
-        // Requests
-        const requests = await ApiService.getRequests();
+        // Render Requests
         const requestsList = document.getElementById('requests-list');
         if (requestsList) {
             if (requests.length === 0) {
