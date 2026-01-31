@@ -75,12 +75,18 @@ export class AdminUI {
     }
 
     static checkAuth() {
+        const email = document.getElementById('admin-email').value;
         const pass = document.getElementById('admin-pass').value;
-        if (pass === 'admin123') {
+
+        // Credentials
+        const VALID_EMAIL = 'administrativo@sindinor.org.br';
+        const VALID_PASS = 'Sindi#2025';
+
+        if (email === VALID_EMAIL && pass === VALID_PASS) {
             localStorage.setItem('sindinor_admin_logged', 'true');
             this.showAdminPanel();
         } else {
-            alert('Senha incorreta!');
+            alert('E-mail ou senha incorretos!');
         }
     }
 
