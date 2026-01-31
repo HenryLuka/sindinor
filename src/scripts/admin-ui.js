@@ -134,9 +134,11 @@ export class AdminUI {
             partnerList.innerHTML = '';
             partners.forEach((item) => {
                 partnerList.innerHTML += `
-                    <div class="bg-secondary-dark border border-glass-border p-4 rounded-lg flex justify-between items-center group hover:border-accent-cyan transition-colors">
-                        <div>
+                    <div class="bg-secondary-dark border border-glass-border p-4 rounded-lg flex gap-4 items-center group hover:border-accent-cyan transition-colors">
+                        <img src="${item.logo || '../assets/favicon.png'}" alt="${item.name}" class="w-16 h-16 object-contain rounded bg-white/5 border border-glass-border p-2">
+                        <div class="flex-grow">
                             <h4 class="font-bold text-white">${item.name}</h4>
+                            <p class="text-text-muted text-xs line-clamp-1">${item.description || 'Sem descrição'}</p>
                         </div>
                         <button class="bg-red-500/20 text-red-500 px-3 py-1 rounded text-sm hover:bg-red-500 hover:text-white transition" onclick="deletePartner('${item.id}')">Excluir</button>
                     </div>
@@ -325,7 +327,8 @@ export class AdminUI {
 
         const newItem = {
             name: document.getElementById('partner-name').value,
-            video: document.getElementById('partner-video').value,
+            description: document.getElementById('partner-desc').value,
+            video_url: document.getElementById('partner-video').value,
             logo: logoSrc
         };
 

@@ -57,9 +57,27 @@ const SEED_NEWS = [
 ];
 
 const SEED_PARTNERS = [
-    { id: '1', name: 'Mercedes-Benz', video_link: '#' },
-    { id: '2', name: 'Scania', video_link: '#' },
-    { id: '3', name: 'Volvo', video_link: '#' }
+    {
+        id: '1',
+        name: 'Mercedes-Benz',
+        logo: '',
+        description: 'Líder em tecnologia para transporte de carga pesada, a Mercedes-Benz oferece soluções integradas para o transportador.',
+        video_url: 'https://www.youtube.com/embed/example1'
+    },
+    {
+        id: '2',
+        name: 'Scania',
+        logo: '',
+        description: 'Referência em sustentabilidade e eficiência, a Scania transforma o transporte com veículos de alta performance.',
+        video_url: 'https://www.youtube.com/embed/example2'
+    },
+    {
+        id: '3',
+        name: 'Volvo',
+        logo: '',
+        description: 'Segurança e inovação são os pilares da Volvo, garantindo produtividade e proteção para o setor logístico.',
+        video_url: 'https://www.youtube.com/embed/example3'
+    }
 ];
 
 const SEED_SERVICES = [

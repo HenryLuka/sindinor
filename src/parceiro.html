@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SINDINOR - Detalhes do Parceiro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-dark': '#020408',
+                        'secondary-dark': '#0a111a',
+                        'accent-cyan': '#00f2ff',
+                        'accent-blue': '#0051ff',
+                        'glass-bg': 'rgba(255, 255, 255, 0.03)',
+                        'glass-border': 'rgba(255, 255, 255, 0.08)',
+                        'text-main': '#f0f4f8',
+                    },
+                    fontFamily: {
+                        heading: ['Montserrat', 'sans-serif'],
+                        body: ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-primary-dark text-text-main font-body selection:bg-accent-cyan selection:text-black">
+
+    <!-- Header / Nav -->
+    <nav class="border-b border-glass-border bg-secondary-dark/50 backdrop-blur-md sticky top-0 z-50">
+        <div class="container mx-auto px-6 h-20 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="assets/favicon.png" alt="SINDINOR" class="h-10 w-auto">
+                <span class="font-heading font-black text-2xl tracking-wider text-white">SINDINOR</span>
+            </a>
+            <a href="index.html"
+                class="text-accent-cyan font-bold uppercase tracking-widest text-sm hover:text-white transition-colors flex items-center gap-2">
+                <i class="fas fa-arrow-left"></i> Voltar ao Site
+            </a>
+        </div>
+    </nav>
+
+    <main class="py-20 min-h-screen">
+        <div class="container mx-auto px-6">
+            <div id="partner-content" class="max-w-5xl mx-auto">
+                <!-- Data injected by parceiro-ui.js -->
+                <div class="animate-pulse flex flex-col gap-8">
+                    <div class="h-32 bg-glass-bg rounded-xl"></div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        <div class="h-64 bg-glass-bg rounded-xl"></div>
+                        <div class="space-y-4">
+                            <div class="h-8 bg-glass-bg w-1/2 rounded"></div>
+                            <div class="h-4 bg-glass-bg w-full rounded"></div>
+                            <div class="h-4 bg-glass-bg w-full rounded"></div>
+                            <div class="h-4 bg-glass-bg w-3/4 rounded"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-secondary-dark border-t border-glass-border py-12">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-500 text-sm">© 2025 SINDINOR. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script type="module" src="scripts/parceiro-ui.js"></script>
+</body>
+
+</html>

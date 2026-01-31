@@ -67,12 +67,12 @@ export class PublicUI {
         if (grid && partners.length > 0) {
             // Create the HTML for one set of items
             const itemsHtml = partners.map(p => `
-                <div class="flex items-center justify-center min-w-[200px] grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-pointer group">
+                <a href="parceiro.html?id=${p.id}" class="flex items-center justify-center min-w-[200px] grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-pointer group">
                      ${p.logo ?
                     `<img src="${p.logo}" alt="${p.name}" class="h-24 w-auto object-contain">` :
                     `<span class="text-4xl font-black text-gray-500 group-hover:text-white uppercase tracking-tighter transition-colors select-none">${p.name}</span>`
                 }
-                </div>
+                </a>
             `).join('');
 
             // Wrap in a set with gap
@@ -81,6 +81,15 @@ export class PublicUI {
             // Inject 4 sets to ensure coverage and seamless loop with translateX(-50%)
             grid.innerHTML = setHtml + setHtml + setHtml + setHtml;
             grid.className = 'flex items-center animate-marquee';
+        }
+
+        // Definitive Footer Logo Fix (Ensure it works in all environments)
+        const footerLogo = document.querySelector('footer img');
+        if (footerLogo) {
+            footerLogo.onerror = () => {
+                footerLogo.src = 'assets/favicon.png';
+            };
+            footerLogo.src = 'assets/favicon.png';
         }
     }
 
