@@ -84,8 +84,8 @@ const SEED_SERVICES = [
     {
         id: '1',
         title: 'Registro RNTRC (ANTT)',
-        description: 'Credenciado ANTT para realização do Registro e Recadastramento Nacional (RNTRC) com agilidade.',
-        full_description: 'O SINDINOR é um posto avançado e credenciado pela ANTT para a realização do Registro Nacional de Transportadores Rodoviários de Carga. Oferecemos suporte completo para empresas e transportadores autônomos, garantindo que toda a documentação esteja em conformidade com as normas vigentes. Nosso processo é ágil e focado na regularização imediata do seu negócio.\n\n**Mais informações:**\n- Telefone: (38) 3321-9110 / (38) 99985-3216\n- E-mail: ercadastro@gmail.com.br\n- Contato: Edson Ricardo',
+        description: 'O Sindinor é credenciado junto à ANTT para realização do Registro e Recadastramento Nacional de Transportador Rodoviário de Cargas (RNTRC).',
+        full_description: 'O Sindinor é credenciado junto à Agência Nacional de Transportes Terrestres (ANTT) para realização do Registro e Recadastramento Nacional de Transportador Rodoviário de Cargas (RNTRC).\n\n**Mais informações, setor de registros do Sindinor:**\n- Tel.: (38) 3321-9110 / (38) 99985-3216\n- Email: ercadastro@gmail.com.br\n- Contato: Edson Ricardo',
         image: 'assets/service_rntrc_1769715933142.png',
         icon: 'fa-id-card',
         gallery: []
@@ -93,17 +93,17 @@ const SEED_SERVICES = [
     {
         id: '2',
         title: 'Programa Despoluir',
-        description: 'Aferição de frota gratuita e Programa Ambiental para redução de emissões com Selo Verde.',
-        full_description: 'O Programa Despoluir é uma iniciativa que visa reduzir a emissão de poluentes por veículos de carga. O SINDINOR realiza a aferição gratuita da frota dos seus associados, emitindo o Selo Verde para aqueles que estão dentro dos padrões ambientais. Além de contribuir para a sustentabilidade, o programa ajuda a otimizar o consumo de combustível e a manutenção dos veículos.',
+        description: 'Programa Ambiental de Transporte que objetiva a redução de emissões de poluentes com aferição gratuita e Selo Verde.',
+        full_description: 'O Despoluir é um Programa Ambiental de Transporte, que objetiva a redução de emissões de poluentes. Gratuitamente, as empresas associadas Sindinor, podem aferir sua frota. O processo é feito por veículos equipados com opacímetros que vão até as empresas para fazer as aferições sem custos. Os veículos aprovados recebem o Selo Verde Despoluir e a cada ano, empresas que se destacam participam do Prêmio Melhor Ar, promovido pelo Fetcemg.',
         image: 'assets/service_despoluir_1769715948131.png',
         icon: 'fa-leaf',
         gallery: []
     },
     {
         id: '3',
-        title: 'Consultoria Técnica',
-        description: 'Assessoria econômica especializada para planilhas de custos e formação de preços no transporte.',
-        full_description: 'Nossa consultoria técnica oferece suporte especializado na elaboração de planilhas de custos operacionais e na formação de preços de frete. Com base em dados atualizados do mercado e legislação vigente, ajudamos sua empresa a manter a competitividade e a rentabilidade, fornecendo análises precisas e orientações estratégicas para o seu negócio.',
+        title: 'Consultoria Técnica e Econômica',
+        description: 'Assessoria econômica sistemática para planilhas de custos, formação de preços e indicadores econômicos atualizados.',
+        full_description: 'Em qualquer negócio, o processo de precificação pode ser decisivo quanto ao futuro da empresa. O Sindinor oferece assessoria econômica com o objetivo de auxiliar as empresas na elaboração de planilhas de custos e formação de preços, além de fornecimento de indicadores econômicos e banco de dados com informações atualizadas sobre custo de transporte de cargas, seguindo as orientações do Índice Nacional de Custos de Transporte de Carga Fracionada e o Índice Nacional de Custo do Transporte de cara Lotação.',
         image: 'assets/service_consultoria_1769715961860.png',
         icon: 'fa-chart-line',
         gallery: []
