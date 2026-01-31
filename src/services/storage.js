@@ -83,9 +83,9 @@ const SEED_PARTNERS = [
 const SEED_SERVICES = [
     {
         id: '1',
-        title: 'Registro RNTRC',
+        title: 'Registro RNTRC (ANTT)',
         description: 'Credenciado ANTT para realização do Registro e Recadastramento Nacional (RNTRC) com agilidade.',
-        full_description: 'O SINDINOR é um posto avançado e credenciado pela ANTT para a realização do Registro Nacional de Transportadores Rodoviários de Carga. Oferecemos suporte completo para empresas e transportadores autônomos, garantindo que toda a documentação esteja em conformidade com as normas vigentes. Nosso processo é ágil e focado na regularização imediata do seu negócio.',
+        full_description: 'O SINDINOR é um posto avançado e credenciado pela ANTT para a realização do Registro Nacional de Transportadores Rodoviários de Carga. Oferecemos suporte completo para empresas e transportadores autônomos, garantindo que toda a documentação esteja em conformidade com as normas vigentes. Nosso processo é ágil e focado na regularização imediata do seu negócio.\n\n**Mais informações:**\n- Telefone: (38) 3321-9110 / (38) 99985-3216\n- E-mail: ercadastro@gmail.com.br\n- Contato: Edson Ricardo',
         image: 'assets/service_rntrc_1769715933142.png',
         icon: 'fa-id-card',
         gallery: []
