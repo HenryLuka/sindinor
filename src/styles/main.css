@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+@theme {
+    /* Colors */
+    --color-primary-dark: #020408;
+    --color-secondary-dark: #0a111a;
+    --color-accent-cyan: #00f2ff;
+    --color-accent-blue: #0051ff;
+    --color-glass-bg: rgba(255, 255, 255, 0.03);
+    --color-glass-border: rgba(255, 255, 255, 0.08);
+    --color-text-main: #f0f4f8;
+    --color-text-muted: #94a3b8;
+
+    /* Fonts */
+    --font-heading: 'Montserrat', sans-serif;
+    --font-body: 'Outfit', sans-serif;
+}
+
+/* Animations that couldn't be utility-only easily */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.delay-100 {
+    animation-delay: 0.1s;
+}
+
+.delay-200 {
+    animation-delay: 0.2s;
+}
+
+.delay-300 {
+    animation-delay: 0.3s;
+}
+
+/* Font Imports */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&family=Outfit:wght@300;400;500&display=swap');

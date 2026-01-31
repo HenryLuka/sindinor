@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SINDINOR - Excelência em Transporte</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-dark': '#020408',
+                        'secondary-dark': '#0a111a',
+                        'accent-cyan': '#00f2ff',
+                        'accent-blue': '#0051ff',
+                        'text-main': '#f0f4f8',
+                    },
+                    fontFamily: {
+                        heading: ['Montserrat', 'sans-serif'],
+                        body: ['Outfit', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'marquee': 'marquee 40s linear infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        marquee: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-white text-secondary-dark font-body overflow-x-hidden selection:bg-accent-cyan selection:text-black">
+
+    <!-- Navigation -->
+    <header id="navbar"
+        class="fixed w-full z-50 transition-all duration-300 bg-gradient-to-b from-secondary-dark/90 to-transparent">
+        <div class="container mx-auto px-6 h-20 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3">
+                <img src="assets/favicon.png" alt="SINDINOR" class="h-12 w-auto filter drop-shadow-md">
+                <div class="flex flex-col">
+                    <span
+                        class="font-heading font-black text-3xl tracking-wider text-white leading-none">SINDINOR</span>
+
+                </div>
+            </a>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden grid-flow-col md:grid auto-cols-max gap-8">
+                <a href="#inicio"
+                    class="text-xs font-bold uppercase tracking-widest text-white/90 hover:text-accent-cyan transition-colors">Início</a>
+                <a href="#mantenedores"
+                    class="text-xs font-bold uppercase tracking-widest text-white/90 hover:text-accent-cyan transition-colors">Mantenedores</a>
+                <a href="#sobre"
+                    class="text-xs font-bold uppercase tracking-widest text-white/90 hover:text-accent-cyan transition-colors">Sobre</a>
+                <a href="#diretoria"
+                    class="text-xs font-bold uppercase tracking-widest text-white/90 hover:text-accent-cyan transition-colors">Diretoria</a>
+                <a href="#servicos"
+                    class="text-xs font-bold uppercase tracking-widest text-white/90 hover:text-accent-cyan transition-colors">Serviços</a>
+                <a href="#associe-se"
+                    class="text-xs font-bold uppercase tracking-widest text-accent-cyan hover:text-white transition-colors border-b border-accent-cyan pb-1">Associe-se</a>
+                <a href="#fale-conosco"
+                    class="text-xs font-bold uppercase tracking-widest text-white/90 hover:text-accent-cyan transition-colors">Fale
+                    Conosco</a>
+                <a href="#lgpd"
+                    class="text-xs font-bold uppercase tracking-widest text-white/90 hover:text-accent-cyan transition-colors">LGPD</a>
+                <a href="#noticias"
+                    class="text-xs font-bold uppercase tracking-widest text-white/90 hover:text-accent-cyan transition-colors">Notícias</a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-white text-3xl" onclick="toggleMobileMenu()">☰</button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu"
+        class="fixed inset-0 bg-secondary-dark/95 z-50 flex flex-col items-center justify-center gap-8 transition-transform duration-300 translate-x-full md:hidden">
+        <button class="absolute top-8 right-8 text-white text-3xl" onclick="toggleMobileMenu()">×</button>
+        <a href="#inicio" class="text-xl text-white font-bold uppercase" onclick="toggleMobileMenu()">Início</a>
+        <a href="#mantenedores" class="text-xl text-white font-bold uppercase"
+            onclick="toggleMobileMenu()">Mantenedores</a>
+        <a href="#sobre" class="text-xl text-white font-bold uppercase" onclick="toggleMobileMenu()">Sobre</a>
+        <a href="#diretoria" class="text-xl text-white font-bold uppercase" onclick="toggleMobileMenu()">Diretoria</a>
+        <a href="#servicos" class="text-xl text-white font-bold uppercase" onclick="toggleMobileMenu()">Serviços</a>
+        <a href="#associe-se" class="text-xl text-accent-cyan font-bold uppercase"
+            onclick="toggleMobileMenu()">Associe-se</a>
+        <a href="#fale-conosco" class="text-xl text-white font-bold uppercase" onclick="toggleMobileMenu()">Fale
+            Conosco</a>
+        <a href="#lgpd" class="text-xl text-white font-bold uppercase" onclick="toggleMobileMenu()">LGPD</a>
+        <a href="#noticias" class="text-xl text-white font-bold uppercase" onclick="toggleMobileMenu()">Notícias</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="relative min-h-screen flex flex-col justify-center overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0 z-0">
+            <img src="assets/hero_truck_clean_hd_1769714783769.png" alt="Logistics Truck"
+                class="w-full h-full object-cover">
+            <!-- Dark Overlay Gradient -->
+            <div class="absolute inset-0 bg-gradient-to-r from-secondary-dark/90 via-secondary-dark/50 to-transparent">
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="container mx-auto px-6 relative z-10 pt-20">
+            <div class="max-w-4xl animate-fade-in-up">
+                <div class="flex items-center gap-4 mb-6">
+                    <span class="h-1 w-12 bg-accent-cyan"></span>
+                </div>
+
+                <div class="flex flex-col md:flex-row items-center md:items-start gap-6 mb-8">
+                    <!-- Brand Section -->
+                    <div class="flex items-center gap-6">
+                        <img src="assets/favicon.png" alt="SINDINOR Logo"
+                            class="h-24 w-auto object-contain filter drop-shadow-2xl">
+                        <span
+                            class="font-heading font-black text-6xl md:text-8xl text-white tracking-tighter leading-none">SINDINOR</span>
+                    </div>
+                </div>
+
+                <div class="mb-10">
+                    <h2 class="font-body font-bold text-2xl md:text-3xl text-gray-300 tracking-widest uppercase">
+                        UNIDOS CHEGAMOS <br class="md:hidden">
+                        <span class="text-accent-cyan">MAIS LONGE</span>
+                    </h2>
+                </div>
+
+                <p class="text-gray-300 text-lg mb-10 leading-relaxed border-l-4 border-accent-cyan pl-6">
+                    Onde o Setor de Transporte se une, nasce a força para avançar cada vez mais.
+                </p>
+
+                <div class="flex gap-4 mb-16">
+                    <a href="#servicos"
+                        class="bg-accent-cyan text-secondary-dark font-black text-sm uppercase tracking-widest py-4 px-10 rounded hover:bg-white transition-all duration-300 shadow-[0_0_20px_rgba(0,242,255,0.3)]">
+                        Nossos Serviços
+                    </a>
+                    <a href="#associe-se" onclick="toggleJoinModal()"
+                        class="border border-white/20 text-white font-bold text-sm uppercase tracking-widest py-4 px-10 rounded hover:bg-white/10 transition-all duration-300 backdrop-blur-sm">
+                        Seja Associado
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        </div>
+
+        <!-- Stats Grid (Absolute Bottom Left - Flush Tab Style Compact) -->
+        <div class="absolute bottom-0 left-0 z-20 hidden md:block">
+            <div
+                class="bg-secondary-dark rounded-tr-3xl p-6 pr-12 grid grid-cols-3 gap-8 items-center justify-start max-w-3xl shadow-2xl">
+                <div class="text-center">
+                    <h3 class="text-3xl md:text-4xl font-black text-white mb-1 leading-none">35<span
+                            class="text-accent-cyan text-2xl align-top">+</span></h3>
+                    <p class="text-gray-400 text-[10px] uppercase tracking-widest font-bold">Anos de História</p>
+                </div>
+                <div class="text-center">
+                    <h3 class="text-3xl md:text-4xl font-black text-white mb-1 leading-none">100<span
+                            class="text-accent-cyan text-2xl align-top">%</span></h3>
+                    <p class="text-gray-400 text-[10px] uppercase tracking-widest font-bold">Representatividade</p>
+                </div>
+                <!-- Extra spacing on right due to rounded corner -->
+                <div class="text-center mr-2">
+                    <h3 class="text-3xl md:text-4xl font-black text-white mb-1 leading-none">MG</h3>
+                    <p class="text-gray-400 text-[10px] uppercase tracking-widest font-bold">Norte de Minas</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Stats (Inline) -->
+        <div class="md:hidden container mx-auto px-6 relative z-10 pb-12">
+            <div
+                class="p-6 bg-secondary-dark rounded-xl border border-glass-border shadow-2xl flex flex-col gap-6 items-center justify-center">
+                <div class="text-center border-b border-white/10 pb-4 w-full">
+                    <h3 class="text-3xl font-black text-white mb-1"><span class="text-accent-cyan">35</span>+</h3>
+                    <p class="text-gray-400 text-xs uppercase tracking-widest font-bold">Anos de História</p>
+                </div>
+                <div class="text-center border-b border-white/10 pb-4 w-full">
+                    <h3 class="text-3xl font-black text-white mb-1">100<span class="text-accent-cyan">%</span></h3>
+                    <p class="text-gray-400 text-xs uppercase tracking-widest font-bold">Representatividade</p>
+                </div>
+                <div class="text-center w-full">
+                    <h3 class="text-3xl font-black text-white mb-1">MG</h3>
+                    <p class="text-gray-400 text-xs uppercase tracking-widest font-bold">Norte de Minas</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mantenedores -->
+    <section id="mantenedores" class="py-20 bg-secondary-dark relative overflow-hidden border-b border-glass-border">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-16">
+                <span class="text-accent-cyan font-bold uppercase tracking-widest text-xs mb-2 block">Parceiros</span>
+                <h2 class="font-heading font-black text-3xl md:text-4xl text-white">Nossos Mantenedores</h2>
+                <div class="w-24 h-1 bg-accent-cyan mx-auto mt-6 rounded-full"></div>
+            </div>
+
+            <!-- Carousel Area -->
+            <div id="partners-grid" class="flex gap-16 overflow-hidden items-center py-8">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="sobre" class="py-24 bg-white relative">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="relative">
+                    <img src="assets/warehouse.png" alt="Sindicato"
+                        class="rounded-lg shadow-2xl relative z-10 grayscale hover:grayscale-0 transition-all duration-700">
+                    <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-accent-cyan/20 rounded-full z-0 blur-3xl">
+                    </div>
+                </div>
+                <div>
+                    <span class="text-accent-blue font-bold uppercase tracking-widest text-xs mb-2 block">Sobre
+                        Nós</span>
+                    <h2 class="font-heading font-black text-4xl text-secondary-dark mb-6 leading-tight">Nossa História &
+                        Futuro</h2>
+
+                    <div class="space-y-6 text-gray-600 mb-8">
+                        <div>
+                            <h3 class="font-bold text-lg text-secondary-dark mb-2">Nossa História</h3>
+                            <p class="text-sm leading-relaxed mb-4">
+                                O SINDINOR - Sindicato das Empresas de Transportes de Carga, Logística, Movimentação e
+                                Armazenamento de Mercadorias do Norte de Minas foi fundado em 04 de outubro de 1988 com
+                                o forte intuito de promover a união das empresas desse segmento.
+                            </p>
+                            <p class="text-sm leading-relaxed mb-4">
+                                Inicialmente trabalhando como associação, o Sindinor recebeu em 14 de dezembro de 1988,
+                                a Carta Sindical concedida pelo Ministério do Trabalho, transformando-se em Sindicato.
+                                Seu Fundador, o Sr. Luiz Salvador de Almeida, proprietário da Transportadora Januária,
+                                foi o primeiro a exercer o cargo de presidente.
+                            </p>
+                            <p class="text-sm leading-relaxed">
+                                Desde então, o Sindinor trabalha para o fortalecimento dos seus associados que
+                                movimentam esse setor tão importante da nossa economia.
+                            </p>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold text-lg text-secondary-dark mb-2">Nossa Visão de Futuro</h3>
+                            <p class="text-sm leading-relaxed mb-4">
+                                O Sindinor de hoje trabalha com os olhos voltados para o futuro. Desde o seu surgimento
+                                em meados das década de 1990, as compras online não param de crescer no Brasil. Hoje
+                                cerca de 71% dos consumidores brasileiros realizam compras pela internet todos os meses,
+                                e esse número continua crescendo.
+                            </p>
+                            <p class="text-sm leading-relaxed">
+                                A atual diretoria do Sindinor já entendeu isso e vem trabalhando forte para preparar as
+                                empresas associadas para toda essa transformação.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MVV Grid -->
+            <div class="grid md:grid-cols-3 gap-8 mt-16">
+                <!-- Missão -->
+                <div
+                    class="bg-gray-50 p-8 rounded-xl border border-gray-100 hover:-translate-y-2 transition-transform duration-300 shadow-lg">
+                    <div
+                        class="w-12 h-12 bg-accent-blue/10 rounded-lg flex items-center justify-center text-accent-blue text-xl mb-6">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-xl text-secondary-dark mb-4">MISSÃO</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        Representar e defender os interesses do segmento de transporte de carga e logística,
+                        fortalecendo o segmento com qualidade, ética, e responsabilidade social, para o desenvolvimento
+                        da região norte mineira.
+                    </p>
+                </div>
+
+                <!-- Visão -->
+                <div
+                    class="bg-gray-50 p-8 rounded-xl border border-gray-100 hover:-translate-y-2 transition-transform duration-300 shadow-lg">
+                    <div
+                        class="w-12 h-12 bg-accent-blue/10 rounded-lg flex items-center justify-center text-accent-blue text-xl mb-6">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-xl text-secondary-dark mb-4">VISÃO</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        Ser a entidade de referência, credibilidade, eficiência e ética no transporte rodoviário de
+                        cargas e logística em nossa região, no estado e no Brasil.
+                    </p>
+                </div>
+
+                <!-- Valores -->
+                <div
+                    class="bg-gray-50 p-8 rounded-xl border border-gray-100 hover:-translate-y-2 transition-transform duration-300 shadow-lg">
+                    <div
+                        class="w-12 h-12 bg-accent-blue/10 rounded-lg flex items-center justify-center text-accent-blue text-xl mb-6">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-xl text-secondary-dark mb-4">VALORES</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        Ética, transparência, responsabilidade social, representatividade do setor de transporte junto à
+                        comunidade, desenvolvimento de pessoas, capacitar e assistir as empresas do setor.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- Board Section (Diretoria) -->
+    <section id="diretoria" class="py-24 bg-primary-dark border-y border-glass-border">
+        <div class="container mx-auto px-6">
+            <div class="mb-16">
+                <span class="text-accent-cyan font-bold uppercase tracking-widest text-xs mb-2 block">Liderança</span>
+                <h2 class="font-heading font-black text-3xl md:text-4xl text-white mb-6">Diretoria Executiva</h2>
+                <p class="text-gray-400 max-w-2xl">Conheça os líderes que impulsionam o desenvolvimento do setor.</p>
+            </div>
+
+            <div id="directors-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="servicos" class="py-24 bg-secondary-dark relative">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-20">
+                <span class="text-accent-cyan font-bold uppercase tracking-widest text-xs mb-2 block">O que
+                    fazemos</span>
+                <h2 class="font-heading font-black text-4xl md:text-5xl text-white mb-6">Nossos Serviços</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto leading-relaxed">Impulsionando o transporte e a logística com
+                    soluções modernas e eficientes para todos os nossos associados.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Service 1: RNTRC -->
+                <div
+                    class="bg-secondary-dark rounded-lg p-8 hover:-translate-y-2 transition-transform duration-300 relative overflow-hidden group shadow-lg border border-white/5">
+                    <div
+                        class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity pointer-events-none text-white">
+                        <i class="fas fa-id-card text-9xl"></i>
+                    </div>
+
+                    <div class="relative z-10">
+                        <div
+                            class="w-14 h-14 bg-accent-cyan/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-accent-cyan/20 transition-colors">
+                            <i
+                                class="fas fa-id-card text-4xl text-accent-cyan group-hover:scale-110 transition-transform"></i>
+                        </div>
+                        <h3 class="font-heading text-xl font-bold text-white mb-4">Registro RNTRC (ANTT)</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            O Sindinor é credenciado junto à Agência Nacional de Transportes Terrestres (ANTT) para
+                            realização do Registro e Recadastramento Nacional de Transportador Rodoviário de Cargas
+                            (RNTRC).
+                        </p>
+
+                        <div
+                            class="bg-primary-dark/50 p-4 rounded border border-white/10 text-xs text-gray-400 space-y-2">
+                            <p class="font-bold text-accent-cyan mb-1">Mais informações:</p>
+                            <p><i class="fas fa-phone mr-2 text-accent-cyan"></i>(38) 3321-9110 / (38) 99985-3216</p>
+                            <p><i class="fas fa-envelope mr-2 text-accent-cyan"></i>ercadastro@gmail.com.br</p>
+                            <p><i class="fas fa-user mr-2 text-accent-cyan"></i>Contato: Edson Ricardo</p>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-accent-cyan to-transparent">
+                    </div>
+                </div>
+
+                <!-- Service 2: Despoluir -->
+                <div
+                    class="bg-secondary-dark rounded-lg p-8 hover:-translate-y-2 transition-transform duration-300 relative overflow-hidden group shadow-lg border border-white/5">
+                    <div
+                        class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity pointer-events-none text-white">
+                        <i class="fas fa-leaf text-9xl"></i>
+                    </div>
+
+                    <div class="relative z-10">
+                        <div
+                            class="w-14 h-14 bg-accent-cyan/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-accent-cyan/20 transition-colors">
+                            <i
+                                class="fas fa-leaf text-4xl text-accent-cyan group-hover:scale-110 transition-transform"></i>
+                        </div>
+                        <h3 class="font-heading text-xl font-bold text-white mb-4">Programa Despoluir</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            O Despoluir é um Programa Ambiental de Transporte que objetiva a redução de emissões de
+                            poluentes. Gratuitamente, as empresas associadas Sindinor podem aferir sua frota.
+                        </p>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Os veículos aprovados recebem o <strong class="text-white">Selo Verde Despoluir</strong> e
+                            empresas de destaque concorrem ao Prêmio Melhor Ar, promovido pelo Fetcemg.
+                        </p>
+                    </div>
+                    <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-accent-cyan to-transparent">
+                    </div>
+                </div>
+
+                <!-- Service 3: Consultoria -->
+                <div
+                    class="bg-secondary-dark rounded-lg p-8 hover:-translate-y-2 transition-transform duration-300 relative overflow-hidden group shadow-lg border border-white/5">
+                    <div
+                        class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity pointer-events-none text-white">
+                        <i class="fas fa-chart-line text-9xl"></i>
+                    </div>
+
+                    <div class="relative z-10">
+                        <div
+                            class="w-14 h-14 bg-accent-cyan/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-accent-cyan/20 transition-colors">
+                            <i
+                                class="fas fa-chart-line text-4xl text-accent-cyan group-hover:scale-110 transition-transform"></i>
+                        </div>
+                        <h3 class="font-heading text-xl font-bold text-white mb-4">Consultoria Técnica</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            O Sindinor oferece assessoria econômica para auxiliar na elaboração de planilhas de custos,
+                            formação de preços e fornecimento de indicadores econômicos atualizados.
+                        </p>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Seguindo as orientações do Índice Nacional de Custos de Transporte de Carga Fracionada e
+                            Lotação, garantindo competitividade e sustentabilidade ao negócio.
+                        </p>
+                    </div>
+                    <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-accent-cyan to-transparent">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Join Section (Associe-se) -->
+    <section id="associe-se" class="py-24 bg-secondary-dark relative overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute inset-0 opacity-20">
+            <img src="assets/truck_hd.png" class="w-full h-full object-cover grayscale">
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-t from-secondary-dark via-secondary-dark/80 to-transparent"></div>
+
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <h2 class="font-heading font-black text-4xl md:text-5xl text-white mb-6">Junte-se ao SINDINOR</h2>
+            <p class="text-gray-300 max-w-2xl mx-auto mb-10 text-lg">Fortaleça sua empresa e faça parte do maior hub
+                logístico do Norte de Minas.</p>
+            <button onclick="toggleJoinModal()"
+                class="bg-accent-cyan text-secondary-dark font-black text-sm uppercase tracking-widest py-5 px-12 rounded hover:bg-white transition-colors shadow-[0_0_30px_rgba(0,242,255,0.4)] transform hover:scale-105 duration-300">
+                Quero me Associar
+            </button>
+        </div>
+    </section>
+
+    <!-- Join Modal -->
+    <div id="join-modal" class="fixed inset-0 z-50 hidden">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-secondary-dark/95 backdrop-blur-sm" onclick="toggleJoinModal()"></div>
+
+        <!-- Modal Content -->
+        <div class="absolute inset-0 flex items-center justify-center p-4">
+            <div
+                class="bg-secondary-dark rounded-2xl p-6 md:p-8 w-full max-w-2xl relative shadow-2xl border border-glass-border animate-fade-in-up">
+                <button onclick="toggleJoinModal()"
+                    class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">×</button>
+
+                <div class="text-center mb-6">
+                    <h2 class="font-heading font-black text-2xl text-white">Ficha de Filiação</h2>
+                    <p class="text-gray-400 text-sm">Preencha os dados abaixo.</p>
+                </div>
+
+                <form class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="col-span-1 md:col-span-2">
+                        <input type="text"
+                            class="w-full bg-primary-dark border border-white/10 rounded p-3 text-white focus:outline-none focus:border-accent-cyan transition-colors text-sm"
+                            placeholder="Nome da Empresa">
+                    </div>
+                    <div class="col-span-1">
+                        <input type="text"
+                            class="w-full bg-primary-dark border border-white/10 rounded p-3 text-white focus:outline-none focus:border-accent-cyan transition-colors text-sm"
+                            placeholder="CNPJ">
+                    </div>
+                    <div class="col-span-1">
+                        <input type="text"
+                            class="w-full bg-primary-dark border border-white/10 rounded p-3 text-white focus:outline-none focus:border-accent-cyan transition-colors text-sm"
+                            placeholder="Cidade/UF">
+                    </div>
+                    <div class="col-span-1 md:col-span-2">
+                        <input type="text"
+                            class="w-full bg-primary-dark border border-white/10 rounded p-3 text-white focus:outline-none focus:border-accent-cyan transition-colors text-sm"
+                            placeholder="Nome do Responsável">
+                    </div>
+                    <div class="col-span-1">
+                        <input type="text"
+                            class="w-full bg-primary-dark border border-white/10 rounded p-3 text-white focus:outline-none focus:border-accent-cyan transition-colors text-sm"
+                            placeholder="Cargo">
+                    </div>
+                    <div class="col-span-1">
+                        <input type="text"
+                            class="w-full bg-primary-dark border border-white/10 rounded p-3 text-white focus:outline-none focus:border-accent-cyan transition-colors text-sm"
+                            placeholder="Telefone/Celular">
+                    </div>
+
+                    <div class="col-span-1 md:col-span-2 mt-4">
+                        <button type="button"
+                            class="w-full bg-accent-cyan text-secondary-dark font-black text-sm uppercase tracking-widest py-3 rounded hover:bg-white transition-all duration-300 shadow-[0_0_20px_rgba(0,242,255,0.3)]">
+                            Solicitar Associação
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Fale Conosco Section -->
+    <section id="fale-conosco" class="py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-16">
+                <!-- Info -->
+                <div>
+                    <span class="text-accent-blue font-bold uppercase tracking-widest text-xs mb-2 block">Contato</span>
+                    <h2 class="font-heading font-black text-4xl text-secondary-dark mb-8">Fale Conosco</h2>
+                    <p class="text-gray-600 mb-8">Estamos prontos para atender sua empresa. Entre em contato pelos
+                        canais abaixo.</p>
+
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div
+                                class="w-12 h-12 bg-accent-blue/10 rounded-lg flex items-center justify-center text-accent-blue text-xl flex-shrink-0">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-secondary-dark mb-1">Endereço</h4>
+                                <p class="text-gray-500 text-sm">Avenida Doutor João Luiz de Almeida, 881 - Sala 102 -
+                                    Centro<br>Montes Claros – MG</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div
+                                class="w-12 h-12 bg-accent-blue/10 rounded-lg flex items-center justify-center text-accent-blue text-xl flex-shrink-0">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-secondary-dark mb-1">Telefone</h4>
+                                <p class="text-gray-500 text-sm">38 3321-9110 | 38 99985-3216</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div
+                                class="w-12 h-12 bg-accent-blue/10 rounded-lg flex items-center justify-center text-accent-blue text-xl flex-shrink-0">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-secondary-dark mb-1">E-mail</h4>
+                                <p class="text-gray-500 text-sm">ercadastro@gmail.com.br</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <div class="bg-gray-50 p-8 rounded-2xl border border-gray-100 shadow-lg">
+                    <form class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <input type="text" placeholder="Nome"
+                                class="w-full bg-white border border-gray-200 rounded p-3 text-sm focus:outline-none focus:border-accent-blue transition-colors">
+                            <input type="text" placeholder="Telefone"
+                                class="w-full bg-white border border-gray-200 rounded p-3 text-sm focus:outline-none focus:border-accent-blue transition-colors">
+                        </div>
+                        <input type="email" placeholder="E-mail"
+                            class="w-full bg-white border border-gray-200 rounded p-3 text-sm focus:outline-none focus:border-accent-blue transition-colors">
+                        <textarea rows="4" placeholder="Mensagem"
+                            class="w-full bg-white border border-gray-200 rounded p-3 text-sm focus:outline-none focus:border-accent-blue transition-colors"></textarea>
+                        <button type="button"
+                            class="w-full bg-secondary-dark text-white font-bold py-3 px-8 rounded hover:bg-accent-blue transition-colors">Enviar
+                            Mensagem</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LGPD Section -->
+    <section id="lgpd" class="py-20 bg-gray-50 border-t border-gray-100">
+        <div class="container mx-auto px-6 text-center">
+            <div class="max-w-3xl mx-auto">
+                <i class="fas fa-shield-alt text-4xl text-accent-blue mb-6"></i>
+                <h2 class="font-heading font-black text-3xl text-secondary-dark mb-6">LGPD & Privacidade</h2>
+                <p class="text-gray-600 leading-relaxed mb-6">
+                    O SINDINOR está em total conformidade com a Lei Geral de Proteção de Dados (LGPD).
+                    Garantimos a segurança e confidencialidade de todas as informações de nossos associados e parceiros,
+                    adotando práticas rigorosas de governança de dados.
+                </p>
+                <button onclick="toggleLGPDModal()"
+                    class="text-accent-blue font-bold uppercase tracking-widest text-xs hover:underline bg-transparent border-none cursor-pointer flex items-center justify-center gap-2 mx-auto">
+                    Ler Política Completa <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section id="noticias" class="py-24 bg-primary-dark">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-between items-end mb-16">
+                <div>
+                    <span
+                        class="text-accent-cyan font-bold uppercase tracking-widest text-xs mb-2 block">Atualizações</span>
+                    <h2 class="font-heading font-black text-3xl md:text-4xl text-white">Últimas Notícias</h2>
+                </div>
+                <a href="noticias.html"
+                    class="hidden md:flex items-center gap-2 text-white font-bold text-sm hover:text-accent-cyan transition-colors">
+                    Ver Todas <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <div id="news-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-secondary-dark border-t border-glass-border pt-16 pb-8">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <!-- Brand -->
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-3 mb-6">
+                        <img src="../../assets/favicon.png" alt="SINDINOR"
+                            class="h-10 w-auto filter grayscale opacity-70">
+                        <span class="font-heading font-black text-2xl tracking-wider text-gray-500">SINDINOR</span>
+                    </div>
+                    <p class="text-gray-500 text-sm leading-relaxed max-w-sm">
+                        Há mais de 35 anos defendendo e impulsionando o setor de transporte e logística no Norte de
+                        Minas.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-white font-bold uppercase tracking-widest text-xs mb-6">Navegação</h4>
+                    <ul class="space-y-4">
+                        <li><a href="#inicio"
+                                class="text-gray-500 hover:text-accent-cyan transition-colors text-sm">Início</a></li>
+                        <li><a href="#servicos"
+                                class="text-gray-500 hover:text-accent-cyan transition-colors text-sm">Serviços</a>
+                        </li>
+                        <li><a href="#associe-se"
+                                class="text-gray-500 hover:text-accent-cyan transition-colors text-sm">Associe-se</a>
+                        </li>
+                        <li><a href="#noticias"
+                                class="text-gray-500 hover:text-accent-cyan transition-colors text-sm">Notícias</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Legal -->
+                <div>
+                    <h4 class="text-white font-bold uppercase tracking-widest text-xs mb-6">Legal</h4>
+                    <ul class="space-y-4">
+                        <li><a href="#lgpd" onclick="toggleLGPDModal()"
+                                class="text-gray-500 hover:text-accent-cyan transition-colors text-sm cursor-pointer">Política
+                                de Privacidade</a></li>
+                        <li><a href="#lgpd"
+                                class="text-gray-500 hover:text-accent-cyan transition-colors text-sm">Termos de Uso</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-gray-600 text-xs">© 2025 SINDINOR. Todos os direitos reservados.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="text-gray-600 hover:text-accent-cyan transition-colors"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-600 hover:text-accent-cyan transition-colors"><i
+                            class="fab fa-linkedin"></i></a>
+                    <a href="#" class="text-gray-600 hover:text-accent-cyan transition-colors"><i
+                            class="fab fa-facebook"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="scripts/public-ui.js"></script>
+    <script>
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('translate-x-full');
+        }
+        function toggleJoinModal() {
+            const modal = document.getElementById('join-modal');
+            modal.classList.toggle('hidden');
+            if (!modal.classList.contains('hidden')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        }
+        function toggleLGPDModal() {
+            const modal = document.getElementById('lgpd-modal');
+            modal.classList.toggle('hidden');
+            if (!modal.classList.contains('hidden')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        }
+    </script>
+
+    <!-- LGPD Modal -->
+    <div id="lgpd-modal" class="fixed inset-0 z-[100] hidden">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-secondary-dark/90 backdrop-blur-sm" onclick="toggleLGPDModal()"></div>
+
+        <!-- Modal Content -->
+        <div class="absolute inset-0 flex items-center justify-center p-4 overflow-y-auto">
+            <div class="bg-white rounded-2xl p-8 md:p-12 w-full max-w-3xl relative shadow-2xl animate-fade-in-up my-8">
+                <button onclick="toggleLGPDModal()"
+                    class="absolute top-4 right-4 text-gray-400 hover:text-secondary-dark text-2xl z-10 transition-colors">×</button>
+
+                <div class="overflow-y-auto max-h-[80vh] pr-4">
+                    <div class="mb-8">
+                        <span class="text-accent-blue font-bold uppercase tracking-widest text-xs mb-2 block">Política
+                            de Privacidade</span>
+                        <h2 class="font-heading font-black text-3xl text-secondary-dark mb-4">Lei Geral de Proteção de
+                            Dados</h2>
+                        <div class="w-16 h-1 bg-accent-cyan rounded-full"></div>
+                    </div>
+
+                    <div class="prose prose-sm md:prose-base text-gray-600 max-w-none space-y-6">
+                        <div>
+                            <h3 class="text-secondary-dark font-bold text-xl mb-2">1. Finalidade</h3>
+                            <p>Esta Política de Privacidade tem como finalidade esclarecer de forma transparente quais
+                                dados pessoais são coletados pelo Sindinor em seu site, as razões dessa coleta, de que
+                                forma essas informações são utilizadas e compartilhadas, além de indicar os meios
+                                disponíveis para acesso, atualização ou exclusão dos dados pelo titular.</p>
+                        </div>
+
+                        <div>
+                            <h3 class="text-secondary-dark font-bold text-xl mb-2">2. Aplicabilidade</h3>
+                            <p>As disposições desta política aplicam-se a todos os usuários que acessam e utilizam o
+                                site do Sindinor.</p>
+                        </div>
+
+                        <div>
+                            <h3 class="text-secondary-dark font-bold text-xl mb-2">3. Dados pessoais coletados</h3>
+                            <p>O Sindinor poderá coletar dados pessoais dos usuários nas seguintes situações:</p>
+                            <ul class="list-disc pl-5 space-y-2 mt-2">
+                                <li>Quando o usuário entra em contato com o Sindinor, são coletados nome, e-mail e
+                                    telefone;</li>
+                                <li>Quando o usuário opta por receber os Boletins Eletrônicos do Sindinor, são coletados
+                                    nome, empresa, cargo, e-mail e telefone;</li>
+                                <li>Informações de navegação por meio de cookies.</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 class="text-secondary-dark font-bold text-xl mb-2">4. Finalidade do tratamento dos dados
+                            </h3>
+                            <p class="mb-2">Os dados de contato são utilizados para possibilitar o retorno das
+                                solicitações realizadas pelos usuários.</p>
+                            <p class="mb-2">As informações coletadas para o envio dos Boletins Eletrônicos têm como
+                                finalidade o disparo dos conteúdos, bem como a segmentação e aprimoramento da
+                                comunicação.</p>
+                            <p>Os cookies de navegação são utilizados para melhorar a experiência do usuário, otimizar o
+                                desempenho do site, analisar padrões de uso e personalizar conteúdos apresentados.</p>
+                        </div>
+
+                        <div>
+                            <h3 class="text-secondary-dark font-bold text-xl mb-2">5. Armazenamento das informações</h3>
+                            <p>Os dados pessoais fornecidos são armazenados em sistema de CRM (Customer Relationship
+                                Management), que adota medidas de segurança adequadas, incluindo criptografia, controle
+                                de acesso e realização de backups periódicos.</p>
+                        </div>
+
+                        <div>
+                            <h3 class="text-secondary-dark font-bold text-xl mb-2">6. Prazo de retenção dos dados</h3>
+                            <p class="mb-2">Os dados fornecidos exclusivamente para contato serão mantidos apenas pelo
+                                tempo necessário para atender à solicitação do usuário, sendo posteriormente eliminados.
+                            </p>
+                            <p>As informações relacionadas à assinatura dos Boletins Eletrônicos permanecerão
+                                armazenadas enquanto o usuário mantiver seu cadastro ativo para o recebimento desses
+                                conteúdos.</p>
+                        </div>
+
+                        <div>
+                            <h3 class="text-secondary-dark font-bold text-xl mb-2">7. Compartilhamento de dados</h3>
+                            <p class="mb-2">Os dados pessoais coletados poderão ser compartilhados com a empresa
+                                responsável pela plataforma de CRM utilizada pelo Sindinor.</p>
+                            <p>Também poderá haver compartilhamento de informações com terceiros sempre que exigido por
+                                lei, regulamento ou determinação judicial.</p>
+                        </div>
+
+                        <div>
+                            <h3 class="text-secondary-dark font-bold text-xl mb-2">8. Medidas de proteção dos dados
+                                pessoais</h3>
+                            <p class="mb-2">O Sindinor adota práticas alinhadas à Lei Geral de Proteção de Dados
+                                Pessoais (LGPD), implementando medidas técnicas e administrativas para garantir a
+                                segurança e a integridade dos dados tratados.</p>
+                            <p>Além disso, o Sindinor atua em conjunto com clientes e fornecedores para assegurar a
+                                proteção das informações ao longo de todo o seu ciclo de vida.</p>
+                        </div>
+
+                        <div>
+                            <h3 class="text-secondary-dark font-bold text-xl mb-2">9. Direitos dos titulares dos dados
+                            </h3>
+                            <p class="mb-2">Os titulares dos dados pessoais podem solicitar informações sobre quais
+                                dados o Sindinor possui a seu respeito, bem como solicitar correção, atualização ou
+                                exclusão dessas informações.</p>
+                            <p class="mb-2">As solicitações devem ser encaminhadas para o e-mail <a
+                                    href="mailto:administracao@sindinor.org.br"
+                                    class="text-accent-blue hover:underline font-bold">administracao@sindinor.org.br</a>.
+                            </p>
+                            <p>Ressalta-se que, em caso de pedido de exclusão, o Sindinor poderá manter os dados
+                                estritamente necessários para o cumprimento de obrigações legais e regulatórias.</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-gray-100 flex justify-end">
+                        <button onclick="toggleLGPDModal()"
+                            class="bg-secondary-dark text-white font-bold py-3 px-8 rounded hover:bg-accent-cyan hover:text-black transition-colors">
+                            Entendi e Concordo
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

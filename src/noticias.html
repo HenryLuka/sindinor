@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SINDINOR - Todas as Notícias</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-dark': '#020408',
+                        'secondary-dark': '#0a111a',
+                        'accent-cyan': '#00f2ff',
+                        'accent-blue': '#0051ff',
+                        'text-main': '#f0f4f8',
+                    },
+                    fontFamily: {
+                        heading: ['Montserrat', 'sans-serif'],
+                        body: ['Outfit', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-primary-dark text-text-main font-body selection:bg-accent-cyan selection:text-black">
+
+    <!-- Navigation -->
+    <header id="navbar" class="fixed w-full z-50 bg-secondary-dark/95 shadow-lg">
+        <div class="container mx-auto px-6 h-20 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="assets/favicon.png" alt="SINDINOR" class="h-10 w-auto filter drop-shadow-md">
+                <span class="font-heading font-black text-2xl tracking-wider text-white">SINDINOR</span>
+            </a>
+
+            <!-- Desktop Menu (Simplified for subpage) -->
+            <nav class="hidden md:flex gap-8 items-center">
+                <a href="index.html#inicio"
+                    class="text-xs font-bold uppercase tracking-widest text-white/90 hover:text-accent-cyan transition-colors">Voltar
+                    para Home</a>
+                <a href="index.html#noticias"
+                    class="text-xs font-bold uppercase tracking-widest text-accent-cyan transition-colors">Notícias</a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-white text-3xl" onclick="toggleMobileMenu()">☰</button>
+        </div>
+    </header>
+
+    <!-- Page Title / Breadcrumb -->
+    <main class="pt-32 pb-24 min-h-screen">
+        <div class="container mx-auto px-6">
+            <header class="mb-16 animate-fade-in-up">
+                <div class="flex items-center gap-2 text-accent-cyan text-xs font-bold uppercase tracking-widest mb-4">
+                    <a href="index.html" class="hover:underline">Início</a>
+                    <span>/</span>
+                    <span class="text-white">Notícias</span>
+                </div>
+                <h1 class="font-heading font-black text-4xl md:text-5xl text-white mb-4 uppercase tracking-tighter">
+                    Central de <span class="text-accent-cyan">Atualizações</span>
+                </h1>
+                <p class="text-gray-400 max-w-2xl leading-relaxed">
+                    Acompanhe as últimas novidades, comunicados e tendências do setor de transporte e logística.
+                </p>
+            </header>
+
+            <!-- News Grid -->
+            <div id="news-grid-full" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Loading State -->
+                <div class="col-span-full py-20 text-center">
+                    <i class="fas fa-circle-notch fa-spin text-4xl text-accent-cyan mb-4"></i>
+                    <p class="text-gray-500 uppercase tracking-widest text-xs">Carregando Notícias...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer (Static version) -->
+    <footer class="bg-secondary-dark border-t border-glass-border pt-16 pb-8">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex items-center justify-center gap-3 mb-8">
+                <img src="assets/favicon.png" alt="SINDINOR" class="h-8 w-auto filter grayscale opacity-50">
+                <span class="font-heading font-black text-xl tracking-wider text-gray-600 uppercase">SINDINOR</span>
+            </div>
+            <p class="text-gray-600 text-xs">© 2025 SINDINOR. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script type="module" src="scripts/noticias-ui.js"></script>
+    <script>
+        function toggleMobileMenu() {
+            // Simplified for this page or add menu if needed
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+
+</html>
