@@ -66,6 +66,7 @@ export class AdminUI {
         window.deleteService = (id) => this.deleteService(id);
         window.deleteDirector = (id) => this.deleteDirector(id);
         window.editService = (id) => this.editService(id);
+        window.removeServiceGalleryItem = (idx) => this.removeServiceGalleryItem(idx);
         window.handleDeleteRequest = (id) => this.handleDeleteRequest(id);
 
         // Event Listeners
@@ -355,6 +356,8 @@ export class AdminUI {
         }
     }
 
+    static editingGallery = [];
+
     static async handleAddService(e) {
         e.preventDefault();
 
@@ -372,11 +375,18 @@ export class AdminUI {
             }
         }
 
-        // Gallery processing
-        const galleryFiles = document.getElementById('service-gallery-files');
-        const galleryUrlsInput = document.getElementById('service-gallery-urls');
-        let gallery = galleryUrlsInput.value ? galleryUrlsInput.value.split(',').map(u => u.trim()).filter(u => u) : [];
+        // Gallery processing: Start with existing images in preview
+        let gallery = [...this.editingGallery];
 
+        // Add new URLs from input
+        const galleryUrlsInput = document.getElementById('service-gallery-urls');
+        if (galleryUrlsInput.value) {
+            const newUrls = galleryUrlsInput.value.split(',').map(u => u.trim()).filter(u => u);
+            gallery = [...gallery, ...newUrls];
+        }
+
+        // Add new files from input
+        const galleryFiles = document.getElementById('service-gallery-files');
         if (galleryFiles.files && galleryFiles.files.length > 0) {
             for (let i = 0; i < galleryFiles.files.length; i++) {
                 try {
@@ -406,6 +416,8 @@ export class AdminUI {
 
         this.loadData();
         e.target.reset();
+        this.editingGallery = [];
+        this.renderGalleryPreview();
         document.getElementById('editing-service-id').value = '';
         const formTitle = document.querySelector('#tab-services h3');
         if (formTitle) formTitle.innerHTML = '<span class="w-1 h-6 bg-accent-cyan rounded-full"></span> Novo Serviço';
@@ -422,7 +434,11 @@ export class AdminUI {
         document.getElementById('service-desc').value = item.description;
         document.getElementById('service-full-desc').value = item.full_description || '';
         document.getElementById('service-img').value = item.image.startsWith('data:') ? '' : item.image;
-        document.getElementById('service-gallery-urls').value = (item.gallery || []).filter(g => !g.startsWith('data:')).join(', ');
+        document.getElementById('service-gallery-urls').value = ''; // Clean URL input on edit
+
+        // Load Gallery into preview
+        this.editingGallery = item.gallery ? [...item.gallery] : [];
+        this.renderGalleryPreview();
 
         // Update Title UI
         const formTitle = document.querySelector('#tab-services h3');
@@ -430,6 +446,29 @@ export class AdminUI {
 
         // Scroll to form
         document.getElementById('service-form').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    static renderGalleryPreview() {
+        const preview = document.getElementById('service-gallery-preview');
+        if (!preview) return;
+
+        preview.innerHTML = this.editingGallery.map((img, idx) => `
+            <div class="relative w-16 h-16 rounded border border-glass-border overflow-hidden bg-white/5 group">
+                <img src="${img}" class="w-full h-full object-cover">
+                <button type="button" onclick="removeServiceGalleryItem(${idx})" class="absolute inset-0 bg-red-500/80 text-white opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        `).join('');
+
+        if (this.editingGallery.length === 0) {
+            preview.innerHTML = '<p class="text-text-muted text-[10px] uppercase tracking-widest italic">Nenhuma foto na galeria</p>';
+        }
+    }
+
+    static removeServiceGalleryItem(idx) {
+        this.editingGallery.splice(idx, 1);
+        this.renderGalleryPreview();
     }
 
     static async handleAddDirector(e) {
