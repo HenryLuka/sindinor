@@ -50,6 +50,32 @@ export class AdminUI {
     }
 
     static init() {
+        // Initialize Quill Editors
+        this.newsEditor = new Quill('#news-editor', {
+            theme: 'snow',
+            placeholder: 'Escreva o conteúdo da notícia aqui...',
+            modules: {
+                toolbar: [
+                    [{ 'header': [1, 2, 3, false] }],
+                    ['bold', 'italic', 'underline', 'strike'],
+                    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                    ['link', 'clean']
+                ]
+            }
+        });
+
+        this.serviceEditor = new Quill('#service-editor', {
+            theme: 'snow',
+            placeholder: 'Descrição completa do serviço...',
+            modules: {
+                toolbar: [
+                    ['bold', 'italic', 'underline'],
+                    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                    ['clean']
+                ]
+            }
+        });
+
         // Auth Check
         window.checkAuth = () => this.checkAuth();
         window.logout = () => this.logout();
@@ -350,7 +376,7 @@ export class AdminUI {
             title: document.getElementById('news-title').value,
             news_date: document.getElementById('news-date').value,
             img: imageSrc,
-            content: document.getElementById('news-content').value,
+            content: this.newsEditor.root.innerHTML,
             gallery: gallery
         };
 
@@ -358,6 +384,7 @@ export class AdminUI {
         alert('Notícia Publicada!');
         this.loadData();
         e.target.reset();
+        this.newsEditor.setText(''); // Reset editor
 
         // Reset Gallery
         this.editingNewsGallery = [];
@@ -476,7 +503,7 @@ export class AdminUI {
         const itemData = {
             title: document.getElementById('service-title').value,
             description: document.getElementById('service-desc').value,
-            full_description: document.getElementById('service-full-desc').value,
+            full_description: this.serviceEditor.root.innerHTML,
             image: imageSrc,
             gallery: gallery
         };
@@ -491,6 +518,7 @@ export class AdminUI {
 
         this.loadData();
         e.target.reset();
+        this.serviceEditor.setText(''); // Reset editor
         this.editingGallery = [];
         this.renderGalleryPreview();
         document.getElementById('editing-service-id').value = '';
@@ -507,7 +535,7 @@ export class AdminUI {
         document.getElementById('editing-service-id').value = item.id;
         document.getElementById('service-title').value = item.title;
         document.getElementById('service-desc').value = item.description;
-        document.getElementById('service-full-desc').value = item.full_description || '';
+        this.serviceEditor.root.innerHTML = item.full_description || '';
         document.getElementById('service-img').value = item.image.startsWith('data:') ? '' : item.image;
         document.getElementById('service-gallery-urls').value = ''; // Clean URL input on edit
 
