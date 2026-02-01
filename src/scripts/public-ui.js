@@ -80,7 +80,7 @@ export class PublicUI {
 
             // Inject 4 sets to ensure coverage and seamless loop with translateX(-50%)
             grid.innerHTML = setHtml + setHtml + setHtml + setHtml;
-            grid.className = 'flex items-center animate-marquee';
+            grid.className = 'flex items-center animate-marquee md:animate-marquee-slow';
         }
 
         // Definitive Footer Logo Fix (Ensure it works in all environments)
