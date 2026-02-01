@@ -260,8 +260,13 @@ export class FirestoreService {
 
     // --- NEWS ---
     static async getNews() {
-        // We can add sorting here if needed, e.g., orderBy('date', 'desc')
-        return this._getAll(COLLECTIONS.NEWS);
+        const news = await this._getAll(COLLECTIONS.NEWS);
+        // Sort by date descending (Newest first)
+        return news.sort((a, b) => {
+            const dateA = new Date(a.news_date || a.date || 0);
+            const dateB = new Date(b.news_date || b.date || 0);
+            return dateB - dateA;
+        });
     }
 
     static async addNews(item) {
