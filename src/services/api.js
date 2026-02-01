@@ -6,21 +6,43 @@ const DB = FirestoreService;
 
 export class ApiService {
 
+    // --- HELPERS ---
+    static _fixPath(item) {
+        if (!item) return item;
+        const fix = (str) => {
+            if (typeof str === 'string' && str.startsWith('assets/')) {
+                return '/' + str;
+            }
+            return str;
+        };
+
+        if (Array.isArray(item)) {
+            return item.map(i => this._fixPath(i));
+        }
+
+        const newItem = { ...item };
+        // Common image fields
+        if (newItem.image) newItem.image = fix(newItem.image);
+        if (newItem.image_url) newItem.image_url = fix(newItem.image_url);
+        if (newItem.img) newItem.img = fix(newItem.img);
+        if (newItem.logo) newItem.logo = fix(newItem.logo);
+
+        // Gallery arrays
+        if (newItem.gallery && Array.isArray(newItem.gallery)) {
+            newItem.gallery = newItem.gallery.map(img => fix(img));
+        }
+
+        return newItem;
+    }
+
     // --- NEWS ---
     static async getNews() {
-        // Trigger seed check on first load of common data
-        // Ideally this should be in an App.init() but here works for now
-        // We can add a simple check to avoid running it every time if needed, 
-        // but the service check is relatively cheap (just reads).
-        // For optimization, we could cache "initialized" state in memory.
         if (!window.dbInitialized) {
             await DB.seedDatabase();
             window.dbInitialized = true;
         }
-
-        // Simulate network delay for realism (optional, Firebase has its own)
-        // await new Promise(r => setTimeout(r, 300));
-        return DB.getNews();
+        const data = await DB.getNews();
+        return this._fixPath(data);
     }
 
     static async addNews(item) {
@@ -33,7 +55,8 @@ export class ApiService {
 
     // --- PARTNERS ---
     static async getPartners() {
-        return DB.getPartners();
+        const data = await DB.getPartners();
+        return this._fixPath(data);
     }
 
     static async addPartner(item) {
@@ -46,7 +69,8 @@ export class ApiService {
 
     // --- SERVICES ---
     static async getServices() {
-        return DB.getServices();
+        const data = await DB.getServices();
+        return this._fixPath(data);
     }
 
     static async addService(item) {
@@ -63,7 +87,8 @@ export class ApiService {
 
     // --- DIRECTORS ---
     static async getDirectors() {
-        return DB.getDirectors();
+        const data = await DB.getDirectors();
+        return this._fixPath(data);
     }
 
     static async addDirector(item) {
