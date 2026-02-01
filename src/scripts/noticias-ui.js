@@ -38,7 +38,7 @@ export class NoticiasUI {
                                 <span class="text-accent-cyan text-xs font-bold uppercase tracking-widest"><i class="far fa-calendar-alt mr-1"></i> ${n.news_date || n.date || 'Recente'}</span>
                             </div>
                             <h3 class="font-heading text-xl font-bold text-white mb-6 leading-tight group-hover:text-accent-cyan transition-colors line-clamp-3">${n.title}</h3>
-                            <a href="${n.external_link || n.link || '#'}" target="_blank" class="inline-flex items-center gap-2 text-white font-bold text-sm hover:text-accent-cyan transition-colors border-b-2 border-accent-cyan/20 pb-1 hover:border-accent-cyan">
+                            <a href="noticia.html?id=${n.id}" class="inline-flex items-center gap-2 text-white font-bold text-sm hover:text-accent-cyan transition-colors border-b-2 border-accent-cyan/20 pb-1 hover:border-accent-cyan">
                                 Ler Matéria Completa <i class="fas fa-arrow-right text-xs"></i>
                             </a>
                         </div>

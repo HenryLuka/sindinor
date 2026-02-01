@@ -67,6 +67,7 @@ export class AdminUI {
         window.deleteDirector = (id) => this.deleteDirector(id);
         window.editService = (id) => this.editService(id);
         window.removeServiceGalleryItem = (idx) => this.removeServiceGalleryItem(idx);
+        window.removeNewsGalleryItem = (idx) => this.removeNewsGalleryItem(idx);
         window.handleDeleteRequest = (id) => this.handleDeleteRequest(id);
 
         // Event Listeners
@@ -97,6 +98,7 @@ export class AdminUI {
         document.getElementById('auth-overlay').style.display = 'none';
         document.getElementById('admin-content').style.display = 'flex';
         this.loadData();
+        this.switchTab('news');
     }
 
     static logout() {
@@ -283,6 +285,8 @@ export class AdminUI {
         }
     }
 
+    static editingNewsGallery = [];
+
     static async handleAddNews(e) {
         e.preventDefault();
 
@@ -299,21 +303,71 @@ export class AdminUI {
                 return;
             }
         } else if (!imageSrc) {
-            // Fallback handling or empty allowed? Let's check require
             imageSrc = 'assets/news-placeholder.jpg';
+        }
+
+        // Gallery processing
+        let gallery = [...this.editingNewsGallery];
+
+        // Add new URLs from input
+        const galleryUrlsInput = document.getElementById('news-gallery-urls');
+        if (galleryUrlsInput && galleryUrlsInput.value) {
+            const newUrls = galleryUrlsInput.value.split(',').map(u => u.trim()).filter(u => u);
+            gallery = [...gallery, ...newUrls];
+        }
+
+        // Add new files from input
+        const galleryFiles = document.getElementById('news-gallery-files');
+        if (galleryFiles && galleryFiles.files && galleryFiles.files.length > 0) {
+            for (let i = 0; i < galleryFiles.files.length; i++) {
+                try {
+                    const base64 = await this.readFileAsBase64(galleryFiles.files[i]);
+                    gallery.push(base64);
+                } catch (err) {
+                    console.error('Error reading gallery file', err);
+                }
+            }
         }
 
         const newItem = {
             title: document.getElementById('news-title').value,
-            date: document.getElementById('news-date').value,
+            news_date: document.getElementById('news-date').value,
             img: imageSrc,
-            link: document.getElementById('news-link').value
+            content: document.getElementById('news-content').value,
+            gallery: gallery
         };
 
         await ApiService.addNews(newItem);
         alert('Notícia Publicada!');
         this.loadData();
         e.target.reset();
+
+        // Reset Gallery
+        this.editingNewsGallery = [];
+        this.renderNewsGalleryPreview();
+    }
+
+    static renderNewsGalleryPreview() {
+        const preview = document.getElementById('news-gallery-preview');
+        if (!preview) return;
+
+        preview.innerHTML = this.editingNewsGallery.map((img, idx) => `
+            <div class="relative w-16 h-16 rounded border border-glass-border overflow-hidden bg-white/5 group">
+                <img src="${img}" class="w-full h-full object-cover">
+                <button type="button" onclick="removeNewsGalleryItem(${idx})" class="absolute inset-0 bg-red-500/80 text-white opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        `).join('');
+
+        if (this.editingNewsGallery.length === 0) {
+            preview.innerHTML = '<p class="text-text-muted text-[10px] uppercase tracking-widest italic">Nenhuma foto na galeria</p>';
+        }
+    }
+
+    static removeNewsGalleryItem(idx) {
+        this.editingNewsGallery.splice(idx, 1);
+        this.renderNewsGalleryPreview();
     }
 
     static async handleAddPartner(e) {

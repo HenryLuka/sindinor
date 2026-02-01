@@ -45,3 +45,32 @@
 .delay-300 {
     animation-delay: 0.3s;
 }
+
+/* Scrollbar Hiding Utilities */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Vertical Marquee for News Sidebar */
+@keyframes marqueeVertical {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-50%);
+    }
+}
+
+.animate-marquee-vertical {
+    animation: marqueeVertical 20s linear infinite;
+}
+
+.animate-marquee-vertical:hover {
+    animation-play-state: paused;
+}

@@ -114,7 +114,7 @@ export class PublicUI {
                                 <span class="text-gray-400 text-xs font-bold uppercase tracking-widest">${n.news_date || n.date || 'Recent'}</span>
                             </div>
                             <h3 class="font-heading text-xl font-bold text-white mb-4 leading-tight group-hover:text-accent-cyan transition-colors line-clamp-2">${n.title}</h3>
-                            <a href="${n.external_link || n.link || '#'}" class="text-sm font-bold text-gray-400 hover:text-white uppercase tracking-widest transition-colors flex items-center gap-2">
+                            <a href="noticia.html?id=${n.id}" class="text-sm font-bold text-gray-400 hover:text-white uppercase tracking-widest transition-colors flex items-center gap-2">
                                 Ler Artigo <span class="text-accent-cyan">→</span>
                             </a>
                         </div>

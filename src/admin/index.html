@@ -65,65 +65,101 @@
     <div id="toast-container" class="fixed top-5 right-5 z-[10000] flex flex-col gap-3"></div>
 
     <!-- Admin Content -->
-    <div class="flex min-h-screen" id="admin-content" style="display: none;">
+    <div class="flex flex-col md:flex-row min-h-screen" id="admin-content" style="display: none;">
+
+        <!-- Mobile Header (Visible only on mobile) -->
+        <header
+            class="md:hidden bg-secondary-dark border-b border-glass-border p-4 flex justify-between items-center fixed top-0 w-full z-50">
+            <div class="flex items-center gap-2">
+                <img src="../assets/favicon.png" alt="SINDINOR" class="h-8 md:h-10">
+                <span class="font-heading font-black text-white text-lg tracking-wider">ADMIN</span>
+            </div>
+            <button onclick="toggleSidebar()" class="text-white text-2xl focus:outline-none">
+                <i class="fas fa-bars"></i>
+            </button>
+        </header>
+
+        <!-- Sidebar Overlay (Mobile) -->
+        <div id="sidebar-overlay" onclick="toggleSidebar()"
+            class="fixed inset-0 bg-black/80 z-40 hidden md:hidden transition-opacity duration-300 opacity-0"></div>
 
         <!-- Sidebar -->
-        <aside class="fixed h-screen w-72 bg-secondary-dark border-r border-glass-border flex flex-col p-6 z-40">
-            <div class="flex items-center gap-3 font-extrabold text-accent-cyan mb-10 text-xl tracking-wider">
-                <span>Painel Admin</span>
+        <aside id="admin-sidebar"
+            class="fixed inset-y-0 left-0 z-50 w-72 bg-secondary-dark border-r border-glass-border flex flex-col p-6 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out md:static md:h-screen">
+            <div class="flex items-center justify-between mb-10">
+                <div class="flex items-center gap-3 font-extrabold text-accent-cyan text-xl tracking-wider">
+                    <span>Painel Admin</span>
+                </div>
+                <!-- Close Button (Mobile only) -->
+                <button onclick="toggleSidebar()" class="md:hidden text-text-muted hover:text-white">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
             </div>
 
-            <nav class="flex flex-col gap-2 flex-grow">
+            <nav class="flex flex-col gap-2 flex-grow overflow-y-auto">
                 <button
-                    class="nav-btn group flex items-center gap-4 p-3 rounded-lg text-text-muted hover:bg-glass-bg hover:text-accent-cyan transition-all duration-300 text-left border-r-2 border-transparent hover:border-accent-cyan active"
-                    onclick="switchTab('news')">
-                    <i class="fas fa-newspaper text-lg group-hover:scale-110 transition-transform"></i>
+                    class="nav-btn active group flex items-center gap-4 p-3 rounded-lg text-text-muted hover:bg-glass-bg hover:text-accent-cyan transition-all duration-300 text-left border-r-2 border-transparent hover:border-accent-cyan"
+                    onclick="switchTab('news'); if(window.innerWidth < 768) toggleSidebar()">
+                    <i class="fas fa-newspaper text-lg group-hover:scale-110 transition-transform w-6 text-center"></i>
                     <span class="font-medium">Notícias</span>
                 </button>
                 <button
                     class="nav-btn group flex items-center gap-4 p-3 rounded-lg text-text-muted hover:bg-glass-bg hover:text-accent-cyan transition-all duration-300 text-left border-r-2 border-transparent hover:border-accent-cyan"
-                    onclick="switchTab('partners')">
-                    <i class="fas fa-handshake text-lg group-hover:scale-110 transition-transform"></i>
+                    onclick="switchTab('requests'); if(window.innerWidth < 768) toggleSidebar()">
+                    <i
+                        class="fas fa-envelope-open-text text-lg group-hover:scale-110 transition-transform w-6 text-center"></i>
+                    <span class="font-medium">Solicitações</span>
+                </button>
+                <button
+                    class="nav-btn group flex items-center gap-4 p-3 rounded-lg text-text-muted hover:bg-glass-bg hover:text-accent-cyan transition-all duration-300 text-left border-r-2 border-transparent hover:border-accent-cyan"
+                    onclick="switchTab('partners'); if(window.innerWidth < 768) toggleSidebar()">
+                    <i class="fas fa-handshake text-lg group-hover:scale-110 transition-transform w-6 text-center"></i>
                     <span class="font-medium">Mantenedores</span>
                 </button>
                 <button
                     class="nav-btn group flex items-center gap-4 p-3 rounded-lg text-text-muted hover:bg-glass-bg hover:text-accent-cyan transition-all duration-300 text-left border-r-2 border-transparent hover:border-accent-cyan"
-                    onclick="switchTab('services')">
-                    <i class="fas fa-cogs text-lg group-hover:scale-110 transition-transform"></i>
+                    onclick="switchTab('services'); if(window.innerWidth < 768) toggleSidebar()">
+                    <i class="fas fa-cogs text-lg group-hover:scale-110 transition-transform w-6 text-center"></i>
                     <span class="font-medium">Serviços</span>
                 </button>
                 <button
                     class="nav-btn group flex items-center gap-4 p-3 rounded-lg text-text-muted hover:bg-glass-bg hover:text-accent-cyan transition-all duration-300 text-left border-r-2 border-transparent hover:border-accent-cyan"
-                    onclick="switchTab('directors')">
-                    <i class="fas fa-user-tie text-lg group-hover:scale-110 transition-transform"></i>
+                    onclick="switchTab('directors'); if(window.innerWidth < 768) toggleSidebar()">
+                    <i class="fas fa-user-tie text-lg group-hover:scale-110 transition-transform w-6 text-center"></i>
                     <span class="font-medium">Diretoria</span>
-                </button>
-                <button
-                    class="nav-btn group flex items-center gap-4 p-3 rounded-lg text-text-muted hover:bg-glass-bg hover:text-accent-cyan transition-all duration-300 text-left border-r-2 border-transparent hover:border-accent-cyan"
-                    onclick="switchTab('requests')">
-                    <i class="fas fa-envelope-open-text text-lg group-hover:scale-110 transition-transform"></i>
-                    <span class="font-medium">Solicitações</span>
                 </button>
 
 
                 <button
                     class="mt-auto flex items-center gap-4 p-3 rounded-lg text-red-500 hover:bg-red-500/10 transition-all duration-300 text-left"
                     onclick="logout()">
-                    <i class="fas fa-sign-out-alt text-lg"></i>
+                    <i class="fas fa-sign-out-alt text-lg w-6 text-center"></i>
                     <span class="font-bold">Sair</span>
                 </button>
             </nav>
 
             <div class="mt-6 pt-6 border-t border-glass-border">
-                <a href="../index.html" target="_blank"
-                    class="text-xs text-text-muted hover:text-white uppercase tracking-widest flex items-center gap-2">
+                <a href="../index.html"
+                    class="text-xs text-text-muted hover:text-white uppercase tracking-widest flex items-center gap-2 justify-center md:justify-start">
                     Ver Site <span class="text-accent-cyan">↗</span>
                 </a>
             </div>
         </aside>
 
         <!-- Main Content -->
-        <main class="ml-72 flex-grow p-10">
+        <main class="w-full md:ml-72 flex-grow p-4 pt-24 md:p-10">
+
+            <!-- Requests Tab (Moved to top for layout fix) -->
+            <div id="tab-requests" class="tab-content hidden">
+                <header class="mb-4 border-b border-glass-border pb-4">
+                    <h2 class="font-heading text-2xl font-bold text-white uppercase tracking-wider mb-1">Solicitações
+                    </h2>
+                    <p class="text-text-muted text-sm">Gerencie os novos pedidos.</p>
+                </header>
+
+                <div id="requests-list" class="grid gap-4">
+                </div>
+            </div>
 
             <!-- News Tab -->
             <div id="tab-news" class="tab-content active hidden">
@@ -133,10 +169,10 @@
                     <p class="text-text-muted">Publique atualizações e novidades do setor.</p>
                 </header>
 
-                <div class="grid grid-cols-[380px_1fr] gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-[380px_1fr] gap-8">
                     <!-- Form -->
                     <div
-                        class="bg-glass-bg backdrop-blur-md border border-glass-border rounded-xl p-6 h-fit sticky top-10">
+                        class="bg-glass-bg backdrop-blur-md border border-glass-border rounded-xl p-6 h-fit static md:sticky md:top-10">
                         <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
                             <span class="w-1 h-6 bg-accent-cyan rounded-full"></span> Nova Notícia
                         </h3>
@@ -156,9 +192,11 @@
                                 </div>
                                 <div>
                                     <label
-                                        class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Link</label>
-                                    <input type="text" id="news-link" placeholder="#"
-                                        class="w-full bg-primary-dark border border-glass-border rounded p-3 text-white focus:border-accent-cyan outline-none transition">
+                                        class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Conteúdo
+                                        da Notícia</label>
+                                    <textarea id="news-content" rows="6"
+                                        placeholder="Escreva o conteúdo da notícia aqui... (HTML é permitido)"
+                                        class="w-full bg-primary-dark border border-glass-border rounded p-3 text-white focus:border-accent-cyan outline-none transition"></textarea>
                                 </div>
                             </div>
                             <div>
@@ -170,6 +208,21 @@
                                 <input type="file" id="news-file" accept="image/*"
                                     class="w-full bg-primary-dark border border-glass-border rounded p-2 text-white text-xs focus:border-accent-cyan outline-none transition file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-accent-cyan file:text-primary-dark hover:file:bg-white">
                             </div>
+
+                            <!-- News Gallery Input -->
+                            <div>
+                                <label
+                                    class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Galeria
+                                    (URLs separadas por vírgula ou arraste vários arquivos)</label>
+                                <input type="text" id="news-gallery-urls" placeholder="url1, url2, ..."
+                                    class="w-full bg-primary-dark border border-glass-border rounded p-3 text-white text-sm focus:border-accent-cyan outline-none transition mb-2">
+                                <input type="file" id="news-gallery-files" accept="image/*" multiple
+                                    class="w-full bg-primary-dark border border-glass-border rounded p-2 text-white text-xs focus:border-accent-cyan outline-none transition file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-accent-cyan file:text-primary-dark hover:file:bg-white">
+                                <div id="news-gallery-preview" class="flex flex-wrap gap-2 mt-4 min-h-[50px]">
+                                    <!-- Dynamic previews here -->
+                                </div>
+                            </div>
+
                             <button type="submit"
                                 class="w-full bg-accent-cyan text-primary-dark font-bold py-3 rounded uppercase tracking-widest hover:bg-white hover:shadow-[0_0_15px_rgba(0,242,255,0.5)] transition-all duration-300 mt-4">
                                 Publicar
@@ -194,7 +247,7 @@
                     </h2>
                     <p class="text-text-muted">Gerencie as empresas parceiras em destaque.</p>
                 </header>
-                <div class="grid grid-cols-[350px_1fr] gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-[350px_1fr] gap-8">
                     <div class="bg-glass-bg backdrop-blur-md border border-glass-border rounded-xl p-6 h-fit">
                         <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
                             <span class="w-1 h-6 bg-accent-cyan rounded-full"></span> Novo Parceiro
@@ -248,9 +301,9 @@
                     <h2 class="font-heading text-3xl font-bold text-white uppercase tracking-wider mb-2">Nossos Serviços
                     </h2>
                 </header>
-                <div class="grid grid-cols-[380px_1fr] gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-[380px_1fr] gap-8">
                     <div
-                        class="bg-glass-bg backdrop-blur-md border border-glass-border rounded-xl p-6 h-fit sticky top-10">
+                        class="bg-glass-bg backdrop-blur-md border border-glass-border rounded-xl p-6 h-fit static md:sticky md:top-10">
                         <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
                             <span class="w-1 h-6 bg-accent-cyan rounded-full"></span> Novo Serviço
                         </h3>
@@ -314,7 +367,7 @@
                 <header class="mb-8 border-b border-glass-border pb-6">
                     <h2 class="font-heading text-3xl font-bold text-white uppercase tracking-wider mb-2">Diretoria</h2>
                 </header>
-                <div class="grid grid-cols-[350px_1fr] gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-[350px_1fr] gap-8">
                     <div class="bg-glass-bg backdrop-blur-md border border-glass-border rounded-xl p-6 h-fit">
                         <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
                             <span class="w-1 h-6 bg-accent-cyan rounded-full"></span> Novo Membro
@@ -357,28 +410,31 @@
                     </div>
                 </div>
                 <div>
-                    <div id="directors-list" class="grid gap-4"></div>
+                    <div id="directors-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
                 </div>
             </div>
     </div>
 
-    <!-- Requests Tab -->
-    <div id="tab-requests" class="tab-content hidden">
-        <header class="mb-8 border-b border-glass-border pb-6">
-            <h2 class="font-heading text-3xl font-bold text-white uppercase tracking-wider mb-2">Solicitações de
-                Associação</h2>
-            <p class="text-text-muted">Gerencie os pedidos de novos associados vindos do site.</p>
-        </header>
-
-        <div id="requests-list" class="grid gap-6">
-            <!-- Cards injected by JS -->
-        </div>
-    </div>
-    </main>
-    </div>
-
     <!-- Inject JS to update list HTML structure -->
     <script type="module" src="../scripts/admin-ui.js"></script>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('admin-sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+
+            if (sidebar.classList.contains('-translate-x-full')) {
+                // Open
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+                setTimeout(() => overlay.classList.remove('opacity-0'), 10);
+            } else {
+                // Close
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('opacity-0');
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+            }
+        }
+    </script>
 </body>
 
 </html>

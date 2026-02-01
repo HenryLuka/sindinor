@@ -41,18 +41,56 @@ const SEED_GENERAL = {
 // Seed Data
 const SEED_NEWS = [
     {
+        id: '3',
+        title: 'SINDINOR Inaugura Nova Sede Operacional em Montes Claros',
+        news_date: '2025-11-05',
+        image_url: 'assets/hero_mobile.png',
+        content: `
+            <p class="mb-4">É com grande satisfação que o SINDINOR anuncia a inauguração de sua nova sede operacional em Montes Claros. O espaço, totalmente modernizado, foi projetado para oferecer mais conforto e agilidade no atendimento aos nossos associados.</p>
+            
+            <h3 class="text-xl font-bold text-secondary-dark mt-6 mb-3">Infraestrutura Moderna</h3>
+            <p class="mb-4">A nova estrutura conta com auditório com capacidade para 50 pessoas, ideal para cursos e capacitações, além de salas de reunião equipadas com videoconferência e um setor exclusivo para o atendimento do RNTRC e Despoluir, garantindo mais privacidade e eficiência nos processos.</p>
+            
+            <p class="mb-4">Segundo o presidente Antônio Henrique Sapori, <em class="text-gray-600">"esta conquista representa o crescimento e a solidez do nosso sindicato, que há mais de 35 anos trabalha pelo fortalecimento do transporte no Norte de Minas. Queremos que o associado se sinta em casa."</em></p>
+            
+            <h3 class="text-xl font-bold text-secondary-dark mt-6 mb-3">Localização Estratégica</h3>
+            <p class="mb-4">Localizada no coração da cidade, a nova sede possui fácil acesso e estacionamento conveniado. Convidamos todos os associados para um café de boas-vindas e para conhecerem as novas instalações e desfrutarem deste espaço que é de todos nós.</p>
+            
+            <div class="bg-gray-100 p-4 rounded-lg border-l-4 border-accent-cyan mt-6">
+                <strong>Visite-nos:</strong><br>
+                Avenida Doutor João Luiz de Almeida, 881 - Sala 102<br>
+                Centro – Montes Claros – MG<br>
+                Horário: 08h às 18h
+            </div>
+        `,
+        gallery: [
+            'assets/hero_mobile.png',
+            'assets/uploaded_media_1769708685255.png',
+            'assets/hero_truck_clean_hd_1769714783769.png'
+        ]
+    },
+    {
         id: '1',
         title: 'SINDINOR promove encontro sobre RNTRC',
         news_date: '2025-10-24',
         image_url: 'assets/uploaded_media_1769708685255.png',
-        external_link: '#'
+        content: `
+            <p>O SINDINOR realizou nesta semana um importante encontro com transportadores da região para discutir as novas diretrizes do Registro Nacional de Transportadores Rodoviários de Cargas (RNTRC).</p>
+            <p>O evento contou com a presença de especialistas da ANTT e representantes do setor, que esclareceram dúvidas sobre o recadastramento e as novas exigências para manutenção da regularidade.</p>
+            <p>Durante a palestra, foram abordados temas como fiscalização eletrônica, vale-pedágio obrigatório e os benefícios da profissionalização do setor. O presidente do SINDINOR destacou a importância de manter a documentação em dia para evitar multas e garantir a competitividade no mercado.</p>
+            <p>Os associados que não puderam comparecer podem retirar o material informativo na sede do sindicato ou acessar a área restrita do site para mais detalhes.</p>
+        `
     },
     {
         id: '2',
         title: 'Nova frota sustentável com Selo Verde',
         news_date: '2025-09-15',
         image_url: 'assets/hero_truck_clean_hd_1769714783769.png',
-        external_link: '#'
+        content: `
+            <p>Empresas associadas ao SINDINOR estão liderando o caminho para um transporte mais sustentável no Norte de Minas. Graças ao Programa Despoluir, diversas transportadoras receberam este mês o Selo Verde de aprovação nos testes de emissão de poluentes.</p>
+            <p>O programa, que é gratuito para associados, visa reduzir o impacto ambiental do transporte rodoviário de cargas e promover a economia de combustível através da manutenção preventiva.</p>
+            <p>Além da certificação ambiental, as empresas participantes relataram uma redução média de 10% no consumo de diesel após as adequações sugeridas pelos técnicos do Despoluir. Isso demonstra que sustentabilidade e eficiência econômica caminham juntas.</p>
+        `
     }
 ];
 
@@ -111,12 +149,12 @@ const SEED_SERVICES = [
 ];
 
 const SEED_DIRECTORS = [
-    { id: '1', name: 'Antônio Henrique Sapori', role: 'Presidente', company: 'Rodonasa Cargas', image: 'assets/member_placeholder_1769715974165.png' },
-    { id: '2', name: 'Lucio Bento Fagundes Junior', role: 'Secretário', company: 'Rápido Montes Claros', image: 'assets/member_placeholder_1769715974165.png' },
-    { id: '3', name: 'Paulo Roberto de Almeida', role: 'Tesoureiro', company: 'Transportadora Januária', image: 'assets/member_placeholder_1769715974165.png' },
-    { id: '4', name: 'Antônio Sapori', role: 'Conselho Fiscal Efetivo', company: 'Transnorte Cargas', image: 'assets/member_placeholder_1769715974165.png' },
-    { id: '5', name: 'Jorge Antônio dos Santos', role: 'Conselho Fiscal Efetivo', company: 'JLSI Logística', image: 'assets/member_placeholder_1769715974165.png' },
-    { id: '6', name: 'Antônio Henrique Sapori Filho', role: 'Conselho Fiscal Suplente', company: 'PraMinas Log', image: 'assets/member_placeholder_1769715974165.png' }
+    { id: '1', name: 'Antônio Henrique Sapori', role: 'Presidente', company: 'Rodonasa Cargas', image: '../assets/member_placeholder_1769715974165.png' },
+    { id: '2', name: 'Lucio Bento Fagundes Junior', role: 'Secretário', company: 'Rápido Montes Claros', image: '../assets/member_placeholder_1769715974165.png' },
+    { id: '3', name: 'Paulo Roberto de Almeida', role: 'Tesoureiro', company: 'Transportadora Januária', image: '../assets/member_placeholder_1769715974165.png' },
+    { id: '4', name: 'Antônio Sapori', role: 'Conselho Fiscal Efetivo', company: 'Transnorte Cargas', image: '../assets/member_placeholder_1769715974165.png' },
+    { id: '5', name: 'Jorge Antônio dos Santos', role: 'Conselho Fiscal Efetivo', company: 'JLSI Logística', image: '../assets/member_placeholder_1769715974165.png' },
+    { id: '6', name: 'Antônio Henrique Sapori Filho', role: 'Conselho Fiscal Suplente', company: 'PraMinas Log', image: '../assets/member_placeholder_1769715974165.png' }
 ];
 
 export class StorageService {
@@ -142,6 +180,7 @@ export class StorageService {
     static addNews(item) {
         const list = this.getNews();
         item.id = Date.now().toString(); // Simple ID
+        item.gallery = item.gallery || []; // Ensure gallery exists
         list.unshift(item); // Add to top
         this._set(KEYS.NEWS, list);
         return item;
@@ -271,7 +310,18 @@ export class StorageService {
 
     // --- REQUESTS ---
     static getRequests() {
-        return this._get(KEYS.REQUESTS, []);
+        return this._get(KEYS.REQUESTS, [
+            {
+                id: '1',
+                company: 'Transportadora Exemplo Ltda',
+                cnpj: '12.345.678/0001-90',
+                city: 'Montes Claros/MG',
+                name: 'João da Silva',
+                role: 'Gerente Operacional',
+                phone: '(38) 99999-8888',
+                date: new Date().toISOString()
+            }
+        ]);
     }
 
     static addRequest(item) {

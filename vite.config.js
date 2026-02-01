@@ -14,6 +14,7 @@ export default defineConfig({
                 main: resolve(__dirname, 'src/index.html'),
                 admin: resolve(__dirname, 'src/admin/index.html'),
                 noticias: resolve(__dirname, 'src/noticias.html'),
+                noticia: resolve(__dirname, 'src/noticia.html'),
                 parceiro: resolve(__dirname, 'src/parceiro.html'),
                 servico: resolve(__dirname, 'src/servico.html')
             }
