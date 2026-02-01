@@ -17,7 +17,7 @@ import{A as o}from"./api-DmmwYfu8.js";class g{static async init(){await this.ren
                      ${s.logo?`<img src="${s.logo}" alt="${s.name}" class="h-24 w-auto object-contain">`:`<span class="text-4xl font-black text-gray-500 group-hover:text-white uppercase tracking-tighter transition-colors select-none">${s.name}</span>`}
                 </a>
             `).join("")}</div>`;a.innerHTML=new Array(12).fill(n).join(""),a.className="flex items-center w-max animate-marquee md:animate-marquee-slow"}const e=document.querySelector("footer img");e&&(e.onerror=()=>{e.src="assets/favicon.png"},e.src="assets/favicon.png")}static async renderNews(){const t=await o.getNews(),a=document.getElementById("news-grid");a&&t.length>0&&(a.innerHTML="",t.slice(0,3).forEach(r=>{a.innerHTML+=`
-                    <article class="bg-primary-dark rounded-lg overflow-hidden group hover:-translate-y-2 transition-all duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.5)] border border-glass-border">
+                    <a href="/noticia?id=${r.id}" class="block bg-primary-dark rounded-lg overflow-hidden group hover:-translate-y-2 transition-all duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.5)] border border-glass-border">
                         <div class="h-56 bg-cover bg-center group-hover:scale-110 transition-transform duration-700 relative" style="background-image: url('${r.image_url||r.img||"assets/news-placeholder.jpg"}');">
                              <div class="absolute inset-0 bg-black/40 group-hover:bg-transparent transition-colors"></div>
                         </div>
@@ -27,11 +27,11 @@ import{A as o}from"./api-DmmwYfu8.js";class g{static async init(){await this.ren
                                 <span class="text-gray-400 text-xs font-bold uppercase tracking-widest">${r.news_date||r.date||"Recent"}</span>
                             </div>
                             <h3 class="font-heading text-xl font-bold text-white mb-4 leading-tight group-hover:text-accent-cyan transition-colors line-clamp-2">${r.title}</h3>
-                            <a href="noticia.html?id=${r.id}" class="text-sm font-bold text-gray-400 hover:text-white uppercase tracking-widest transition-colors flex items-center gap-2">
+                            <div class="text-sm font-bold text-gray-400 group-hover:text-white uppercase tracking-widest transition-colors flex items-center gap-2">
                                 Ler Artigo <span class="text-accent-cyan">→</span>
-                            </a>
+                            </div>
                         </div>
-                    </article>
+                    </a>
                 `}))}static async renderServices(){const t=await o.getServices(),a=document.getElementById("services-grid");a&&t.length>0&&(a.innerHTML="",t.forEach(e=>{const r=e.icon?`<i class="fas ${e.icon} text-4xl text-accent-cyan group-hover:scale-110 transition-transform"></i>`:`<img src="${e.image}" alt="${e.title}" class="w-8 h-8 filter invert group-hover:invert-0 transition-all">`,n=e.icon?`<i class="fas ${e.icon} text-9xl"></i>`:`<img src="${e.image}" class="w-24 h-24 filter invert opacity-50">`;a.innerHTML+=`
                     <a href="servico.html?id=${e.id}" class="bg-secondary-dark rounded-lg p-8 hover:-translate-y-2 transition-transform duration-300 relative overflow-hidden group shadow-lg block">
                          <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity pointer-events-none text-white">
