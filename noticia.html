@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SINDINOR - Notícia</title>
+    <link rel="icon" type="image/png" href="/sindinor/assets/favicon-CCbc98je.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-dark': '#020408',
+                        'secondary-dark': '#0a111a',
+                        'accent-cyan': '#00f2ff',
+                        'accent-blue': '#0051ff',
+                        'text-main': '#f0f4f8',
+                    },
+                    fontFamily: {
+                        heading: ['Montserrat', 'sans-serif'],
+                        body: ['Outfit', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+  <script type="module" crossorigin src="/sindinor/assets/noticia-1CGHoqgS.js"></script>
+  <link rel="modulepreload" crossorigin href="/sindinor/assets/api-CKE281IM.js">
+  <link rel="stylesheet" crossorigin href="/sindinor/assets/api-D7CJ_2I4.css">
+</head>
+
+<body class="bg-primary-dark text-text-main font-body selection:bg-accent-cyan selection:text-black">
+
+    <!-- Navigation -->
+    <header id="navbar" class="fixed w-full z-50 bg-secondary-dark/95 shadow-lg">
+        <div class="container mx-auto px-6 h-20 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="/sindinor/assets/favicon-CCbc98je.png" alt="SINDINOR" class="h-10 w-auto filter drop-shadow-md">
+                <span class="font-heading font-black text-2xl tracking-wider text-white">SINDINOR</span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden md:flex gap-8 items-center">
+                <a href="index.html#inicio"
+                    class="text-xs font-bold uppercase tracking-widest text-white/90 hover:text-accent-cyan transition-colors">Voltar
+                    para Home</a>
+                <a href="noticias.html"
+                    class="text-xs font-bold uppercase tracking-widest text-accent-cyan transition-colors">Todas as
+                    Notícias</a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-white text-3xl" onclick="window.location.href='index.html'">☰</button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pt-32 pb-24 min-h-screen">
+        <div class="container mx-auto px-6">
+
+            <div id="loading" class="text-center py-20 hidden">
+                <i class="fas fa-circle-notch fa-spin text-4xl text-accent-cyan mb-4"></i>
+                <p class="text-gray-500 uppercase tracking-widest text-xs">Carregando Notícia...</p>
+            </div>
+
+            <div id="news-content" class="grid lg:grid-cols-[1fr_350px] gap-12 animate-fade-in-up hidden">
+
+                <!-- Article -->
+                <article>
+                    <header class="mb-8">
+                        <div
+                            class="flex items-center gap-2 text-accent-cyan text-xs font-bold uppercase tracking-widest mb-4">
+                            <a href="index.html" class="hover:underline">Início</a>
+                            <span>/</span>
+                            <a href="noticias.html" class="hover:underline">Notícias</a>
+                        </div>
+                        <h1 id="news-title"
+                            class="font-heading font-black text-3xl md:text-5xl text-white mb-6 leading-tight">
+                            <!-- Title injected via JS -->
+                        </h1>
+                        <div class="flex items-center gap-4 text-gray-400 text-sm">
+                            <span id="news-date" class="flex items-center gap-2">
+                                <i class="far fa-calendar"></i> <!-- Date injected via JS -->
+                            </span>
+                            <span class="flex items-center gap-2">
+                                <i class="far fa-user"></i> Por Assessoria
+                            </span>
+                        </div>
+                    </header>
+
+                    <div class="rounded-2xl overflow-hidden mb-10 border border-glass-border shadow-2xl">
+                        <img id="news-image" src="" alt="Capa da Notícia"
+                            class="w-full h-auto object-cover max-h-[500px]">
+                    </div>
+
+                    <div id="news-body" class="prose prose-invert prose-lg max-w-none text-gray-300 leading-relaxed">
+                        <!-- Content injected via JS -->
+                    </div>
+
+                    <!-- Photo Gallery Section -->
+                    <div id="news-gallery-section" class="hidden mt-12 pt-8 border-t border-glass-border">
+                        <h3 class="font-heading font-bold text-2xl text-white mb-6 border-l-4 border-accent-cyan pl-3">
+                            Galeria de Fotos
+                        </h3>
+                        <div id="news-gallery-grid" class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            <!-- Photos injected via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Share -->
+                    <div class="mt-12 pt-8 border-t border-glass-border">
+                        <h4 class="font-bold text-white mb-4">Compartilhar esta notícia:</h4>
+                        <div class="flex gap-4">
+                            <a href="#"
+                                class="w-10 h-10 rounded-full bg-secondary-dark flex items-center justify-center text-gray-400 hover:bg-accent-blue hover:text-white transition-all"><i
+                                    class="fab fa-facebook-f"></i></a>
+                            <a href="#"
+                                class="w-10 h-10 rounded-full bg-secondary-dark flex items-center justify-center text-gray-400 hover:bg-green-600 hover:text-white transition-all"><i
+                                    class="fab fa-whatsapp"></i></a>
+                            <a href="#"
+                                class="w-10 h-10 rounded-full bg-secondary-dark flex items-center justify-center text-gray-400 hover:bg-blue-400 hover:text-white transition-all"><i
+                                    class="fab fa-twitter"></i></a>
+                            <a href="#"
+                                class="w-10 h-10 rounded-full bg-secondary-dark flex items-center justify-center text-gray-400 hover:bg-blue-700 hover:text-white transition-all"><i
+                                    class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Sidebar -->
+                <aside class="space-y-8">
+                    <div class="bg-secondary-dark border border-glass-border rounded-xl p-6 sticky top-32">
+                        <h3 class="font-heading font-bold text-xl text-white mb-6 border-l-4 border-accent-cyan pl-3">
+                            Últimas Notícias</h3>
+                        <div id="sidebar-news" class="space-y-6">
+                            <!-- Sidebar items injected via JS -->
+                        </div>
+                        <a href="noticias.html"
+                            class="block w-full text-center bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 rounded mt-6 transition-colors text-sm uppercase tracking-widest">
+                            Ver Todas
+                        </a>
+                    </div>
+                </aside>
+
+            </div>
+
+            <!-- Not Found State -->
+            <div id="not-found" class="text-center py-20 hidden">
+                <i class="fas fa-exclamation-triangle text-4xl text-yellow-500 mb-4"></i>
+                <h2 class="text-2xl font-bold text-white mb-2">Notícia não encontrada</h2>
+                <p class="text-gray-400 mb-6">A notícia que você está procurando não existe ou foi removida.</p>
+                <a href="noticias.html"
+                    class="inline-block bg-accent-cyan text-primary-dark font-bold py-3 px-8 rounded uppercase tracking-widest hover:bg-white transition-all">
+                    Voltar para Notícias
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-secondary-dark border-t border-glass-border pt-16 pb-8">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex items-center justify-center gap-3 mb-8">
+                <img src="/sindinor/assets/favicon-CCbc98je.png" alt="SINDINOR" class="h-8 w-auto filter grayscale opacity-50">
+                <span class="font-heading font-black text-xl tracking-wider text-gray-600 uppercase">SINDINOR</span>
+            </div>
+            <p class="text-gray-600 text-xs">© 2025 SINDINOR. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

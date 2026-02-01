@@ -1,4 +1,4 @@
-import{A as r}from"./api-Cmw0wLZb.js";class s{static async init(){await this.renderAllNews()}static async renderAllNews(){const a=await r.getNews(),t=document.getElementById("news-grid-full");if(t){if(a.length===0){t.innerHTML=`
+import{A as r}from"./api-CKE281IM.js";class s{static async init(){await this.renderAllNews()}static async renderAllNews(){const a=await r.getNews(),t=document.getElementById("news-grid-full");if(t){if(a.length===0){t.innerHTML=`
                     <div class="col-span-full py-20 text-center">
                         <p class="text-gray-500 uppercase tracking-widest text-xs">Nenhuma notícia encontrada.</p>
                     </div>
@@ -15,7 +15,7 @@ import{A as r}from"./api-Cmw0wLZb.js";class s{static async init(){await this.ren
                                 <span class="text-accent-cyan text-xs font-bold uppercase tracking-widest"><i class="far fa-calendar-alt mr-1"></i> ${e.news_date||e.date||"Recente"}</span>
                             </div>
                             <h3 class="font-heading text-xl font-bold text-white mb-6 leading-tight group-hover:text-accent-cyan transition-colors line-clamp-3">${e.title}</h3>
-                            <a href="${e.external_link||e.link||"#"}" target="_blank" class="inline-flex items-center gap-2 text-white font-bold text-sm hover:text-accent-cyan transition-colors border-b-2 border-accent-cyan/20 pb-1 hover:border-accent-cyan">
+                            <a href="noticia.html?id=${e.id}" class="inline-flex items-center gap-2 text-white font-bold text-sm hover:text-accent-cyan transition-colors border-b-2 border-accent-cyan/20 pb-1 hover:border-accent-cyan">
                                 Ler Matéria Completa <i class="fas fa-arrow-right text-xs"></i>
                             </a>
                         </div>
