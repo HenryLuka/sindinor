@@ -81,7 +81,7 @@ export class PublicUI {
             // Inject 12 sets to ensure coverage and seamless loop with translateX(-50%)
             // More sets = longer distance = smoother loop that doesn't reset visibly on wide screens
             grid.innerHTML = new Array(12).fill(setHtml).join('');
-            grid.className = 'flex items-center animate-marquee md:animate-marquee-slow';
+            grid.className = 'flex items-center w-max animate-marquee md:animate-marquee-slow';
         }
 
         // Definitive Footer Logo Fix (Ensure it works in all environments)
