@@ -87,9 +87,8 @@ export class NewsDetailUI {
         const allNews = await ApiService.getNews();
         const sidebarContainer = document.getElementById('sidebar-news');
 
-        // Filter out current news and take latest 6
+        // Show latest 6 news (including current one if desired, based on user feedback)
         const otherNews = allNews
-            .filter(n => n.id !== currentId)
             .slice(0, 6);
 
         if (otherNews.length === 0) {
