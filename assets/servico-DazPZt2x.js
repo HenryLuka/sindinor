@@ -1,13 +1,13 @@
-import{A as o}from"./api-DmmwYfu8.js";class c{static async init(){const t=new URLSearchParams(window.location.search).get("id");if(!t){window.location.href="index.html";return}await this.renderServiceDetails(t)}static async renderServiceDetails(r){const e=(await o.getServices()).find(s=>s.id===r),a=document.getElementById("service-content");if(!e||!a){a.innerHTML=`
+import{A as l}from"./api-DmmwYfu8.js";class c{static async init(){const t=new URLSearchParams(window.location.search).get("id");if(!t){window.location.href="index.html";return}await this.renderServiceDetails(t)}static async renderServiceDetails(r){const e=(await l.getServices()).find(s=>s.id===r),a=document.getElementById("service-content");if(!e||!a){a.innerHTML=`
                 <div class="text-center py-20">
                     <h2 class="text-3xl font-bold text-white mb-4">Serviço não encontrado</h2>
-                    <a href="index.html" class="text-accent-cyan hover:underline">Voltar para a Home</a>
+                    <a href="/" class="text-accent-cyan hover:underline">Voltar para a Home</a>
                 </div>
             `;return}const i=e.gallery&&e.gallery.length>0?`
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                ${e.gallery.map((s,l)=>`
+                ${e.gallery.map((s,o)=>`
                     <div class="group relative overflow-hidden rounded-2xl bg-secondary-dark border border-glass-border aspect-video shadow-2xl">
-                        <img src="${s}" alt="Execução ${l+1}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <img src="${s}" alt="Execução ${o+1}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
                              <span class="text-white font-bold text-sm">Registro de Execução</span>
                         </div>
