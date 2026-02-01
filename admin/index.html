@@ -11,7 +11,60 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Outfit:wght@300;400;700&family=Rubik:ital,wght@1,700&display=swap"
         rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <style>
+        /* Quill Dark Mode Overrides */
+        .ql-toolbar {
+            background: #0a111a;
+            border-color: rgba(255, 255, 255, 0.08) !important;
+            border-top-left-radius: 0.5rem;
+            border-top-right-radius: 0.5rem;
+        }
+
+        .ql-container {
+            border-color: rgba(255, 255, 255, 0.08) !important;
+            border-bottom-left-radius: 0.5rem;
+            border-bottom-right-radius: 0.5rem;
+            background: #020408;
+            color: #f0f4f8;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+        }
+
+        .ql-stroke {
+            stroke: #94a3b8 !important;
+        }
+
+        .ql-fill {
+            fill: #94a3b8 !important;
+        }
+
+        .ql-picker {
+            color: #94a3b8 !important;
+        }
+
+        .ql-picker-options {
+            background-color: #0a111a !important;
+            border-color: rgba(255, 255, 255, 0.08) !important;
+        }
+
+        /* Hover/Active states */
+        .ql-active .ql-stroke,
+        .ql-picker-label:hover .ql-stroke {
+            stroke: #00f2ff !important;
+        }
+
+        .ql-active .ql-fill,
+        .ql-picker-label:hover .ql-fill {
+            fill: #00f2ff !important;
+        }
+
+        .ql-active,
+        .ql-picker-label:hover {
+            color: #00f2ff !important;
+        }
+    </style>
     <script>
         tailwind.config = {
             theme: {
@@ -34,7 +87,7 @@
             }
         }
     </script>
-  <script type="module" crossorigin src="/assets/admin-B65auexk.js"></script>
+  <script type="module" crossorigin src="/assets/admin--X00ZYrq.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/api-vSn2zUNe.js">
   <link rel="stylesheet" crossorigin href="/assets/api-D7CJ_2I4.css">
 </head>
@@ -196,9 +249,10 @@
                                     <label
                                         class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Conteúdo
                                         da Notícia</label>
-                                    <textarea id="news-content" rows="6"
-                                        placeholder="Escreva o conteúdo da notícia aqui... (HTML é permitido)"
-                                        class="w-full bg-primary-dark border border-glass-border rounded p-3 text-white focus:border-accent-cyan outline-none transition"></textarea>
+                                    <div
+                                        class="h-64 bg-primary-dark border border-glass-border rounded text-white overflow-hidden">
+                                        <div id="news-editor"></div>
+                                    </div>
                                 </div>
                             </div>
                             <div>
