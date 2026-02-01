@@ -22,7 +22,7 @@ export class ServicoUI {
             container.innerHTML = `
                 <div class="text-center py-20">
                     <h2 class="text-3xl font-bold text-white mb-4">Serviço não encontrado</h2>
-                    <a href="index.html" class="text-accent-cyan hover:underline">Voltar para a Home</a>
+                    <a href="/" class="text-accent-cyan hover:underline">Voltar para a Home</a>
                 </div>
             `;
             return;

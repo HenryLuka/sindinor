@@ -1,0 +1,30 @@
+{
+    "cleanUrls": true,
+    "trailingSlash": false,
+    "rewrites": [
+        {
+            "source": "/",
+            "destination": "/index.html"
+        },
+        {
+            "source": "/admin",
+            "destination": "/admin/index.html"
+        },
+        {
+            "source": "/noticia",
+            "destination": "/noticia.html"
+        },
+        {
+            "source": "/noticias",
+            "destination": "/noticias.html"
+        },
+        {
+            "source": "/parceiro",
+            "destination": "/parceiro.html"
+        },
+        {
+            "source": "/servico",
+            "destination": "/servico.html"
+        }
+    ]
+}
