@@ -78,8 +78,9 @@ export class PublicUI {
             // Wrap in a set with gap
             const setHtml = `<div class="flex gap-16 shrink-0 items-center px-8">${itemsHtml}</div>`;
 
-            // Inject 4 sets to ensure coverage and seamless loop with translateX(-50%)
-            grid.innerHTML = setHtml + setHtml + setHtml + setHtml;
+            // Inject 12 sets to ensure coverage and seamless loop with translateX(-50%)
+            // More sets = longer distance = smoother loop that doesn't reset visibly on wide screens
+            grid.innerHTML = new Array(12).fill(setHtml).join('');
             grid.className = 'flex items-center animate-marquee md:animate-marquee-slow';
         }
 
