@@ -3,6 +3,8 @@
  * Handles CMS logic interactions using ApiService (MySQL).
  */
 import { ApiService } from '../services/api.js';
+import { auth } from '../services/firebase-config.js';
+import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth";
 
 export class AdminUI {
     // Helper to read file
@@ -52,10 +54,14 @@ export class AdminUI {
         window.checkAuth = () => this.checkAuth();
         window.logout = () => this.logout();
 
-        // Check for existing session
-        if (localStorage.getItem('sindinor_admin_logged') === 'true') {
-            this.showAdminPanel();
-        }
+        // Listen for Auth State
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                this.showAdminPanel();
+            } else {
+                this.showLogin();
+            }
+        });
 
         // Tab Switching
         window.switchTab = (tab) => this.switchTab(tab);
@@ -78,20 +84,31 @@ export class AdminUI {
         window.handleDeleteRequest = (id) => this.handleDeleteRequest(id);
     }
 
-    static checkAuth() {
+    static async checkAuth() {
         const email = document.getElementById('admin-email').value;
         const pass = document.getElementById('admin-pass').value;
 
-        // Credentials
-        const VALID_EMAIL = 'administrativo@sindinor.org.br';
-        const VALID_PASS = 'Sindi#2025';
-
-        if (email === VALID_EMAIL && pass === VALID_PASS) {
-            localStorage.setItem('sindinor_admin_logged', 'true');
-            this.showAdminPanel();
-        } else {
-            alert('E-mail ou senha incorretos!');
+        try {
+            await signInWithEmailAndPassword(auth, email, pass);
+            // onAuthStateChanged will handle the UI switch
+        } catch (error) {
+            console.error("Login Error:", error);
+            alert('E-mail ou senha incorretos! (Erro: ' + error.code + ')');
         }
+    }
+
+    static async logout() {
+        try {
+            await signOut(auth);
+            window.location.reload();
+        } catch (error) {
+            console.error("Logout Error:", error);
+        }
+    }
+
+    static showLogin() {
+        document.getElementById('auth-overlay').style.display = 'flex';
+        document.getElementById('admin-content').style.display = 'none';
     }
 
     static showAdminPanel() {

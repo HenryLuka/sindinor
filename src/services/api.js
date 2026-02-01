@@ -1,101 +1,98 @@
-import { StorageService } from './storage.js';
+// import { StorageService } from './storage.js';
+import { FirestoreService } from './firestore-service.js';
+
+// Alias for easier switching
+const DB = FirestoreService;
 
 export class ApiService {
 
     // --- NEWS ---
     static async getNews() {
-        // Simulate network delay for realism
-        await new Promise(r => setTimeout(r, 300));
-        return StorageService.getNews();
+        // Trigger seed check on first load of common data
+        // Ideally this should be in an App.init() but here works for now
+        // We can add a simple check to avoid running it every time if needed, 
+        // but the service check is relatively cheap (just reads).
+        // For optimization, we could cache "initialized" state in memory.
+        if (!window.dbInitialized) {
+            await DB.seedDatabase();
+            window.dbInitialized = true;
+        }
+
+        // Simulate network delay for realism (optional, Firebase has its own)
+        // await new Promise(r => setTimeout(r, 300));
+        return DB.getNews();
     }
 
     static async addNews(item) {
-        await new Promise(r => setTimeout(r, 300));
-        return StorageService.addNews(item);
+        return DB.addNews(item);
     }
 
     static async deleteNews(id) {
-        await new Promise(r => setTimeout(r, 300));
-        return StorageService.deleteNews(id);
+        return DB.deleteNews(id);
     }
 
     // --- PARTNERS ---
     static async getPartners() {
-        await new Promise(r => setTimeout(r, 300));
-        return StorageService.getPartners();
+        return DB.getPartners();
     }
 
     static async addPartner(item) {
-        await new Promise(r => setTimeout(r, 300));
-        return StorageService.addPartner(item);
+        return DB.addPartner(item);
     }
 
     static async deletePartner(id) {
-        await new Promise(r => setTimeout(r, 300));
-        return StorageService.deletePartner(id);
+        return DB.deletePartner(id);
     }
 
     // --- SERVICES ---
     static async getServices() {
-        await new Promise(r => setTimeout(r, 300));
-        return StorageService.getServices();
+        return DB.getServices();
     }
 
     static async addService(item) {
-        await new Promise(r => setTimeout(r, 300));
-        return StorageService.addService(item);
+        return DB.addService(item);
     }
 
     static async deleteService(id) {
-        await new Promise(r => setTimeout(r, 300));
-        return StorageService.deleteService(id);
+        return DB.deleteService(id);
     }
 
     static async updateService(id, item) {
-        await new Promise(r => setTimeout(r, 300));
-        return StorageService.updateService(id, item);
+        return DB.updateService(id, item);
     }
 
     // --- DIRECTORS ---
     static async getDirectors() {
-        await new Promise(r => setTimeout(r, 300));
-        return StorageService.getDirectors();
+        return DB.getDirectors();
     }
 
     static async addDirector(item) {
-        await new Promise(r => setTimeout(r, 300));
-        return StorageService.addDirector(item);
+        return DB.addDirector(item);
     }
 
     static async deleteDirector(id) {
-        await new Promise(r => setTimeout(r, 300));
-        return StorageService.deleteDirector(id);
+        return DB.deleteDirector(id);
     }
 
     // --- GENERAL ---
     static async getGeneral() {
-        await new Promise(r => setTimeout(r, 300));
-        return StorageService.getGeneral();
+        return DB.getGeneral();
     }
 
     static async updateGeneral(data) {
-        await new Promise(r => setTimeout(r, 300));
-        return StorageService.updateGeneral(data);
+        return DB.updateGeneral(data);
     }
 
     // --- REQUESTS ---
     static async getRequests() {
-        await new Promise(r => setTimeout(r, 300));
-        return StorageService.getRequests();
+        return DB.getRequests();
     }
 
     static async addRequest(item) {
-        await new Promise(r => setTimeout(r, 300));
-        return StorageService.addRequest(item);
+        return DB.addRequest(item);
     }
 
     static async deleteRequest(id) {
-        await new Promise(r => setTimeout(r, 300));
-        return StorageService.deleteRequest(id);
+        return DB.deleteRequest(id);
     }
 }
