@@ -240,7 +240,8 @@ export class PublicUI {
                     city: document.getElementById('join-city').value,
                     name: document.getElementById('join-name').value,
                     role: document.getElementById('join-role').value,
-                    phone: document.getElementById('join-phone').value
+                    phone: document.getElementById('join-phone').value,
+                    message: document.getElementById('join-message').value
                 };
 
                 try {

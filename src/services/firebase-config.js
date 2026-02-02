@@ -12,7 +12,7 @@ const firebaseConfig = {
     projectId: "sindinor-app",
     storageBucket: "sindinor-app.firebasestorage.app",
     messagingSenderId: "1054363188873",
-    appId: "1:1054363188873:web:239217906b83753a631058deer   "
+    appId: "1:1054363188873:web:239217906b83753a631058"
 };
 
 // Initialize Firebase

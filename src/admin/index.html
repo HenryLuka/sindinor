@@ -33,6 +33,13 @@
             font-size: 1rem;
         }
 
+        /* Larger font in editor for acoustic feel */
+        .ql-editor {
+            font-size: 1.125rem;
+            /* text-lg */
+            line-height: 1.75;
+        }
+
         .ql-stroke {
             stroke: #94a3b8 !important;
         }
@@ -66,28 +73,7 @@
             color: #00f2ff !important;
         }
     </style>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'primary-dark': '#020408',
-                        'secondary-dark': '#0a111a',
-                        'accent-cyan': '#00f2ff',
-                        'accent-blue': '#0051ff',
-                        'glass-bg': 'rgba(255, 255, 255, 0.03)',
-                        'glass-border': 'rgba(255, 255, 255, 0.08)',
-                        'text-main': '#f0f4f8',
-                        'text-muted': '#94a3b8',
-                    },
-                    fontFamily: {
-                        heading: ['Montserrat', 'sans-serif'],
-                        body: ['Outfit', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+
 </head>
 
 <body class="bg-primary-dark text-text-main font-body antialiased">
@@ -200,7 +186,7 @@
         </aside>
 
         <!-- Main Content -->
-        <main class="w-full md:ml-60 flex-grow p-4 pt-24 md:p-6">
+        <main class="flex-grow p-4 pt-24 md:p-6">
 
             <!-- Requests Tab (Moved to top for layout fix) -->
             <div id="tab-requests" class="tab-content hidden">
@@ -214,144 +200,203 @@
                 </div>
             </div>
 
-            <!-- News Tab -->
+            <!-- News Tab (Admin 2.0 Prototype) -->
             <div id="tab-news" class="tab-content active hidden">
-                <header class="mb-8 border-b border-glass-border pb-6">
-                    <h2 class="font-heading text-3xl font-bold text-white uppercase tracking-wider mb-2">Gerenciar
-                        Notícias</h2>
-                    <p class="text-text-muted">Publique atualizações e novidades do setor.</p>
-                </header>
 
-                <div class="grid grid-cols-1 md:grid-cols-[380px_1fr] gap-8">
-                    <!-- Form -->
-                    <div
-                        class="bg-glass-bg backdrop-blur-md border border-glass-border rounded-xl p-6 h-fit static md:sticky md:top-10">
-                        <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
-                            <span class="w-1 h-6 bg-accent-cyan rounded-full"></span> Nova Notícia
+                <!-- VIEW: LIST -->
+                <div id="view-news-list" class="animate-fade-in">
+                    <header
+                        class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 border-b border-glass-border pb-6 gap-4">
+                        <div>
+                            <h2 class="font-heading text-4xl font-bold text-white uppercase tracking-wider mb-2">
+                                Notícias</h2>
+                            <p class="text-text-muted text-lg">Gerencie as publicações do portal.</p>
+                        </div>
+                        <button onclick="window.AdminUI.showNewsForm()"
+                            class="bg-accent-cyan text-primary-dark font-black uppercase tracking-widest py-3 px-8 rounded-lg hover:shadow-[0_0_20px_rgba(0,242,255,0.4)] transition-all transform hover:-translate-y-1 text-sm flex items-center gap-3">
+                            <i class="fas fa-plus"></i> Nova Notícia
+                        </button>
+                    </header>
+
+                    <div id="news-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Content Injected by JS -->
+                    </div>
+                </div>
+
+                <!-- VIEW: FORM (Hidden) -->
+                <div id="view-news-form" class="hidden animate-fade-in max-w-5xl mx-auto">
+                    <button onclick="window.AdminUI.showNewsList()"
+                        class="mb-6 text-text-muted hover:text-white uppercase tracking-widest text-xs font-bold flex items-center gap-2 transition-colors">
+                        <i class="fas fa-arrow-left"></i> Voltar para Lista
+                    </button>
+
+                    <div class="bg-secondary-dark border border-glass-border rounded-2xl p-8 shadow-2xl">
+                        <h3
+                            class="text-2xl font-bold text-white mb-8 flex items-center gap-3 border-b border-glass-border pb-4">
+                            <span class="w-2 h-8 bg-accent-cyan rounded-full"></span>
+                            <span id="news-form-title">Nova Notícia</span>
                         </h3>
-                        <form id="news-form" class="space-y-4">
-                            <div>
-                                <label
-                                    class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Título</label>
-                                <input type="text" id="news-title" required
-                                    class="w-full bg-primary-dark border border-glass-border rounded p-3 text-white focus:border-accent-cyan outline-none transition">
-                            </div>
-                            <div class="grid grid-cols-2 gap-4">
-                                <div>
+
+                        <form id="news-form" class="space-y-8">
+                            <!-- Title & Date Row -->
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="md:col-span-2">
                                     <label
-                                        class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Data</label>
-                                    <input type="date" id="news-date" required
-                                        class="w-full bg-primary-dark border border-glass-border rounded p-3 text-white focus:border-accent-cyan outline-none transition">
+                                        class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-3">Título
+                                        da Matéria</label>
+                                    <input type="text" id="news-title" required
+                                        class="w-full bg-primary-dark border border-glass-border rounded-lg p-4 text-white text-lg focus:border-accent-cyan outline-none transition shadow-inner"
+                                        placeholder="Manchete principal...">
                                 </div>
                                 <div>
                                     <label
-                                        class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Conteúdo
-                                        da Notícia</label>
-                                    <input type="hidden" id="news-content-raw">
-                                    <div class="space-y-2">
-                                        <button type="button"
-                                            onclick="window.AdminUI.openEditor('news-content-raw', 'Conteúdo da Notícia', 'news-content-preview')"
-                                            class="w-full bg-secondary-dark border border-glass-border hover:border-accent-cyan text-text-muted hover:text-white py-4 rounded-lg transition-all duration-300 flex flex-col items-center justify-center gap-2 group">
-                                            <i
-                                                class="fas fa-edit text-2xl group-hover:scale-110 transition-transform text-accent-cyan"></i>
-                                            <span class="font-bold uppercase tracking-widest text-xs">Abrir Editor de
-                                                Conteúdo</span>
-                                        </button>
-                                        <div id="news-content-preview"
-                                            class="h-24 bg-primary-dark/50 border border-glass-border rounded p-3 text-text-muted text-xs overflow-hidden opacity-70 italic">
-                                            (O conteúdo aparecerá aqui após a edição...)
+                                        class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-3">Data
+                                        de Publicação</label>
+                                    <input type="date" id="news-date" required
+                                        class="w-full bg-primary-dark border border-glass-border rounded-lg p-4 text-white text-base focus:border-accent-cyan outline-none transition shadow-inner">
+                                </div>
+                            </div>
+
+                            <!-- BIG Inline Editor -->
+                            <div>
+                                <label
+                                    class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-3">Conteúdo
+                                    Completo</label>
+                                <div
+                                    class="bg-primary-dark border border-glass-border rounded-lg overflow-hidden shadow-inner">
+                                    <!-- Using styling to make Quill look native and large -->
+                                    <div id="news-inline-editor"
+                                        class="h-[600px] text-lg leading-relaxed text-gray-300 font-body"></div>
+                                </div>
+                            </div>
+
+                            <!-- Media Section -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4 border-t border-glass-border">
+                                <div>
+                                    <label
+                                        class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-3">Imagem
+                                        de Capa</label>
+                                    <div class="space-y-3">
+                                        <input type="text" id="news-img" placeholder="https://..."
+                                            class="w-full bg-primary-dark border border-glass-border rounded-lg p-3 text-white text-sm focus:border-accent-cyan outline-none transition">
+                                        <div class="relative group">
+                                            <input type="file" id="news-file" accept="image/*"
+                                                class="w-full bg-primary-dark border border-glass-border rounded-lg p-3 text-white text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-accent-cyan file:text-primary-dark hover:file:bg-white transition cursor-pointer">
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div>
-                                <label
-                                    class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Imagem
-                                    (URL ou Arquivo)</label>
-                                <input type="text" id="news-img" placeholder="https://..."
-                                    class="w-full bg-primary-dark border border-glass-border rounded p-3 text-white text-sm focus:border-accent-cyan outline-none transition mb-2">
-                                <input type="file" id="news-file" accept="image/*"
-                                    class="w-full bg-primary-dark border border-glass-border rounded p-2 text-white text-xs focus:border-accent-cyan outline-none transition file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-accent-cyan file:text-primary-dark hover:file:bg-white">
-                            </div>
-
-                            <!-- News Gallery Input -->
-                            <div>
-                                <label
-                                    class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Galeria
-                                    (URLs separadas por vírgula ou arraste vários arquivos)</label>
-                                <input type="text" id="news-gallery-urls" placeholder="url1, url2, ..."
-                                    class="w-full bg-primary-dark border border-glass-border rounded p-3 text-white text-sm focus:border-accent-cyan outline-none transition mb-2">
-                                <input type="file" id="news-gallery-files" accept="image/*" multiple
-                                    class="w-full bg-primary-dark border border-glass-border rounded p-2 text-white text-xs focus:border-accent-cyan outline-none transition file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-accent-cyan file:text-primary-dark hover:file:bg-white">
-                                <div id="news-gallery-preview" class="flex flex-wrap gap-2 mt-4 min-h-[50px]">
-                                    <!-- Dynamic previews here -->
+                                <div>
+                                    <label
+                                        class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-3">Galeria
+                                        de Fotos</label>
+                                    <div class="space-y-3">
+                                        <input type="text" id="news-gallery-urls" placeholder="URLs extras..."
+                                            class="w-full bg-primary-dark border border-glass-border rounded-lg p-3 text-white text-sm focus:border-accent-cyan outline-none transition">
+                                        <input type="file" id="news-gallery-files" accept="image/*" multiple
+                                            class="w-full bg-primary-dark border border-glass-border rounded-lg p-3 text-white text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-accent-cyan file:text-primary-dark hover:file:bg-white transition cursor-pointer">
+                                    </div>
+                                    <div id="news-gallery-preview" class="flex flex-wrap gap-2 mt-4"></div>
                                 </div>
                             </div>
 
-                            <button type="submit"
-                                class="w-full bg-accent-cyan text-primary-dark font-bold py-3 rounded uppercase tracking-widest hover:bg-white hover:shadow-[0_0_15px_rgba(0,242,255,0.5)] transition-all duration-300 mt-4">
-                                Publicar
-                            </button>
+                            <!-- Action Buttons -->
+                            <div class="flex justify-end gap-4 pt-6 border-t border-glass-border">
+                                <button type="button" onclick="window.AdminUI.showNewsList()"
+                                    class="px-8 py-4 rounded-lg border border-glass-border text-text-muted font-bold uppercase tracking-widest hover:bg-white/5 hover:text-white transition-all">
+                                    Cancelar
+                                </button>
+                                <button type="submit"
+                                    class="px-10 py-4 rounded-lg bg-gradient-to-r from-accent-cyan to-accent-blue text-white font-black uppercase tracking-widest shadow-[0_0_20px_rgba(0,242,255,0.2)] hover:shadow-[0_0_30px_rgba(0,242,255,0.5)] transition-all transform hover:-translate-y-1">
+                                    Salvar Publicação
+                                </button>
+                            </div>
                         </form>
-                    </div>
-
-                    <!-- List -->
-                    <div class="space-y-6">
-                        <h3 class="text-xl font-bold text-text-muted uppercase tracking-widest mb-4">Publicadas</h3>
-                        <div id="news-list" class="grid gap-4">
-                            <!-- Items injected by JS -->
-                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Partners Tab -->
+            <!-- TAB: PARTNERS -->
             <div id="tab-partners" class="tab-content hidden">
-                <header class="mb-8 border-b border-glass-border pb-6">
-                    <h2 class="font-heading text-3xl font-bold text-white uppercase tracking-wider mb-2">Mantenedores
-                    </h2>
-                    <p class="text-text-muted">Gerencie as empresas parceiras em destaque.</p>
-                </header>
-                <div class="grid grid-cols-1 md:grid-cols-[350px_1fr] gap-8">
-                    <div class="bg-glass-bg backdrop-blur-md border border-glass-border rounded-xl p-6 h-fit">
-                        <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
-                            <span class="w-1 h-6 bg-accent-cyan rounded-full"></span> Novo Parceiro
-                        </h3>
-                        <form id="partner-form" class="space-y-4">
-                            <div>
-                                <label
-                                    class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Nome</label>
-                                <input type="text" id="partner-name" required
-                                    class="w-full bg-primary-dark border border-glass-border rounded p-3 text-white focus:border-accent-cyan outline-none transition">
+                <!-- VIEW: LIST -->
+                <div id="view-partners-list" class="animate-fade-in max-w-7xl mx-auto">
+                    <header
+                        class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 border-b border-glass-border pb-6 gap-4">
+                        <div>
+                            <h2 class="font-heading text-4xl font-bold text-white uppercase tracking-wider mb-2">
+                                Mantenedores</h2>
+                            <p class="text-text-muted text-lg">Gerencie as empresas parceiras.</p>
+                        </div>
+                        <button onclick="window.AdminUI.showPartnerForm()"
+                            class="bg-accent-cyan text-primary-dark font-black uppercase tracking-widest py-3 px-8 rounded-lg hover:shadow-[0_0_20px_rgba(0,242,255,0.4)] transition-all transform hover:-translate-y-1 text-sm flex items-center gap-3">
+                            <i class="fas fa-plus"></i> Novo Parceiro
+                        </button>
+                    </header>
+                    <div id="partners-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Content Injected by JS -->
+                    </div>
+                </div>
+
+                <!-- VIEW: FORM (Hidden) -->
+                <div id="view-partners-form" class="hidden animate-fade-in max-w-7xl mx-auto">
+                    <button onclick="window.AdminUI.showPartnerList()"
+                        class="mb-6 text-text-muted hover:text-white uppercase tracking-widest text-xs font-bold flex items-center gap-2 transition-colors">
+                        <i class="fas fa-arrow-left"></i> Voltar para Lista
+                    </button>
+                    <div class="bg-secondary-dark border border-glass-border rounded-2xl p-8 shadow-2xl">
+                        <div class="flex items-center gap-4 mb-8 border-b border-glass-border pb-4">
+                            <div class="w-1 bg-accent-cyan h-8 rounded-full"></div>
+                            <h3 class="font-heading text-2xl font-bold text-white uppercase" id="partner-form-title">
+                                Novo Parceiro</h3>
+                        </div>
+                        <form id="partner-form" class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="group">
+                                    <label
+                                        class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2 group-focus-within:text-white transition-colors">Nome
+                                        da Empresa</label>
+                                    <input type="text" id="partner-name"
+                                        class="w-full bg-primary-dark/50 border border-glass-border rounded-lg p-4 text-white focus:border-accent-cyan focus:outline-none focus:ring-1 focus:ring-accent-cyan transition-all"
+                                        placeholder="Ex: Mercedes-Benz" required>
+                                </div>
+                                <div class="group">
+                                    <label
+                                        class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2 group-focus-within:text-white transition-colors">URL
+                                        do Vídeo (YouTube)</label>
+                                    <input type="text" id="partner-video"
+                                        class="w-full bg-primary-dark/50 border border-glass-border rounded-lg p-4 text-white focus:border-accent-cyan focus:outline-none focus:ring-1 focus:ring-accent-cyan transition-all"
+                                        placeholder="https://youtube.com/...">
+                                </div>
                             </div>
-                            <div>
+                            <!-- Logo Upload -->
+                            <div class="group">
                                 <label
-                                    class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Vídeo
-                                    URL (YouTube Embed)</label>
-                                <input type="text" id="partner-video" placeholder="https://www.youtube.com/embed/..."
-                                    class="w-full bg-primary-dark border border-glass-border rounded p-3 text-white focus:border-accent-cyan outline-none transition">
+                                    class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Logomarca</label>
+                                <div class="flex gap-4">
+                                    <input type="url" id="partner-logo-url"
+                                        class="flex-grow bg-primary-dark/50 border border-glass-border rounded-lg p-4 text-white focus:border-accent-cyan focus:outline-none transition-all"
+                                        placeholder="URL da imagem (http://...)">
+                                    <input type="file" id="partner-logo-file" class="hidden" accept="image/*">
+                                    <button type="button" onclick="document.getElementById('partner-logo-file').click()"
+                                        class="bg-glass-bg border border-glass-border text-white px-6 rounded-lg hover:bg-white/10 transition flex items-center gap-2">
+                                        <i class="fas fa-upload"></i> <span
+                                            class="text-xs font-bold uppercase">Upload</span>
+                                    </button>
+                                </div>
                             </div>
-                            <div>
+                            <div class="group">
                                 <label
                                     class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Descrição</label>
-                                <textarea id="partner-desc" rows="4" required
-                                    class="w-full bg-primary-dark border border-glass-border rounded p-3 text-white focus:border-accent-cyan outline-none transition"></textarea>
+                                <textarea id="partner-desc" rows="4"
+                                    class="w-full bg-primary-dark/50 border border-glass-border rounded-lg p-4 text-white focus:border-accent-cyan focus:outline-none transition-all"
+                                    placeholder="Breve descrição da empresa..."></textarea>
                             </div>
-
-                            <!-- Logo Input -->
-                            <div>
-                                <label
-                                    class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Logo
-                                    (URL ou Arquivo)</label>
-                                <input type="text" id="partner-logo" placeholder="https://..."
-                                    class="w-full bg-primary-dark border border-glass-border rounded p-3 text-white text-sm focus:border-accent-cyan outline-none transition mb-2">
-                                <input type="file" id="partner-file" accept="image/*"
-                                    class="w-full bg-primary-dark border border-glass-border rounded p-2 text-white text-xs focus:border-accent-cyan outline-none transition file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-accent-cyan file:text-primary-dark hover:file:bg-white">
-                            </div>
-                            <button type="submit"
-                                class="w-full bg-accent-cyan text-primary-dark font-bold py-3 rounded uppercase tracking-widest hover:bg-white hover:shadow-[0_0_15px_rgba(0,242,255,0.5)] transition-all duration-300 mt-4">
-                                Adicionar
-                            </button>
+                            <div class="pt-6 border-t border-glass-border flex justify-end gap-4">
+                                <button type="button" onclick="window.AdminUI.showPartnerList()"
+                                    class="px-8 py-3 rounded-lg border border-glass-border text-text-muted hover:text-white hover:bg-white/5 transition uppercase font-bold text-xs tracking-widest">Cancelar</button>
+                                <button type="submit"
+                                    class="bg-accent-cyan text-primary-dark font-black uppercase tracking-widest py-3 px-8 rounded-lg hover:shadow-[0_0_20px_rgba(0,242,255,0.4)] transition-all transform hover:-translate-y-1 text-xs">
+                                    Salvar Parceiro
+                                </button>
                         </form>
                     </div>
                     <div>
@@ -359,140 +404,203 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Services Tab -->
-            <div id="tab-services" class="tab-content hidden">
-                <header class="mb-8 border-b border-glass-border pb-6">
-                    <h2 class="font-heading text-3xl font-bold text-white uppercase tracking-wider mb-2">Nossos Serviços
-                    </h2>
-                </header>
-                <div class="grid grid-cols-1 md:grid-cols-[380px_1fr] gap-8">
-                    <div
-                        class="bg-glass-bg backdrop-blur-md border border-glass-border rounded-xl p-6 h-fit static md:sticky md:top-10">
-                        <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
-                            <span class="w-1 h-6 bg-accent-cyan rounded-full"></span> Novo Serviço
-                        </h3>
-                        <form id="service-form" class="space-y-4">
-                            <input type="hidden" id="editing-service-id" value="">
-                            <div>
-                                <label
-                                    class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Título</label>
-                                <input type="text" id="service-title" required
-                                    class="w-full bg-primary-dark border border-glass-border rounded p-3 text-white focus:border-accent-cyan outline-none transition">
-                            </div>
-                            <div>
-                                <label
-                                    class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Descrição
-                                    Curta (Home)</label>
-                                <textarea id="service-desc" rows="2" required
-                                    class="w-full bg-primary-dark border border-glass-border rounded p-3 text-white focus:border-accent-cyan outline-none transition"></textarea>
-                            </div>
-                            <div>
-                                <label
-                                    class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Descrição
-                                    Completa</label>
-                                <input type="hidden" id="service-content-raw">
-                                <div class="space-y-2">
-                                    <button type="button"
-                                        onclick="window.AdminUI.openEditor('service-content-raw', 'Descrição Completa do Serviço', 'service-content-preview')"
-                                        class="w-full bg-secondary-dark border border-glass-border hover:border-accent-cyan text-text-muted hover:text-white py-4 rounded-lg transition-all duration-300 flex flex-col items-center justify-center gap-2 group">
-                                        <i
-                                            class="fas fa-edit text-2xl group-hover:scale-110 transition-transform text-accent-cyan"></i>
-                                        <span class="font-bold uppercase tracking-widest text-xs">Abrir Editor de
-                                            Conteúdo</span>
-                                    </button>
-                                    <div id="service-content-preview"
-                                        class="h-24 bg-primary-dark/50 border border-glass-border rounded p-3 text-text-muted text-xs overflow-hidden opacity-70 italic">
-                                        (O conteúdo aparecerá aqui após a edição...)
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <label
-                                    class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Galeria
-                                    (URLs separadas por vírgula ou arraste vários arquivos)</label>
-                                <input type="text" id="service-gallery-urls" placeholder="url1, url2, ..."
-                                    class="w-full bg-primary-dark border border-glass-border rounded p-3 text-white text-sm focus:border-accent-cyan outline-none transition mb-2">
-                                <input type="file" id="service-gallery-files" accept="image/*" multiple
-                                    class="w-full bg-primary-dark border border-glass-border rounded p-2 text-white text-xs focus:border-accent-cyan outline-none transition file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-accent-cyan file:text-primary-dark hover:file:bg-white">
-                                <div id="service-gallery-preview" class="flex flex-wrap gap-2 mt-4 min-h-[50px]">
-                                    <!-- Dynamic previews here -->
-                                </div>
-                            </div>
-                            <div>
-                                <label
-                                    class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Imagem
-                                    (URL ou Arquivo)</label>
-                                <input type="text" id="service-img" placeholder="https://..."
-                                    class="w-full bg-primary-dark border border-glass-border rounded p-3 text-white text-sm focus:border-accent-cyan outline-none transition mb-2">
-                                <input type="file" id="service-file" accept="image/*"
-                                    class="w-full bg-primary-dark border border-glass-border rounded p-2 text-white text-xs focus:border-accent-cyan outline-none transition file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-accent-cyan file:text-primary-dark hover:file:bg-white">
-                            </div>
-                            <button type="submit"
-                                class="w-full bg-accent-cyan text-primary-dark font-bold py-3 rounded uppercase tracking-widest hover:bg-white hover:shadow-[0_0_15px_rgba(0,242,255,0.5)] transition-all duration-300 mt-4">
-                                Salvar
-                            </button>
-                        </form>
-                    </div>
-                    <div>
-                        <div id="services-list" class="grid gap-4"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Directors Tab -->
-            <div id="tab-directors" class="tab-content hidden">
-                <header class="mb-8 border-b border-glass-border pb-6">
-                    <h2 class="font-heading text-3xl font-bold text-white uppercase tracking-wider mb-2">Diretoria</h2>
-                </header>
-                <div class="grid grid-cols-1 md:grid-cols-[350px_1fr] gap-8">
-                    <div class="bg-glass-bg backdrop-blur-md border border-glass-border rounded-xl p-6 h-fit">
-                        <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
-                            <span class="w-1 h-6 bg-accent-cyan rounded-full"></span> Novo Membro
-                        </h3>
-                        <form id="director-form" class="space-y-4">
-                            <div>
-                                <label
-                                    class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Nome</label>
-                                <input type="text" id="director-name" required
-                                    class="w-full bg-primary-dark border border-glass-border rounded p-3 text-white focus:border-accent-cyan outline-none transition">
-                            </div>
-                            <div class="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label
-                                        class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Cargo</label>
-                                    <input type="text" id="director-role" required
-                                        class="w-full bg-primary-dark border border-glass-border rounded p-3 text-white focus:border-accent-cyan outline-none transition">
-                                </div>
-                                <div>
-                                    <label
-                                        class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Empresa</label>
-                                    <input type="text" id="director-company" required
-                                        class="w-full bg-primary-dark border border-glass-border rounded p-3 text-white focus:border-accent-cyan outline-none transition">
-                                </div>
-                            </div>
-                            <div>
-                                <label
-                                    class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Foto
-                                    (URL ou Arquivo)</label>
-                                <input type="text" id="director-img" placeholder="https://..."
-                                    class="w-full bg-primary-dark border border-glass-border rounded p-3 text-white text-sm focus:border-accent-cyan outline-none transition mb-2">
-                                <input type="file" id="director-file" accept="image/*"
-                                    class="w-full bg-primary-dark border border-glass-border rounded p-2 text-white text-xs focus:border-accent-cyan outline-none transition file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-accent-cyan file:text-primary-dark hover:file:bg-white">
-                            </div>
-                            <button type="submit"
-                                class="w-full bg-accent-cyan text-primary-dark font-bold py-3 rounded uppercase tracking-widest hover:bg-white hover:shadow-[0_0_15px_rgba(0,242,255,0.5)] transition-all duration-300 mt-4">
-                                Adicionar
-                            </button>
-                        </form>
-                    </div>
-                </div>
-                <div>
-                    <div id="directors-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
-                </div>
-            </div>
     </div>
 
+    <!-- Services Tab -->
+    <div id="tab-services" class="tab-content hidden">
+
+        <!-- VIEW: LIST -->
+        <div id="view-services-list" class="animate-fade-in max-w-7xl mx-auto">
+            <header
+                class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 border-b border-glass-border pb-6 gap-4">
+                <div>
+                    <h2 class="font-heading text-4xl font-bold text-white uppercase tracking-wider mb-2">Nossos Serviços
+                    </h2>
+                    <p class="text-text-muted text-lg">Gerencie os serviços oferecidos.</p>
+                </div>
+                <button onclick="window.AdminUI.showServiceForm()"
+                    class="bg-accent-cyan text-primary-dark font-black uppercase tracking-widest py-3 px-8 rounded-lg hover:shadow-[0_0_20px_rgba(0,242,255,0.4)] transition-all transform hover:-translate-y-1 text-sm flex items-center gap-3">
+                    <i class="fas fa-plus"></i> Novo Serviço
+                </button>
+            </header>
+            <div id="services-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </div>
+
+        <!-- VIEW: FORM (Hidden) -->
+        <div id="view-services-form" class="hidden animate-fade-in max-w-5xl mx-auto">
+            <button onclick="window.AdminUI.showServiceList()"
+                class="mb-6 text-text-muted hover:text-white uppercase tracking-widest text-xs font-bold flex items-center gap-2 transition-colors">
+                <i class="fas fa-arrow-left"></i> Voltar para Lista
+            </button>
+
+            <div class="bg-secondary-dark border border-glass-border rounded-2xl p-8 shadow-2xl">
+                <h3
+                    class="text-2xl font-bold text-white mb-8 flex items-center gap-3 border-b border-glass-border pb-4">
+                    <span class="w-2 h-8 bg-accent-cyan rounded-full"></span>
+                    <span id="service-form-title">Novo Serviço</span>
+                </h3>
+
+                <form id="service-form" class="space-y-6">
+                    <input type="hidden" id="editing-service-id" value="">
+                    <div>
+                        <label
+                            class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Título</label>
+                        <input type="text" id="service-title" required
+                            class="w-full bg-primary-dark border border-glass-border rounded-lg p-4 text-white text-lg focus:border-accent-cyan outline-none transition shadow-inner">
+                    </div>
+                    <div>
+                        <label class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Descrição
+                            Curta (Home)</label>
+                        <textarea id="service-desc" rows="3" required
+                            class="w-full bg-primary-dark border border-glass-border rounded-lg p-4 text-white focus:border-accent-cyan outline-none transition shadow-inner"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Descrição
+                            Completa</label>
+                        <input type="hidden" id="service-content-raw">
+                        <div class="space-y-2">
+                            <button type="button"
+                                onclick="window.AdminUI.openEditor('service-content-raw', 'Descrição Completa do Serviço', 'service-content-preview')"
+                                class="w-full bg-secondary-dark border border-glass-border hover:border-accent-cyan text-text-muted hover:text-white py-6 rounded-lg transition-all duration-300 flex flex-col items-center justify-center gap-3 group border-dashed border-2">
+                                <i
+                                    class="fas fa-edit text-3xl group-hover:scale-110 transition-transform text-accent-cyan"></i>
+                                <span class="font-bold uppercase tracking-widest text-sm">Abrir Editor de
+                                    Conteúdo</span>
+                            </button>
+                            <div id="service-content-preview"
+                                class="h-32 bg-primary-dark/50 border border-glass-border rounded-lg p-4 text-text-muted text-sm overflow-hidden opacity-70 italic">
+                                (O conteúdo aparecerá aqui após a edição...)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <label
+                                class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Imagem
+                                Principal</label>
+                            <input type="text" id="service-img" placeholder="https://..."
+                                class="w-full bg-primary-dark border border-glass-border rounded-lg p-3 text-white text-sm focus:border-accent-cyan outline-none transition mb-2">
+                            <input type="file" id="service-file" accept="image/*"
+                                class="w-full bg-primary-dark border border-glass-border rounded-lg p-3 text-white text-sm focus:border-accent-cyan outline-none transition file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-accent-cyan file:text-primary-dark hover:file:bg-white cursor-pointer">
+                        </div>
+
+                        <div>
+                            <label
+                                class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Galeria
+                                de Fotos</label>
+                            <input type="text" id="service-gallery-urls" placeholder="url1, url2, ..."
+                                class="w-full bg-primary-dark border border-glass-border rounded-lg p-3 text-white text-sm focus:border-accent-cyan outline-none transition mb-2">
+                            <input type="file" id="service-gallery-files" accept="image/*" multiple
+                                class="w-full bg-primary-dark border border-glass-border rounded-lg p-3 text-white text-sm focus:border-accent-cyan outline-none transition file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-accent-cyan file:text-primary-dark hover:file:bg-white cursor-pointer">
+                            <div id="service-gallery-preview" class="flex flex-wrap gap-2 mt-4 min-h-[50px]"></div>
+                        </div>
+                    </div>
+
+                    <div class="pt-6 border-t border-glass-border flex justify-end gap-4">
+                        <button type="button" onclick="window.AdminUI.showServiceList()"
+                            class="px-8 py-3 rounded-lg border border-glass-border text-text-muted hover:text-white hover:bg-white/5 transition uppercase font-bold text-xs tracking-widest">Cancelar</button>
+                        <button type="submit"
+                            class="w-full md:w-auto bg-accent-cyan text-primary-dark font-black uppercase tracking-widest py-3 px-10 rounded-lg hover:shadow-[0_0_20px_rgba(0,242,255,0.4)] transition-all transform hover:-translate-y-1 text-sm">
+                            Salvar Serviço
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Directors Tab -->
+    <div id="tab-directors" class="tab-content hidden">
+
+        <!-- VIEW: LIST -->
+        <div id="view-directors-list" class="animate-fade-in max-w-7xl mx-auto">
+            <header
+                class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 border-b border-glass-border pb-6 gap-4">
+                <div>
+                    <h2 class="font-heading text-4xl font-bold text-white uppercase tracking-wider mb-2">Diretoria</h2>
+                    <p class="text-text-muted text-lg">Gerencie os membros da diretoria.</p>
+                </div>
+                <button onclick="window.AdminUI.showDirectorForm()"
+                    class="bg-accent-cyan text-primary-dark font-black uppercase tracking-widest py-3 px-8 rounded-lg hover:shadow-[0_0_20px_rgba(0,242,255,0.4)] transition-all transform hover:-translate-y-1 text-sm flex items-center gap-3">
+                    <i class="fas fa-plus"></i> Novo Membro
+                </button>
+            </header>
+            <div id="directors-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </div>
+
+        <!-- VIEW: FORM (Hidden) -->
+        <div id="view-directors-form" class="hidden animate-fade-in max-w-5xl mx-auto">
+            <button onclick="window.AdminUI.showDirectorList()"
+                class="mb-6 text-text-muted hover:text-white uppercase tracking-widest text-xs font-bold flex items-center gap-2 transition-colors">
+                <i class="fas fa-arrow-left"></i> Voltar para Lista
+            </button>
+
+            <div class="bg-secondary-dark border border-glass-border rounded-2xl p-8 shadow-2xl">
+                <h3
+                    class="text-2xl font-bold text-white mb-8 flex items-center gap-3 border-b border-glass-border pb-4">
+                    <span class="w-2 h-8 bg-accent-cyan rounded-full"></span>
+                    <span id="director-form-title">Novo Membro</span>
+                </h3>
+
+                <form id="director-form" class="space-y-6">
+                    <input type="hidden" id="editing-director-id" value="">
+                    <div>
+                        <label class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Nome
+                            Completo</label>
+                        <input type="text" id="director-name" required
+                            class="w-full bg-primary-dark border border-glass-border rounded-lg p-4 text-white text-lg focus:border-accent-cyan outline-none transition shadow-inner">
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label
+                                class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Cargo</label>
+                            <input type="text" id="director-role" required
+                                class="w-full bg-primary-dark border border-glass-border rounded-lg p-4 text-white focus:border-accent-cyan outline-none transition shadow-inner">
+                        </div>
+                        <div>
+                            <label
+                                class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Empresa</label>
+                            <input type="text" id="director-company" required
+                                class="w-full bg-primary-dark border border-glass-border rounded-lg p-4 text-white focus:border-accent-cyan outline-none transition shadow-inner">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Foto do
+                            Perfil</label>
+                        <div class="flex gap-4 items-start">
+                            <img id="director-preview-img" src="assets/avatar_placeholder.png"
+                                class="w-20 h-20 rounded-lg object-cover border border-glass-border">
+                            <div class="space-y-3 flex-grow">
+                                <input type="text" id="director-img" placeholder="https://..."
+                                    class="w-full bg-primary-dark border border-glass-border rounded-lg p-3 text-white text-sm focus:border-accent-cyan outline-none transition">
+                                <input type="file" id="director-file" accept="image/*"
+                                    class="w-full bg-primary-dark border border-glass-border rounded-lg p-3 text-white text-sm focus:border-accent-cyan outline-none transition file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-accent-cyan file:text-primary-dark hover:file:bg-white cursor-pointer">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-6 border-t border-glass-border flex justify-end gap-4">
+                        <button type="button" onclick="window.AdminUI.showDirectorList()"
+                            class="px-8 py-3 rounded-lg border border-glass-border text-text-muted hover:text-white hover:bg-white/5 transition uppercase font-bold text-xs tracking-widest">Cancelar</button>
+                        <button type="submit"
+                            class="w-full md:w-auto bg-accent-cyan text-primary-dark font-black uppercase tracking-widest py-3 px-10 rounded-lg hover:shadow-[0_0_20px_rgba(0,242,255,0.4)] transition-all transform hover:-translate-y-1 text-sm">
+                            Salvar Membro
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Fallback Script -->
+    <script>
+        window.checkAuth = function () {
+            alert("⚠️ Erro: O sistema não carregou corretamente.\nVerifique se o servidor está rodando e olhe o console (F12) para erros vermelhos.");
+            console.error("Fallback checkAuth triggered. admin-ui.js did not override this function.");
+        }
+    </script>
     <!-- Inject JS to update list HTML structure -->
     <script type="module" src="../scripts/admin-ui.js"></script>
     <script>

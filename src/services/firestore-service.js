@@ -273,6 +273,10 @@ export class FirestoreService {
         return this._add(COLLECTIONS.NEWS, item);
     }
 
+    static async updateNews(id, item) {
+        return this._update(COLLECTIONS.NEWS, id, item);
+    }
+
     static async deleteNews(id) {
         return this._delete(COLLECTIONS.NEWS, id);
     }
@@ -318,6 +322,10 @@ export class FirestoreService {
 
     static async deleteDirector(id) {
         return this._delete(COLLECTIONS.DIRECTORS, id);
+    }
+
+    static async updateDirector(id, item) {
+        return this._update(COLLECTIONS.DIRECTORS, id, item);
     }
 
     // --- REQUESTS ---

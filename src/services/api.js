@@ -49,6 +49,10 @@ export class ApiService {
         return DB.addNews(item);
     }
 
+    static async updateNews(id, item) {
+        return DB.updateNews(id, item);
+    }
+
     static async deleteNews(id) {
         return DB.deleteNews(id);
     }
@@ -97,6 +101,10 @@ export class ApiService {
 
     static async deleteDirector(id) {
         return DB.deleteDirector(id);
+    }
+
+    static async updateDirector(id, item) {
+        return DB.updateDirector(id, item);
     }
 
     // --- GENERAL ---
