@@ -17,9 +17,9 @@ export class AdminUI {
                 const img = new Image();
                 img.src = event.target.result;
                 img.onload = () => {
-                    // Compression Logic
-                    const MAX_WIDTH = 800;
-                    const MAX_HEIGHT = 800;
+                    // Compression Logic (Improved Quality)
+                    const MAX_WIDTH = 1920;
+                    const MAX_HEIGHT = 1920;
                     let width = img.width;
                     let height = img.height;
 
@@ -41,8 +41,8 @@ export class AdminUI {
                     const ctx = canvas.getContext('2d');
                     ctx.drawImage(img, 0, 0, width, height);
 
-                    // Return compressed JPEG
-                    resolve(canvas.toDataURL('image/jpeg', 0.7));
+                    // Return compressed JPEG (High Quality)
+                    resolve(canvas.toDataURL('image/jpeg', 0.9));
                 };
                 img.onerror = err => reject(err);
             };
