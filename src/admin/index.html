@@ -200,7 +200,7 @@
         </aside>
 
         <!-- Main Content -->
-        <main class="w-full md:ml-72 flex-grow p-4 pt-24 md:p-10">
+        <main class="w-full md:ml-72 flex-grow p-4 pt-24 md:p-6">
 
             <!-- Requests Tab (Moved to top for layout fix) -->
             <div id="tab-requests" class="tab-content hidden">
@@ -247,9 +247,20 @@
                                     <label
                                         class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Conteúdo
                                         da Notícia</label>
-                                    <div
-                                        class="h-[500px] bg-primary-dark border border-glass-border rounded text-white overflow-hidden">
-                                        <div id="news-editor"></div>
+                                    <input type="hidden" id="news-content-raw">
+                                    <div class="space-y-2">
+                                        <button type="button"
+                                            onclick="window.AdminUI.openEditor('news-content-raw', 'Conteúdo da Notícia', 'news-content-preview')"
+                                            class="w-full bg-secondary-dark border border-glass-border hover:border-accent-cyan text-text-muted hover:text-white py-4 rounded-lg transition-all duration-300 flex flex-col items-center justify-center gap-2 group">
+                                            <i
+                                                class="fas fa-edit text-2xl group-hover:scale-110 transition-transform text-accent-cyan"></i>
+                                            <span class="font-bold uppercase tracking-widest text-xs">Abrir Editor de
+                                                Conteúdo</span>
+                                        </button>
+                                        <div id="news-content-preview"
+                                            class="h-24 bg-primary-dark/50 border border-glass-border rounded p-3 text-text-muted text-xs overflow-hidden opacity-70 italic">
+                                            (O conteúdo aparecerá aqui após a edição...)
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -380,9 +391,20 @@
                                 <label
                                     class="block text-accent-cyan text-xs font-bold uppercase tracking-widest mb-2">Descrição
                                     Completa</label>
-                                <div
-                                    class="h-[500px] bg-primary-dark border border-glass-border rounded text-white overflow-hidden">
-                                    <div id="service-editor"></div>
+                                <input type="hidden" id="service-content-raw">
+                                <div class="space-y-2">
+                                    <button type="button"
+                                        onclick="window.AdminUI.openEditor('service-content-raw', 'Descrição Completa do Serviço', 'service-content-preview')"
+                                        class="w-full bg-secondary-dark border border-glass-border hover:border-accent-cyan text-text-muted hover:text-white py-4 rounded-lg transition-all duration-300 flex flex-col items-center justify-center gap-2 group">
+                                        <i
+                                            class="fas fa-edit text-2xl group-hover:scale-110 transition-transform text-accent-cyan"></i>
+                                        <span class="font-bold uppercase tracking-widest text-xs">Abrir Editor de
+                                            Conteúdo</span>
+                                    </button>
+                                    <div id="service-content-preview"
+                                        class="h-24 bg-primary-dark/50 border border-glass-border rounded p-3 text-text-muted text-xs overflow-hidden opacity-70 italic">
+                                        (O conteúdo aparecerá aqui após a edição...)
+                                    </div>
                                 </div>
                             </div>
                             <div>
@@ -491,6 +513,38 @@
             }
         }
     </script>
+    <!-- Global Editor Modal -->
+    <div id="editor-modal" class="fixed inset-0 z-[60] hidden flex items-center justify-center p-4">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-black/90 backdrop-blur-sm" onclick="window.AdminUI.closeEditor()"></div>
+        <!-- Modal Content -->
+        <div
+            class="relative w-full h-full max-w-6xl max-h-[90vh] bg-secondary-dark border border-glass-border rounded-xl flex flex-col shadow-2xl overflow-hidden">
+            <header class="flex justify-between items-center p-5 border-b border-glass-border bg-secondary-dark">
+                <h3 id="editor-modal-title" class="font-heading font-bold text-white text-xl uppercase tracking-wider">
+                    Editar Conteúdo</h3>
+                <button onclick="window.AdminUI.closeEditor()"
+                    class="text-text-muted hover:text-red-500 text-2xl transition-colors w-10 h-10 flex items-center justify-center rounded-lg hover:bg-white/5">
+                    <i class="fas fa-times"></i>
+                </button>
+            </header>
+
+            <div class="flex-grow bg-primary-dark overflow-hidden flex flex-col relative">
+                <div id="global-editor" class="h-full text-white font-body"></div>
+            </div>
+
+            <footer class="p-5 border-t border-glass-border flex justify-end gap-4 bg-secondary-dark">
+                <button onclick="window.AdminUI.closeEditor()"
+                    class="px-8 py-3 rounded-lg border border-glass-border text-text-muted font-bold uppercase tracking-widest text-xs hover:bg-white/5 hover:text-white transition-all">
+                    Cancelar
+                </button>
+                <button onclick="window.AdminUI.saveEditor()"
+                    class="px-8 py-3 rounded-lg bg-gradient-to-r from-accent-cyan to-accent-blue text-white font-bold uppercase tracking-widest text-xs hover:shadow-[0_0_20px_rgba(0,242,255,0.4)] transition-all transform hover:-translate-y-1">
+                    Confirmar <i class="fas fa-check ml-2"></i>
+                </button>
+            </footer>
+        </div>
+    </div>
 </body>
 
 </html>

@@ -50,28 +50,17 @@ export class AdminUI {
     }
 
     static init() {
-        // Initialize Quill Editors
-        this.newsEditor = new Quill('#news-editor', {
+        // Initialize Global Editor
+        this.globalEditor = new Quill('#global-editor', {
             theme: 'snow',
-            placeholder: 'Escreva o conteúdo da notícia aqui...',
+            placeholder: 'Escreva seu conteúdo aqui...',
             modules: {
                 toolbar: [
                     [{ 'header': [1, 2, 3, false] }],
                     ['bold', 'italic', 'underline', 'strike'],
                     [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                    [{ 'align': [] }],
                     ['link', 'clean']
-                ]
-            }
-        });
-
-        this.serviceEditor = new Quill('#service-editor', {
-            theme: 'snow',
-            placeholder: 'Descrição completa do serviço...',
-            modules: {
-                toolbar: [
-                    ['bold', 'italic', 'underline'],
-                    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-                    ['clean']
                 ]
             }
         });
@@ -79,6 +68,9 @@ export class AdminUI {
         // Auth Check
         window.checkAuth = () => this.checkAuth();
         window.logout = () => this.logout();
+
+        // Editor Functions
+        window.AdminUI = this; // Expose to window for HTML onclick
 
         // Listen for Auth State
         onAuthStateChanged(auth, (user) => {
@@ -107,7 +99,45 @@ export class AdminUI {
         document.getElementById('partner-form')?.addEventListener('submit', (e) => this.handleAddPartner(e));
         document.getElementById('service-form')?.addEventListener('submit', (e) => this.handleAddService(e));
         document.getElementById('director-form')?.addEventListener('submit', (e) => this.handleAddDirector(e));
-        window.handleDeleteRequest = (id) => this.handleDeleteRequest(id);
+    }
+
+    // Modal Editor Logic
+    static currentEditorTarget = null;
+    static currentPreviewTarget = null;
+
+    static openEditor(targetId, title, previewId) {
+        this.currentEditorTarget = targetId;
+        this.currentPreviewTarget = previewId;
+
+        const existingContent = document.getElementById(targetId).value;
+        this.globalEditor.clipboard.dangerouslyPasteHTML(existingContent || '');
+
+        document.getElementById('editor-modal-title').innerText = title;
+        document.getElementById('editor-modal').classList.remove('hidden');
+    }
+
+    static closeEditor() {
+        document.getElementById('editor-modal').classList.add('hidden');
+        this.currentEditorTarget = null;
+        this.currentPreviewTarget = null;
+    }
+
+    static saveEditor() {
+        if (!this.currentEditorTarget) return;
+
+        const content = this.globalEditor.root.innerHTML;
+        document.getElementById(this.currentEditorTarget).value = content;
+
+        // Update preview
+        if (this.currentPreviewTarget) {
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = content;
+            const textPreview = tempDiv.textContent || tempDiv.innerText || '';
+            document.getElementById(this.currentPreviewTarget).innerText = textPreview.substring(0, 150) + (textPreview.length > 150 ? '...' : '');
+            document.getElementById(this.currentPreviewTarget).classList.remove('opacity-70', 'italic');
+        }
+
+        this.closeEditor();
     }
 
     static async checkAuth() {
@@ -376,7 +406,7 @@ export class AdminUI {
             title: document.getElementById('news-title').value,
             news_date: document.getElementById('news-date').value,
             img: imageSrc,
-            content: this.newsEditor.root.innerHTML,
+            content: document.getElementById('news-content-raw').value,
             gallery: gallery
         };
 
@@ -384,7 +414,9 @@ export class AdminUI {
         alert('Notícia Publicada!');
         this.loadData();
         e.target.reset();
-        this.newsEditor.setText(''); // Reset editor
+        document.getElementById('news-content-raw').value = '';
+        document.getElementById('news-content-preview').innerText = '(O conteúdo aparecerá aqui após a edição...)';
+        document.getElementById('news-content-preview').classList.add('opacity-70', 'italic');
 
         // Reset Gallery
         this.editingNewsGallery = [];
@@ -503,7 +535,7 @@ export class AdminUI {
         const itemData = {
             title: document.getElementById('service-title').value,
             description: document.getElementById('service-desc').value,
-            full_description: this.serviceEditor.root.innerHTML,
+            full_description: document.getElementById('service-content-raw').value,
             image: imageSrc,
             gallery: gallery
         };
@@ -518,7 +550,9 @@ export class AdminUI {
 
         this.loadData();
         e.target.reset();
-        this.serviceEditor.setText(''); // Reset editor
+        document.getElementById('service-content-raw').value = '';
+        document.getElementById('service-content-preview').innerText = '(O conteúdo aparecerá aqui após a edição...)';
+        document.getElementById('service-content-preview').classList.add('opacity-70', 'italic');
         this.editingGallery = [];
         this.renderGalleryPreview();
         document.getElementById('editing-service-id').value = '';
@@ -535,7 +569,18 @@ export class AdminUI {
         document.getElementById('editing-service-id').value = item.id;
         document.getElementById('service-title').value = item.title;
         document.getElementById('service-desc').value = item.description;
-        this.serviceEditor.root.innerHTML = item.full_description || '';
+
+        // Load Content
+        const content = item.full_description || '';
+        document.getElementById('service-content-raw').value = content;
+
+        // Update Preview
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = content;
+        const textPreview = tempDiv.textContent || tempDiv.innerText || '';
+        document.getElementById('service-content-preview').innerText = textPreview.substring(0, 150) + (textPreview.length > 150 ? '...' : '');
+        document.getElementById('service-content-preview').classList.remove('opacity-70', 'italic');
+
         document.getElementById('service-img').value = item.image.startsWith('data:') ? '' : item.image;
         document.getElementById('service-gallery-urls').value = ''; // Clean URL input on edit
 
