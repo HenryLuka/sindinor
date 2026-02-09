@@ -32,6 +32,10 @@ export class ApiService {
             newItem.gallery = newItem.gallery.map(img => fix(img));
         }
 
+        if (newItem.logos && Array.isArray(newItem.logos)) {
+            newItem.logos = newItem.logos.map(img => fix(img));
+        }
+
         return newItem;
     }
 

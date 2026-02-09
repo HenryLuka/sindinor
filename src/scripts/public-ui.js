@@ -35,7 +35,29 @@ export class PublicUI {
 
         if (grid && directors.length > 0) {
             grid.innerHTML = '';
-            directors.forEach(d => {
+
+            // FALLBACKS FOR DIRECTORS (ID-based for maximum precision)
+            const BOARD_FIXES = {
+                '1': { name: 'Antonio Henrique Sapori', role: 'Presidente', company: 'RODONASA CARGAS E ENCOMENDAS LTDA.' },
+                '2': { name: 'Lucio Bento Fagundes Junior', role: 'Secretário', company: 'RÁPIDO MONTES CLAROS E FERNANDO SOARES MOTA - ME.' },
+                '3': { name: 'Paulo Roberto de Almeida', role: 'Tesoureiro', company: 'TRANSPORTADORA JANUÁRIA' },
+                '4': { name: 'Antonio Sapori', role: 'Conselho Fiscal Efetivo', company: 'TRANSNORTE CARGAS E ENCOMENDAS LTDA.' },
+                '5': { name: 'Jorge Antonio dos Santos', role: 'Conselho Fiscal Efetivo', company: 'JLSI Logística e Transportes Ltda.-ME' },
+                '6': { name: 'Antonio Henrique Sapori Filho', role: 'Conselho Fiscal Suplente', company: 'PRAMINAS LOG TRANSPORTES LTDA.' }
+            };
+
+            const processedDirectors = directors.map(d => {
+                const fix = BOARD_FIXES[d.id];
+                if (fix) {
+                    return { ...d, ...fix };
+                }
+                return d;
+            });
+
+            // Allow sorting by ID to ensure 1-6 order
+            processedDirectors.sort((a, b) => parseInt(a.id) - parseInt(b.id));
+
+            processedDirectors.forEach(d => {
                 const isPlaceholder = !d.image || d.image.includes('placeholder');
                 const avatarHtml = isPlaceholder
                     ? `<div class="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center text-gray-400 text-3xl border-2 border-transparent group-hover:border-accent-cyan transition-colors"><i class="fas fa-user"></i></div>`
@@ -130,28 +152,93 @@ export class PublicUI {
 
         if (grid && services.length > 0) {
             grid.innerHTML = '';
+
+            // HARDCODED FALLBACKS FOR CORE SERVICES (ensures premium content if DB is incomplete)
+            const CORE_CONTENT = {
+                'Registro RNTRC (ANTT)': {
+                    description: 'O Sindinor é credenciado junto à Agência Nacional de Transportes Terrestres (ANTT) para realização do Registro e Recadastramento Nacional de Transportador Rodoviário de Cargas (RNTRC).',
+                    contact_info: {
+                        title: 'Mais informações:',
+                        phone: '(38) 3321-9110 / (38) 99985-3216',
+                        email: 'ercadastro@gmail.com.br',
+                        contact: 'Edson Ricardo'
+                    },
+                    logos: ['/assets/antt-logo.jpg', '/assets/rntrc-logo.jpg']
+                },
+                'Programa Despoluir': {
+                    description: 'O Despoluir é um Programa Ambiental de Transporte que objetiva a redução de emissões de poluentes. Gratuitamente, as empresas associadas Sindinor podem aferir sua frota.',
+                    extra_description: 'Os veículos aprovados recebem o <strong class="text-white">Selo Verde Despoluir</strong> e empresas de destaque concorrem ao Prêmio Melhor Ar, promovido pelo Fetcemg.'
+                },
+                'Consultoria Técnica': {
+                    description: 'O Sindinor oferece assessoria econômica para auxiliar na elaboração de planilhas de custos, formação de preços e fornecimento de indicadores econômicos atualizados.',
+                    extra_description: 'Seguindo as orientações do Índice Nacional de Custos de Transporte de Carga Fracionada e Lotação, garantindo competitividade e sustentabilidade ao negócio.'
+                },
+                'Consultoria Técnica e Econômica': { // Handle both variations
+                    description: 'O Sindinor oferece assessoria econômica para auxiliar na elaboração de planilhas de custos, formação de preços e fornecimento de indicadores econômicos atualizados.',
+                    extra_description: 'Seguindo as orientações do Índice Nacional de Custos de Transporte de Carga Fracionada e Lotação, garantindo competitividade e sustentabilidade ao negócio.'
+                }
+            };
+
             services.forEach(s => {
-                const iconOrImage = s.icon
-                    ? `<i class="fas ${s.icon} text-4xl text-accent-cyan group-hover:scale-110 transition-transform"></i>`
-                    : `<img src="${s.image}" alt="${s.title}" class="w-8 h-8 filter invert group-hover:invert-0 transition-all">`;
+                // Merge with fallback if available
+                const fallback = CORE_CONTENT[s.title];
+                const description = (fallback && s.description.length < 50) ? fallback.description : s.description;
+                const extra_description = s.extra_description || (fallback ? fallback.extra_description : '');
+                const contact_info = s.contact_info || (fallback ? fallback.contact_info : null);
+                const logos = (s.logos && s.logos.length > 0) ? s.logos : (fallback ? fallback.logos : []);
+
+                let iconOrImage = '';
+                if (logos && logos.length > 0) {
+                    iconOrImage = `
+                        <div class="flex gap-4 items-center">
+                            ${logos.map(logo => {
+                        const cleanPath = logo.startsWith('/') ? logo : `/${logo}`;
+                        return `<img src="${cleanPath}" alt="Logo" class="h-12 w-auto bg-white p-1 rounded shadow-sm">`;
+                    }).join('')}
+                        </div>
+                    `;
+                } else if (s.icon) {
+                    iconOrImage = `<i class="fas ${s.icon} text-4xl text-accent-cyan group-hover:scale-110 transition-transform"></i>`;
+                } else {
+                    iconOrImage = `<img src="${s.image}" alt="${s.title}" class="w-8 h-8 filter invert group-hover:invert-0 transition-all">`;
+                }
+
+                let contactBox = '';
+                if (contact_info) {
+                    contactBox = `
+                        <div class="bg-primary-dark/50 p-4 rounded border border-white/10 text-xs text-gray-400 space-y-2 mt-auto">
+                            <p class="font-bold text-accent-cyan mb-1">${contact_info.title}</p>
+                            <p><i class="fas fa-phone mr-2 text-accent-cyan"></i>${contact_info.phone}</p>
+                            <p><i class="fas fa-envelope mr-2 text-accent-cyan"></i>${contact_info.email}</p>
+                            <p><i class="fas fa-user mr-2 text-accent-cyan"></i>${contact_info.contact}</p>
+                        </div>
+                    `;
+                }
+
+                const extraDescHtml = extra_description
+                    ? `<p class="text-gray-400 text-sm leading-relaxed mb-6">${extra_description}</p>`
+                    : '';
 
                 const backgroundIcon = s.icon
                     ? `<i class="fas ${s.icon} text-9xl"></i>`
                     : `<img src="${s.image}" class="w-24 h-24 filter invert opacity-50">`;
 
                 grid.innerHTML += `
-                    <a href="servico.html?id=${s.id}" class="bg-secondary-dark rounded-lg p-8 hover:-translate-y-2 transition-transform duration-300 relative overflow-hidden group shadow-lg block">
+                    <a href="servico.html?id=${s.id}" class="bg-secondary-dark rounded-lg p-8 hover:-translate-y-2 transition-transform duration-300 relative overflow-hidden group shadow-lg border border-white/5 flex flex-col h-full block">
                          <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity pointer-events-none text-white">
                             ${backgroundIcon}
                          </div>
                         
-                        <div class="relative z-10">
-                            <div class="w-14 h-14 bg-accent-cyan/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-accent-cyan/20 transition-colors">
+                        <div class="relative z-10 flex flex-col h-full">
+                            <div class="w-auto h-14 rounded-lg flex items-center mb-6">
                                 ${iconOrImage}
                             </div>
                             <h3 class="font-heading text-xl font-bold text-white mb-4">${s.title}</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed mb-6">${s.description}</p>
-                            <div class="inline-flex items-center text-accent-cyan font-bold text-sm group-hover:gap-2 transition-all">
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4">${description}</p>
+                            ${extraDescHtml}
+                            ${contactBox}
+                            
+                            <div class="mt-8 inline-flex items-center text-accent-cyan font-bold text-sm group-hover:gap-2 transition-all">
                                 Saiba Mais <span class="ml-1">→</span>
                             </div>
                         </div>

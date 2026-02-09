@@ -94,16 +94,24 @@ const SEED_SERVICES = [
     {
         id: '1',
         title: 'Registro RNTRC (ANTT)',
-        description: 'O Sindinor é credenciado junto à ANTT para realização do Registro e Recadastramento Nacional de Transportador Rodoviário de Cargas (RNTRC).',
-        full_description: 'O Sindinor é credenciado junto à Agência Nacional de Transportes Terrestres (ANTT) para realização do Registro e Recadastramento Nacional de Transportador Rodoviário de Cargas (RNTRC).\n\n**Mais informações, setor de registros do Sindinor:**\n- Tel.: (38) 3321-9110 / (38) 99985-3216\n- Email: ercadastro@gmail.com.br\n- Contato: Edson Ricardo',
+        description: 'O Sindinor é credenciado junto à Agência Nacional de Transportes Terrestres (ANTT) para realização do Registro e Recadastramento Nacional de Transportador Rodoviário de Cargas (RNTRC).',
+        full_description: 'O Sindinor é credenciado junto à Agência Nacional de Transportes Terrestres (ANTT) para realização do Registro e Recadastramento Nacional de Transportador Rodoviário de Cargas (RNTRC).',
         image: 'assets/service_rntrc_1769715933142.png',
         icon: 'fa-id-card',
+        logos: ['/assets/antt-logo.jpg', '/assets/rntrc-logo.jpg'],
+        contact_info: {
+            title: 'Mais informações:',
+            phone: '(38) 3321-9110 / (38) 99985-3216',
+            email: 'ercadastro@gmail.com.br',
+            contact: 'Edson Ricardo'
+        },
         gallery: []
     },
     {
         id: '2',
         title: 'Programa Despoluir',
-        description: 'Programa Ambiental de Transporte que objetiva a redução de emissões de poluentes com aferição gratuita e Selo Verde.',
+        description: 'O Despoluir é um Programa Ambiental de Transporte que objetiva a redução de emissões de poluentes. Gratuitamente, as empresas associadas Sindinor podem aferir sua frota.',
+        extra_description: 'Os veículos aprovados recebem o <strong class="text-white">Selo Verde Despoluir</strong> e empresas de destaque concorrem ao Prêmio Melhor Ar, promovido pelo Fetcemg.',
         full_description: 'O Despoluir é um Programa Ambiental de Transporte, que objetiva a redução de emissões de poluentes. Gratuitamente, as empresas associadas Sindinor, podem aferir sua frota. O processo é feito por veículos equipados com opacímetros que vão até as empresas para fazer as aferições sem custos. Os veículos aprovados recebem o Selo Verde Despoluir e a cada ano, empresas que se destacam participam do Prêmio Melhor Ar, promovido pelo Fetcemg.',
         image: 'assets/service_despoluir_1769715948131.png',
         icon: 'fa-leaf',
@@ -111,8 +119,9 @@ const SEED_SERVICES = [
     },
     {
         id: '3',
-        title: 'Consultoria Técnica e Econômica',
-        description: 'Assessoria econômica sistemática para planilhas de custos, formação de preços e indicadores econômicos atualizados.',
+        title: 'Consultoria Técnica',
+        description: 'O Sindinor oferece assessoria econômica para auxiliar na elaboração de planilhas de custos, formação de preços e fornecimento de indicadores econômicos atualizados.',
+        extra_description: 'Seguindo as orientações do Índice Nacional de Custos de Transporte de Carga Fracionada e Lotação, garantindo competitividade e sustentabilidade ao negócio.',
         full_description: 'Em qualquer negócio, o processo de precificação pode ser decisivo quanto ao futuro da empresa. O Sindinor oferece assessoria econômica com o objetivo de auxiliar as empresas na elaboração de planilhas de custos e formação de preços, além de fornecimento de indicadores econômicos e banco de dados com informações atualizadas sobre custo de transporte de cargas, seguindo as orientações do Índice Nacional de Custos de Transporte de Carga Fracionada e o Índice Nacional de Custo do Transporte de cara Lotação.',
         image: 'assets/service_consultoria_1769715961860.png',
         icon: 'fa-chart-line',
@@ -121,12 +130,12 @@ const SEED_SERVICES = [
 ];
 
 const SEED_DIRECTORS = [
-    { id: '1', name: 'Antônio Henrique Sapori', role: 'Presidente', company: 'Rodonasa Cargas', image: 'assets/member_placeholder_1769715974165.png' },
-    { id: '2', name: 'Lucio Bento Fagundes Junior', role: 'Secretário', company: 'Rápido Montes Claros', image: 'assets/member_placeholder_1769715974165.png' },
-    { id: '3', name: 'Paulo Roberto de Almeida', role: 'Tesoureiro', company: 'Transportadora Januária', image: 'assets/member_placeholder_1769715974165.png' },
-    { id: '4', name: 'Antônio Sapori', role: 'Conselho Fiscal Efetivo', company: 'Transnorte Cargas', image: 'assets/member_placeholder_1769715974165.png' },
-    { id: '5', name: 'Jorge Antônio dos Santos', role: 'Conselho Fiscal Efetivo', company: 'JLSI Logística', image: 'assets/member_placeholder_1769715974165.png' },
-    { id: '6', name: 'Antônio Henrique Sapori Filho', role: 'Conselho Fiscal Suplente', company: 'PraMinas Log', image: 'assets/member_placeholder_1769715974165.png' }
+    { id: '1', name: 'Antonio Henrique Sapori', role: 'Presidente', company: 'RODONASA CARGAS E ENCOMENDAS LTDA.', image: 'assets/member_placeholder_1769715974165.png' },
+    { id: '2', name: 'Lucio Bento Fagundes Junior', role: 'Secretário', company: 'RÁPIDO MONTES CLAROS E FERNANDO SOARES MOTA - ME.', image: 'assets/member_placeholder_1769715974165.png' },
+    { id: '3', name: 'Paulo Roberto de Almeida', role: 'Tesoureiro', company: 'TRANSPORTADORA JANUÁRIA', image: 'assets/member_placeholder_1769715974165.png' },
+    { id: '4', name: 'Antonio Sapori', role: 'Conselho Fiscal Efetivo', company: 'TRANSNORTE CARGAS E ENCOMENDAS LTDA.', image: 'assets/member_placeholder_1769715974165.png' },
+    { id: '5', name: 'Jorge Antonio dos Santos', role: 'Conselho Fiscal Efetivo', company: 'JLSI Logística e Transportes Ltda.-ME', image: 'assets/member_placeholder_1769715974165.png' },
+    { id: '6', name: 'Antonio Henrique Sapori Filho', role: 'Conselho Fiscal Suplente', company: 'PRAMINAS LOG TRANSPORTES LTDA.', image: 'assets/member_placeholder_1769715974165.png' }
 ];
 
 const SEED_GENERAL = {
