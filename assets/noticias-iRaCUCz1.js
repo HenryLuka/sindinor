@@ -1,4 +1,4 @@
-import{A as r}from"./api-UlJc4nqc.js";class s{static async init(){await this.renderAllNews()}static async renderAllNews(){const a=await r.getNews(),t=document.getElementById("news-grid-full");if(t){if(a.length===0){t.innerHTML=`
+import{A as r}from"./api-C4wM4lTA.js";class s{static async init(){await this.renderAllNews()}static async renderAllNews(){const a=await r.getNews(),t=document.getElementById("news-grid-full");if(t){if(a.length===0){t.innerHTML=`
                     <div class="col-span-full py-20 text-center">
                         <p class="text-gray-500 uppercase tracking-widest text-xs">Nenhuma notícia encontrada.</p>
                     </div>
