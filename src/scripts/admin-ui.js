@@ -294,13 +294,20 @@ export class AdminUI {
 
     static async loadData() {
         // Parallel loading for better performance
-        const [news, partners, services, directors, requests] = await Promise.all([
+        const [news, partners, services, directors, requests, settings] = await Promise.all([
             ApiService.getNews(),
             ApiService.getPartners(),
             ApiService.getServices(),
             ApiService.getDirectors(),
-            ApiService.getRequests()
+            ApiService.getRequests(),
+            ApiService.getGeneral()
         ]);
+
+        // Render Settings
+        if (settings && settings.notificationEmail) {
+            const emailInput = document.getElementById('setting-notification-email');
+            if (emailInput) emailInput.value = settings.notificationEmail;
+        }
 
         // Render News
         const newsGrid = document.getElementById('news-grid');
@@ -976,6 +983,28 @@ export class AdminUI {
         if (confirm('Deseja excluir esta solicitação?')) {
             await ApiService.deleteRequest(id);
             this.loadData();
+        }
+    }
+
+    // --- SETTINGS ---
+    static async saveSettings(e) {
+        e.preventDefault();
+        const email = document.getElementById('setting-notification-email').value;
+        const button = e.target.querySelector('button[type="submit"]');
+        const originalText = button.innerHTML;
+
+        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Salvando...';
+        button.disabled = true;
+
+        try {
+            await ApiService.updateGeneral({ notificationEmail: email });
+            alert('Configurações salvas com sucesso!');
+        } catch (error) {
+            console.error('Error saving settings:', error);
+            alert('Erro ao salvar configurações.');
+        } finally {
+            button.innerHTML = originalText;
+            button.disabled = false;
         }
     }
 }

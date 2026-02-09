@@ -352,6 +352,30 @@ export class PublicUI {
 
                     await ApiService.addRequest(data);
 
+                    // Email Notification Logic
+                    try {
+                        const settings = await ApiService.getGeneral();
+                        if (settings && settings.notificationEmail) {
+                            const subject = encodeURIComponent("Nova Solicitação de Filiação - SINDINOR");
+                            const body = encodeURIComponent(`
+Nova solicitação de filiação recebida pelo site:
+
+Empresa: ${data.company}
+CNPJ: ${data.cnpj}
+Cidade: ${data.city}
+Contato: ${data.name}
+Cargo: ${data.role}
+Telefone: ${data.phone}
+
+Mensagem:
+${data.message}
+`);
+                            window.location.href = `mailto:${settings.notificationEmail}?subject=${subject}&body=${body}`;
+                        }
+                    } catch (e) {
+                        console.error("Error opening email client:", e);
+                    }
+
                     alert('Solicitação enviada com sucesso! Em breve entraremos em contato.');
                     form.reset();
                     // Close modal if toggleJoinModal is available globally
