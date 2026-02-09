@@ -116,6 +116,17 @@ export class PublicUI {
         }
     }
 
+
+    static formatDate(dateString) {
+        if (!dateString) return 'RECENTE';
+        // Handle YYYY-MM-DD
+        if (dateString.match(/^\d{4}-\d{2}-\d{2}$/)) {
+            const [year, month, day] = dateString.split('-');
+            return `${day}/${month}/${year}`;
+        }
+        return dateString;
+    }
+
     static async renderNews() {
         const news = await ApiService.getNews();
         const grid = document.getElementById('news-grid');
@@ -133,7 +144,7 @@ export class PublicUI {
                         <div class="p-8">
                             <div class="flex items-center gap-3 mb-4">
                                 <span class="bg-accent-cyan/10 text-accent-cyan text-[10px] font-black uppercase tracking-widest py-1 px-3 rounded">Logística</span>
-                                <span class="text-gray-400 text-xs font-bold uppercase tracking-widest">${n.news_date || n.date || 'Recent'}</span>
+                                <span class="text-gray-400 text-xs font-bold uppercase tracking-widest">${PublicUI.formatDate(n.news_date || n.date)}</span>
                             </div>
                             <h3 class="font-heading text-xl font-bold text-white mb-4 leading-tight group-hover:text-accent-cyan transition-colors line-clamp-2">${n.title}</h3>
                             <div class="text-sm font-bold text-gray-400 group-hover:text-white uppercase tracking-widest transition-colors flex items-center gap-2">
