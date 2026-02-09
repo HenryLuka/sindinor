@@ -54,8 +54,24 @@ export class PublicUI {
                 return d;
             });
 
-            // Allow sorting by ID to ensure 1-6 order
-            processedDirectors.sort((a, b) => parseInt(a.id) - parseInt(b.id));
+            // Sort by Role Priority
+            const ROLE_PRIORITY = {
+                'Presidente': 1,
+                'Secretário': 2,
+                'Tesoureiro': 3,
+                'Conselho Fiscal Efetivo': 4,
+                'Conselho Fiscal Suplente': 5
+            };
+
+            processedDirectors.sort((a, b) => {
+                const priorityA = ROLE_PRIORITY[a.role] || 99;
+                const priorityB = ROLE_PRIORITY[b.role] || 99;
+                // Secondary sort by ID to keep stability within same role
+                if (priorityA === priorityB) {
+                    return parseInt(a.id) - parseInt(b.id);
+                }
+                return priorityA - priorityB;
+            });
 
             processedDirectors.forEach(d => {
                 const isPlaceholder = !d.image || d.image.includes('placeholder');
