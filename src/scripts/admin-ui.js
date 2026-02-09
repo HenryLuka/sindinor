@@ -5,7 +5,7 @@
 console.log("AdminUI Module: Loading imports...");
 import { ApiService } from '../services/api.js';
 import { auth } from '../services/firebase-config.js';
-import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth";
+import { signInWithEmailAndPassword, signOut, onAuthStateChanged, createUserWithEmailAndPassword } from "firebase/auth";
 
 export class AdminUI {
     // Helper to read file
@@ -146,6 +146,7 @@ export class AdminUI {
         window.deleteDirector = (id) => this.deleteDirector(id);
         window.editService = (id) => this.editService(id);
         window.editDirector = (id) => this.editDirector(id);
+        window.moveDirector = (id, direction) => this.moveDirector(id, direction);
         window.removeServiceGalleryItem = (idx) => this.removeServiceGalleryItem(idx);
         window.removeNewsGalleryItem = (idx) => this.removeNewsGalleryItem(idx);
         window.handleDeleteRequest = (id) => this.handleDeleteRequest(id);
@@ -159,6 +160,10 @@ export class AdminUI {
         // State for Editing
         this.editingNewsId = null;
         window.editNews = (id) => this.editNews(id);
+
+        // Test Admin Creation
+        window.createTestAdmin = () => this.createTestAdmin();
+        window.updateDirectorOrder = (id, newOrder) => this.updateDirectorOrder(id, newOrder);
     }
 
     // View Toggling (Admin 2.0)
@@ -244,6 +249,21 @@ export class AdminUI {
             window.location.reload();
         } catch (error) {
             console.error("Logout Error:", error);
+        }
+    }
+
+    static async createTestAdmin() {
+        try {
+            await createUserWithEmailAndPassword(auth, 'admin@sindinor.com', '123456');
+            alert('Usuário admin@sindinor.com criado com sucesso! Senha: 123456');
+            this.checkAuth(); // Auto login
+        } catch (error) {
+            console.error("Create Admin Error:", error);
+            if (error.code === 'auth/email-already-in-use') {
+                alert('O usuário admin@sindinor.com já existe. Tente fazer login com a senha 123456.');
+            } else {
+                alert('Erro ao criar admin: ' + error.message);
+            }
         }
     }
 
@@ -421,13 +441,21 @@ export class AdminUI {
                             <p class="text-accent-cyan text-xs font-black uppercase tracking-widest mb-1">${item.role}</p>
                             <p class="text-text-muted text-xs font-medium mb-6">${item.company || ''}</p>
                             
-                            <div class="w-full mt-auto pt-4 border-t border-glass-border grid grid-cols-2 gap-2">
-                                <button class="text-accent-cyan hover:text-white hover:bg-accent-cyan/10 text-xs font-bold uppercase tracking-widest flex items-center justify-center gap-2 px-4 py-2 rounded transition-all" onclick="window.editDirector('${item.id}')">
-                                    <i class="fas fa-edit"></i> Editar
-                                </button>
-                                <button class="text-red-500 hover:text-white hover:bg-red-500/80 text-xs font-bold uppercase tracking-widest flex items-center justify-center gap-2 px-4 py-2 rounded transition-all" onclick="window.deleteDirector('${item.id}')">
-                                    <i class="fas fa-trash"></i> Remover
-                                </button>
+                            <div class="w-full mt-auto pt-4 border-t border-glass-border flex flex-col gap-2">
+                                <div class="flex items-center gap-2 mb-2 bg-glass-bg p-2 rounded">
+                                    <label class="text-accent-cyan text-xs font-bold uppercase tracking-widest whitespace-nowrap">Ordem:</label>
+                                    <input type="number" value="${item.order !== undefined ? item.order : 99}" 
+                                        class="w-full bg-primary-dark border border-glass-border rounded px-2 py-1 text-white text-center font-bold focus:border-accent-cyan outline-none"
+                                        onchange="window.updateDirectorOrder('${item.id}', this.value)">
+                                </div>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <button class="text-accent-cyan hover:text-white hover:bg-accent-cyan/10 text-xs font-bold uppercase tracking-widest flex items-center justify-center gap-2 px-4 py-2 rounded transition-all" onclick="window.editDirector('${item.id}')">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </button>
+                                    <button class="text-red-500 hover:text-white hover:bg-red-500/80 text-xs font-bold uppercase tracking-widest flex items-center justify-center gap-2 px-4 py-2 rounded transition-all" onclick="window.deleteDirector('${item.id}')">
+                                        <i class="fas fa-trash"></i> Remover
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     `;
@@ -912,6 +940,11 @@ export class AdminUI {
                 alert('Diretor Atualizado!');
             } else {
                 // CREATE
+                // Get max order
+                const directors = await ApiService.getDirectors();
+                const maxOrder = directors.reduce((max, d) => Math.max(max, d.order || 0), 0);
+                newItem.order = maxOrder + 1;
+
                 await ApiService.addDirector(newItem);
                 alert('Diretor Adicionado!');
             }
@@ -947,6 +980,16 @@ export class AdminUI {
         this.showDirectorForm(false);
         document.getElementById('director-form-title').innerText = 'Editar Membro';
     }
+    static async updateDirectorOrder(id, newOrder) {
+        const order = parseInt(newOrder);
+        if (isNaN(order)) return;
+
+        await ApiService.updateDirector(id, { order: order });
+        // No full reload needed, maybe just toast?
+        // But to re-sort visually we need reload
+        this.loadData();
+    }
+
     static async handleDeleteRequest(id) {
         if (confirm('Deseja excluir esta solicitação?')) {
             await ApiService.deleteRequest(id);

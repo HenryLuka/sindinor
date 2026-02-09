@@ -322,7 +322,8 @@ export class FirestoreService {
 
     // --- DIRECTORS ---
     static async getDirectors() {
-        return this._getAll(COLLECTIONS.DIRECTORS);
+        const directors = await this._getAll(COLLECTIONS.DIRECTORS);
+        return directors.sort((a, b) => (a.order || 9999) - (b.order || 9999));
     }
 
     static async addDirector(item) {
