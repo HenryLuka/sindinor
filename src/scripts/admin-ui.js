@@ -668,25 +668,7 @@ export class AdminUI {
         }
     }
 
-    static async handleAddPartner(e) {
-        e.preventDefault();
-        const newItem = {
-            name: document.getElementById('partner-name').value,
-            logo: document.getElementById('partner-logo-url').value, // Simplified
-            description: document.getElementById('partner-desc').value,
-            video_url: document.getElementById('partner-video').value
-        };
 
-        try {
-            await ApiService.addPartner(newItem);
-            this.loadData();
-            this.showPartnerList();
-            e.target.reset();
-        } catch (error) {
-            console.error(error);
-            alert('Erro: ' + error.message);
-        }
-    }
 
     static async editNews(id) {
         const news = await ApiService.getNews();
@@ -738,45 +720,45 @@ export class AdminUI {
 
     static async handleAddPartner(e) {
         e.preventDefault();
-        console.log('Adding partner...');
-
-        const fileInput = document.getElementById('partner-file');
-        const urlInput = document.getElementById('partner-logo');
-        let logoSrc = urlInput.value;
-
-        if (fileInput.files && fileInput.files[0]) {
-            console.log('Reading file:', fileInput.files[0].name);
-            try {
-                logoSrc = await this.readFileAsBase64(fileInput.files[0]);
-                console.log('File read success, base64 length:', logoSrc.length);
-            } catch (err) {
-                console.error('Error reading file', err);
-                alert('Erro ao ler a imagem! Tente outro arquivo.');
-                return;
-            }
-        }
-
-        if (!logoSrc && !document.getElementById('partner-name').value) {
-            alert('Preencha pelo menos o nome!');
-            return;
-        }
-
-        const newItem = {
-            name: document.getElementById('partner-name').value,
-            description: document.getElementById('partner-desc').value,
-            video_url: document.getElementById('partner-video').value,
-            logo: logoSrc
-        };
+        const button = e.target.querySelector('button[type="submit"]');
+        const originalText = button.innerHTML;
+        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Salvando...';
+        button.disabled = true;
 
         try {
+            const fileInput = document.getElementById('partner-logo-file');
+            const urlInput = document.getElementById('partner-logo-url');
+            let logoSrc = urlInput.value;
+
+            // Read File if present
+            if (fileInput.files && fileInput.files[0]) {
+                try {
+                    logoSrc = await this.readFileAsBase64(fileInput.files[0]);
+                } catch (err) {
+                    console.error('Error reading file', err);
+                    alert('Erro ao ler arquivo de imagem.');
+                    return;
+                }
+            }
+
+            const newItem = {
+                name: document.getElementById('partner-name').value,
+                logo: logoSrc,
+                description: document.getElementById('partner-desc').value,
+                video_url: document.getElementById('partner-video').value
+            };
+
             await ApiService.addPartner(newItem);
-            console.log('Partner added to storage');
-            alert('Parceiro Adicionado com Sucesso!');
+            alert('Parceiro Adicionado!');
             this.loadData();
+            this.showPartnerList();
             e.target.reset();
         } catch (error) {
             console.error(error);
-            alert('Erro ao salvar: ' + error.message);
+            alert('Erro ao salvar parceiro: ' + error.message);
+        } finally {
+            button.innerHTML = originalText;
+            button.disabled = false;
         }
     }
 
